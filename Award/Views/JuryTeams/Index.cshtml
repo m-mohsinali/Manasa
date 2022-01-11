@@ -1,0 +1,63 @@
+﻿@using Microsoft.Extensions.Localization
+@model Award.Web.Models.TeamViewModel
+
+@inject IStringLocalizer<Award.Web.Controllers.TeamController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+
+<div class="col-xs-6">
+    <h1 class="heading-border"> @_localizerCat["Jury"]</h1>
+</div>
+ 
+<div class="col-xs-6">
+    <h1 class="text-right">
+        <a asp-action="Create" class="btn btn-secondary mb-2 "> @_localizer["Create Jury"]</a>
+    </h1>
+</div>
+<hr />
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @_localizer["Name"]
+
+            </th>
+            <th>
+                @_localizer["IsSelected"]
+
+            </th>
+            @*<th>
+                @_localizer["Manage"]
+
+            </th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.JuryUserList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsSelected)
+                </td>
+                <!--<td>-->
+                    @*<a asp-action="Edit" asp-route-id="@item..UserId">Edit</a> |*@
+                    @*<a asp-action="Details" asp-route-id="@item.UserId">Details</a> |*@
+                    @*<a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>*@
+                <!--</td>-->
+            </tr>
+        }
+    </tbody>
+</table>

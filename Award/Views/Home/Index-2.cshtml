@@ -1,0 +1,229 @@
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+
+@{
+    ViewData["Title"] = "";
+    Layout = "_LayoutHome";
+}
+
+<style type="text/css">
+    #input_container {
+        position: relative;
+        padding: 0 0 0 20px;
+        margin: 0 20px;
+        background: #ddd;
+        direction: rtl;
+        width: 200px;
+    }
+
+    #input {
+        height: 20px;
+        margin: 0;
+        padding-right: 30px;
+        width: 100%;
+    }
+
+    #input_img {
+        position: absolute;
+        bottom: 2px;
+        right: 5px;
+        width: 24px;
+        height: 24px;
+    }
+</style>
+
+    <div class="container-fluid">
+        <!-- <div style="height: 100vh;"> -->
+        <div class="col-md-12">
+            <div class="row flex-row-reverse" style="">
+                <div class="col-md-8">
+                    <div class="row flex-row-reverse">
+                        <div class="col-md-5">
+                            <img class="img-fluid img-responsive" src="assets/img/DNRD Logo.png">
+                        </div>
+                    </div>
+                    <div class="row flex-row-reverse">
+                        <div class="col-md-3">
+                            <div class="col-md-12" style="background-image: url('assets/img/frame.png'); background-size: cover;">
+                                <img class="img-fluid img-responsive" src="assets/img/head image.png">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h2 class="text-right">جائزة الريادة المؤسسية <br>الدورة العاشرة 2020</h2>
+                            <p class="text-right">
+                                جائزة الريادة المؤسسية
+                                الدورة العاشرة 2020 جائزة الريادة المؤسسية
+                                الدورة العاشرة 2020 جائزة الريادة المؤسسية
+                                الدورة العاشرة 2020 جائزة الريادة المؤسسية
+                                الدورة العاشرة 2020 جائزة الريادة المؤسسية
+                                الدورة العاشرة 2020 جائزة الريادة المؤسسية
+                                الدورة العاشرة 2020 جائزة الريادة المؤسسية
+                                الدورة العاشرة 2020 جائزة الريادة المؤسسية
+                                الدورة العاشرة 2020 جائزة الريادة المؤسسية
+                                الدورة العاشرة 2020
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <h3 class="text-right">سعادة اللواء/ محمد أحمد المري</h3>
+                            <h3 class="text-right">المدير العام للإدارة العامة للإقامة وشؤون الأجانب دبي</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style=" width: 100%;">
+                    <img class="img-fluid img-responsive" src="assets/img/logo-manasa.jpeg">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 pt-5" style="background-color: #bbbbbb33; width: 100%;">
+            <div class="row flex-row-reverse">
+                <div class="col-lg-3 text-center" style="background: url('assets/img/user icon-2.png') no-repeat top ">
+                    <!-- style="background: url('assets/img/user icon-2.png') no-repeat top " -->
+                    <!-- <div style="background-image: url('assets/img/shade credential.png'); background-size: cover; min-height: 260px;"> -->
+                    <img class="img-fluid img-responsive" src="assets/img/shade credential.png" style="position: relative; top: 40px;">
+
+                    <img class="img-fluid img-responsive" src="assets/img/user icon@2x.png" style="position: relative; top: -245px;">
+
+                    <div class="py-5 px-5 text-center" style="position: relative;top: -270px;">
+                        <input class="form-control my-xl-3" style="margin-top: 3rem; background: url('assets/img/un box.png'); background-position: center; background-size: cover; border: 1px solid #ced4da00;" type="text" name="username" placeholder="Username">
+
+                        <input class="form-control my-xl-3" style="margin-top: 1.5rem; background: url('assets/img/un box.png'); background-position: center; background-size: cover; border: 1px solid #ced4da00;" type="password" name="username" placeholder="Password">
+                        <!-- <img src="assets/img/lock icon.png"> -->
+                        <a class="btn btn-block my-xl-3" style="margin-top: 1.5rem; max-width: 100%; background: url('assets/img/Login.png') ; background-position: center; background-size: cover; color: transparent;" name="username" href="dashboard.html"> ________ </a>
+                        <!-- <input class="btn btn-success btn-block my-3" type="button" name="username"> -->
+                    </div>
+                    <!-- </div> -->
+                </div>
+                <div class="col-lg-6 pt-5">
+
+                    <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+                        <div class="carousel-inner" role="listbox">
+
+                            <!--First slide-->
+                            <div class="carousel-item active">
+
+                                <div class="row">
+
+                                    <div class="col-md-6 clearfix d-none d-md-block">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top" src="assets/img/manasa image 1.png"
+                                                 alt="Card image cap">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 clearfix d-none d-md-block">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top" src="assets/img/manasa image 2.png"
+                                                 alt="Card image cap">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--/.First slide-->
+                            <!--Second slide-->
+                            <div class="carousel-item">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top" src="assets/img/manasa image 1.png"
+                                                 alt="Card image cap">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 clearfix d-none d-md-block">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top" src="assets/img/manasa image 2.png"
+                                                 alt="Card image cap">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--/.Second slide-->
+
+                        </div>
+                        <!--/.Slides-->
+                        <a class="carousel-control-prev" href="#multi-item-example" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#multi-item-example" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-3 px-0">
+                    <div id="demos" class="carousel slide text-center px-5" data-ride="carousel">
+
+                        <!-- The slideshow -->
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="card" style="background-color: #3b3b3b3b;">
+                                    <!-- <div class="card-body"> -->
+                                    <img class="img-fluid img-responsive px-3 py-3" src="assets/img/winner image.png">
+                                    <div class="text-left px-3">
+                                        <p>Name: Faisal Bin Omar</p>
+                                        <p>Award: Excellency</p>
+                                        <p>Category: Innovation</p>
+                                    </div>
+
+                                    <div class="card-body text-left">
+                                        <a href="#" style="color: red;"><strong>Read More</strong></a>
+                                    </div>
+                                    <!-- </div>   -->
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="card" style="background-color: #3b3b3b3b;">
+                                    <!-- <div class="card-body"> -->
+                                    <img class="img-fluid img-responsive px-3 py-3" src="assets/img/winner image.png">
+                                    <div class="text-left px-3">
+                                        <p>Name: Faisal Bin Omar</p>
+                                        <p>Award: Excellency</p>
+                                        <p>Category: Innovation</p>
+                                    </div>
+                                    <div class="card-body text-left">
+                                        <a href="#" style="color: red;"><strong>Read More</strong></a>
+                                    </div>
+                                    <!-- </div>   -->
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="card" style="background-color: #3b3b3b3b;">
+                                    <img class="img-fluid img-responsive px-3 py-3" src="assets/img/winner image.png">
+                                    <div class="text-left px-3">
+                                        <p>Name: Faisal Bin Omar</p>
+                                        <p>Award: Excellency</p>
+                                        <p>Category: Innovation</p>
+                                    </div>
+                                    <div class="card-body text-left">
+                                        <a href="#" style="color: red;"><strong>Read More</strong></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#demos" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#demos" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- </div> -->
+    </div>

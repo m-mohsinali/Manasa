@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Award.Web.Models.ForumCategoryViewModel>
+@*@using AwardContract.General
+    @model IEnumerable<AwardContract.Models.Category>*@
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row justify-content-between">
+    <div class="col-xs-6">
+        <h1 class="heading-border"> @_localizer["CommonQuestions"]</h1>
+    </div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table id="myTable" class="table table-condensed table-sm">
+        <thead>
+            <tr>
+                <th>
+                    @_localizer["Name"]
+                </th>
+                <th>
+                    @_localizer["Award"]
+                </th>
+                <th>
+                    @_localizer["AwardType"]
+                </th>
+                <th>
+                    @_localizer["Topics"]
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td style="min-width: 150px !important;">
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AwardName)
+                </td>
+                <td>
+                    @_localizerCat[item.AwardType.ToString()]
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalTopics)
+                </td>
+
+                <td>
+                    <a asp-action="ForumTopics" asp-route-CategoryId="@item.CategoryId"><i class="glyphicon glyphicon-list-alt text-info"></i> @_localizer["Details"]</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

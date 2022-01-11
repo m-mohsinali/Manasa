@@ -1,0 +1,44 @@
+﻿@using Microsoft.Extensions.Localization
+@model Award.Web.Models.UserRolesViewModel
+@inject IStringLocalizer<Award.Web.Controllers.AccountController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+
+@{
+    ViewData["Title"] = "UserRolesDetails";
+}
+
+<div>
+    <h1 class="heading-border">@_localizer["User Roles Details"]</h1>
+    <hr />
+
+    <div class="">
+        <div class="panel-body">
+            <dl class="row row-direction">
+                <dt class="col-sm-2">
+                    @_localizer["UserName"]
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+            </dl>
+            <dl class="row row-direction">
+                <dt class="col-sm-2">
+                    @_localizer["Roles"]
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.RolesNameList)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div>
+    if(@_usersession.IsSuperAdmin)
+    {
+    <a asp-action="UserRolesEdit" class="custom-link" asp-route-userId="@Model.UserId">@_localizer["Edit"]</a> |
+
+    }
+
+    <a asp-action="UserRoles" class="custom-link">@_localizer["Back to List"]</a>
+</div>

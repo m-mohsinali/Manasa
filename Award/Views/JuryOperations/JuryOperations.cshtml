@@ -1,0 +1,138 @@
+﻿@model IEnumerable<Award.Web.Models.TeamMemberViewModel>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<div class="cointainer-fluid">
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+
+
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+
+                <h1 class="heading-border"> @_localizer["JuryOperatins"]</h1>
+                <hr />
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr style="width: 100%;">
+                                <th style="display:none">
+
+                                </th>
+                                <th>
+                                    @_localizer["Name"]
+
+                                </th>
+
+                                <th>
+                                    @_localizer["Status"]
+                                </th>
+
+                                @if (@_usersession.IsAuditManager)
+                                {
+                                    <th> @_localizer["Allocate Team Lead"]</th>
+                                }
+                                @if (@_usersession.IsAuditor)
+                                {
+                                    <th> @_localizer["View"]</th>
+                                }
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td style="display:none">
+                                        @Html.DisplayFor(modelItem => item.UserId)
+                                        @Html.DisplayFor(modelItem => item.CategoryTeamsId)
+
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    @if (@_usersession.IsAuditManager)
+                                    {
+                                        <td><a href="#" id="@item.UserId" class="badge btn-danger" onclick="showTeamLead(@item.UserId,@item.CategoryTeamsId,'@item.Status.ToString()');"> @_localizer["Allocate Team Lead"]</a></td>
+                                    }
+                                    @if (@_usersession.IsAuditor)
+                                    {
+                                        <td><a href="#" id="@item.UserId" class="badge btn-danger" onclick="ViewAllocatedCategory(@item.UserId,@item.CategoryTeamsId,'@item.Status');"> @_localizer["View"]</a></td>
+                                    }
+                                </tr>
+
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container" id="divMessage" style="display:none">
+        <div class="alert btn-default-custom alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success!</strong> Sucessfully Saved!
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="showAllocatemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="display:none">
+                                    @_localizer["UserName"]
+                                </th>
+                                <th>
+                                    @_localizer["Name"]
+                                </th>
+                                <th> @_localizer["AssignTeamLead"]</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tBodyTeamLeads">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

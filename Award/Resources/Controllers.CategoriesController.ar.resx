@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptandForward" xml:space="preserve">
+    <value>التقديم</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>إجــراء</value>
+  </data>
+  <data name="Add Category" xml:space="preserve">
+    <value>إضافة صنف</value>
+  </data>
+  <data name="Add Criteria" xml:space="preserve">
+    <value>إضـافـة معيــار</value>
+  </data>
+  <data name="Add New Awards" xml:space="preserve">
+    <value>اضافة جائزة جديدة</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>مدير النظام</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>تنبيه</value>
+  </data>
+  <data name="Allocate" xml:space="preserve">
+    <value>تخصيص</value>
+  </data>
+  <data name="Allocate All" xml:space="preserve">
+    <value>تخصيص الكل</value>
+  </data>
+  <data name="AllocateTeamLead" xml:space="preserve">
+    <value>تخصيص قائد الفريق</value>
+  </data>
+  <data name="AnnounceWinner" xml:space="preserve">
+    <value>اعلان الفائز</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>اجابة المعيار</value>
+  </data>
+  <data name="Are you sure you want to delete this?" xml:space="preserve">
+    <value>هل أنت متأكد من رغبتك في الحذف؟</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>هل أنت واثق؟</value>
+  </data>
+  <data name="Assigned" xml:space="preserve">
+    <value>تعيين</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>مرسل الى</value>
+  </data>
+  <data name="AssignMember" xml:space="preserve">
+    <value>اختيار عضو</value>
+  </data>
+  <data name="AssignTeam" xml:space="preserve">
+    <value>تعيين فريق</value>
+  </data>
+  <data name="Attach Document" xml:space="preserve">
+    <value>إرفـاق مستند</value>
+  </data>
+  <data name="AuditManager" xml:space="preserve">
+    <value>رئيس فريق التقييم</value>
+  </data>
+  <data name="Auditor" xml:space="preserve">
+    <value>مقييم</value>
+  </data>
+  <data name="Award" xml:space="preserve">
+    <value>اسم الجائزة</value>
+  </data>
+  <data name="Award Description" xml:space="preserve">
+    <value>تفاصيل الجائزة</value>
+  </data>
+  <data name="awardImage" xml:space="preserve">
+    <value>الصورة</value>
+  </data>
+  <data name="AwardStatus" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="AwardsTitle" xml:space="preserve">
+    <value>الجوائز</value>
+  </data>
+  <data name="AwardType" xml:space="preserve">
+    <value>النوع</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>عودة</value>
+  </data>
+  <data name="Back to List" xml:space="preserve">
+    <value>عــودة للـقــائمــــة</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلـغــاء</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>الفئات</value>
+  </data>
+  <data name="Categories Details" xml:space="preserve">
+    <value>تفاصيل الفئة</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>الفئة</value>
+  </data>
+  <data name="Category Delete" xml:space="preserve">
+    <value>حذف الفئة</value>
+  </data>
+  <data name="Category Edit" xml:space="preserve">
+    <value>تعـديل بيانات الفئة</value>
+  </data>
+  <data name="CategoryDocuments" xml:space="preserve">
+    <value>مستندات الفئة</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>تاريخ النهاية</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="Corporate" xml:space="preserve">
+    <value>مؤسسي / إداري</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>إضــافـة</value>
+  </data>
+  <data name="Create Award" xml:space="preserve">
+    <value>اضافة جائزة</value>
+  </data>
+  <data name="Create Category" xml:space="preserve">
+    <value>إضـافة صنـف</value>
+  </data>
+  <data name="Create New" xml:space="preserve">
+    <value>إضافـة فئة جديدة</value>
+  </data>
+  <data name="Criteria" xml:space="preserve">
+    <value>المعايير</value>
+  </data>
+  <data name="CriteriaDesc" xml:space="preserve">
+    <value>وصف المعيار</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حــــذف</value>
+  </data>
+  <data name="DescErrorMsg" xml:space="preserve">
+    <value>يرجى اضافة التفاصيل</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>الـوصـــف</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>التفاصيل</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>تـفــاصيل</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>مستندات</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تـعــديل</value>
+  </data>
+  <data name="EndUser" xml:space="preserve">
+    <value>مستخدم</value>
+  </data>
+  <data name="Evaluation" xml:space="preserve">
+    <value>تقييم</value>
+  </data>
+  <data name="Improvements" xml:space="preserve">
+    <value>نقاط التحسين</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>معلومــات الأصنـاف</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>الاوسمة</value>
+  </data>
+  <data name="Jury" xml:space="preserve">
+    <value>لجنة التحكيم</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>إدارة</value>
+  </data>
+  <data name="Marks" xml:space="preserve">
+    <value>الدرجـات</value>
+  </data>
+  <data name="Max Words" xml:space="preserve">
+    <value>الحد الاعلى للكلمات</value>
+  </data>
+  <data name="MaxMarks" xml:space="preserve">
+    <value>الحد الأعلى للعلامات</value>
+  </data>
+  <data name="MaxWords" xml:space="preserve">
+    <value>الحد الاعلى للكلمات</value>
+  </data>
+  <data name="MediaCenter" xml:space="preserve">
+    <value>المركز الاعلامي</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الإســـم</value>
+  </data>
+  <data name="NameArabic" xml:space="preserve">
+    <value>الاسم بالعربية</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="OpeningDate" xml:space="preserve">
+    <value>تاريخ البداية</value>
+  </data>
+  <data name="Please correct following" xml:space="preserve">
+    <value>يرجى تصحيح ما يلي</value>
+  </data>
+  <data name="Publish" xml:space="preserve">
+    <value>نــــشـر</value>
+  </data>
+  <data name="QualitySectionManager" xml:space="preserve">
+    <value>رئيس قسم الريادة و المستقبل</value>
+  </data>
+  <data name="Rank" xml:space="preserve">
+    <value>مرتبة</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>استجابة</value>
+  </data>
+  <data name="ReturnRevise" xml:space="preserve">
+    <value>Return/Revise</value>
+  </data>
+  <data name="S.No" xml:space="preserve">
+    <value>الرقم</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حـفــــظ</value>
+  </data>
+  <data name="Schedule Evaluation" xml:space="preserve">
+    <value>Schedule Evaluation</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث :</value>
+  </data>
+  <data name="Sector" xml:space="preserve">
+    <value>القطاع</value>
+  </data>
+  <data name="SectorNameArabic" xml:space="preserve">
+    <value>اسم القطاع باللغة العربية</value>
+  </data>
+  <data name="SectorNameEnglish" xml:space="preserve">
+    <value>اسم القطاع باللغة الانجليزية</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>تحديد</value>
+  </data>
+  <data name="Select Award Name" xml:space="preserve">
+    <value>إختـر الجـائزة</value>
+  </data>
+  <data name="Select Award Type" xml:space="preserve">
+    <value>إختر نوع الصنف</value>
+  </data>
+  <data name="SelectAwardType" xml:space="preserve">
+    <value>إختر نوع الصنف</value>
+  </data>
+  <data name="SpecialAward" xml:space="preserve">
+    <value>التكريم الخاص</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Strengths" xml:space="preserve">
+    <value>نقاط القوة</value>
+  </data>
+  <data name="Sub Criteria" xml:space="preserve">
+    <value>معيار فرعي</value>
+  </data>
+  <data name="SubCriteriaDesc" xml:space="preserve">
+    <value>وصف المعيار الفرعي</value>
+  </data>
+  <data name="Submission" xml:space="preserve">
+    <value>تحويل</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>التقديم</value>
+  </data>
+  <data name="Submited" xml:space="preserve">
+    <value>تقديم</value>
+  </data>
+  <data name="Submitted" xml:space="preserve">
+    <value>تقديم</value>
+  </data>
+  <data name="SubmittedDate" xml:space="preserve">
+    <value>تاريخ التقديم</value>
+  </data>
+  <data name="SubmittedMessage" xml:space="preserve">
+    <value>بمجرد تقديمه لا يمكن تغييره!</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>نجاح</value>
+  </data>
+  <data name="Sucessfully Processed" xml:space="preserve">
+    <value>تمت العملية بنجاح</value>
+  </data>
+  <data name="SuperAdmin" xml:space="preserve">
+    <value>مدير نظام أول</value>
+  </data>
+  <data name="Supporting Document" xml:space="preserve">
+    <value>ملفـات المساندة</value>
+  </data>
+  <data name="SupportingDocument" xml:space="preserve">
+    <value>المرفقات</value>
+  </data>
+  <data name="Total Marks" xml:space="preserve">
+    <value>مجموع الدرجات</value>
+  </data>
+  <data name="TotalMarks" xml:space="preserve">
+    <value>مجموع النقاط</value>
+  </data>
+  <data name="UnAllocate" xml:space="preserve">
+    <value>غير مخصص</value>
+  </data>
+  <data name="UnAssigned" xml:space="preserve">
+    <value>غير مخصص</value>
+  </data>
+  <data name="UserAnswers" xml:space="preserve">
+    <value>اجابات المستخدمين</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="Waiting For Response" xml:space="preserve">
+    <value>بإنتظار الرد</value>
+  </data>
+  <data name="x" xml:space="preserve">
+    <value />
+  </data>
+  <data name="YearMsg" xml:space="preserve">
+    <value>يرجى اختيار العام</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+</root>

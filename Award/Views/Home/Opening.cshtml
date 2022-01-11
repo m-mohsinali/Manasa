@@ -1,0 +1,373 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using Award.Web.CustomHtmlHelper;
+@using Award.Web.Common.Utils;
+@model HomeViewModel
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+@{
+    ViewData["Title"] = "Opening";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var indicatorCount = Math.Truncate(Convert.ToDecimal(Model.Awards.Count()));
+    var AnnouncementHomeCount = 0;
+    var page = "home";
+}
+
+@*<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->*@
+
+<div id="mySliderWinner" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators carousel-indicators-inverse carousel-indicators-custom2" style="top:106%">
+        @for (int i = 0; i < indicatorCount; i++)
+        {
+            @if (i == 0)
+            {
+                <li data-target="#mySliderWinner" data-slide-to="0" class="active"></li>
+            }
+            else
+            {
+                <li data-target="#mySliderWinner" data-slide-to="@i"></li>
+            }
+        }
+
+        @*<li data-target="#mySliderWinner" data-slide-to="0" class="active"></li>
+            <li data-target="#mySliderWinner" data-slide-to="1"></li>*@
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+        @for (int i = 0; i < Model.Awards.Count(); i++)
+        {
+            var active = i == 0 ? "active" : "";
+            @*@if (i == 0)
+            {
+                @Html.Raw("<div class='item active'><div class='row'>")
+            }
+            @if (i != 0)
+            {
+                @Html.Raw("<div class='item'><div class='row'>")
+            }*@
+            <div class="item @active">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="thumbnail-winner-container thumbnail-winner-container_dashboard">
+                            <div class="row justify-content-between">
+                                <div class="col-xs-12 col-sm-4 col-md-3 py-2 mx-auto trophy">
+                                    <img src="/@Model.Awards[i].AwardImagePath" class="img-responsive" style="height: 20rem;">
+                                </div>
+                                <div class="col-xs-12 col-sm-8 col-md-9 descr">
+                                    <div class="font-weight-bold"> @Model.Awards[i].Name</div>
+                                    @*<div class="thumbTitle">
+                                        <small>@Model.Awards[i].cate</small>
+                                    </div>*@
+                                    <div class="content-with-scroll"> @Model.Awards[i].Description</div>
+                                    <div class="thumbTitle">
+                                        <p>
+                                            <span class="glyphicon">
+                                                &#xe109;
+                                            </span>
+                                            <small>    @_localizer["Opening Date"]: @Model.Awards[i].OpeningDate </small> &nbsp;&nbsp;
+                                            <span class="glyphicon">
+                                                &#xe109;
+                                            </span>
+                                            <small>   @_localizer["Closing Date"]: @Model.Awards[i].ClosingDate  </small>
+                                        </p>
+                                    </div>
+                                    <hr class="hr-custom" />
+                                    @Html.ActionLink(_localizer["More"], "AwardDetails", "Home", new { AwardId = @Model.Awards[i].Id }, new { @class = "btn btn-default-custom mt-6", @style = "min-width: 100px;" })
+                                    @*<a href="#" class="btn btn-default-custom mt-6"> @_localizer["More"]</a>*@
+                                    <a href="/home/DownloadAwardFiles?AwardId=@Model.Awards[i].Id" target="_blank" class="btn btn-default mt-6" style="min-width: 100px;"> @_localizer["Download"]</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    //   @*@if ((i % 2) != 0)
+                        //   {*@
+                    </div>
+                </div>
+                }
+
+            </div>
+
+</div>
+<!-- end top slider-->
+
+<br />
+<div class="btn-group btn-group-sm award-filter d-flex" role="group" aria-label="...">
+    <button type="button" class="btn btn-default btn-sm" onclick="filterAwardByTypeID(1)" title="@_localizer["Individual"]"><i class="fa fa-users" aria-hidden="true"></i><span class="hide-sm">@_localizer["Individual"]</span></button>
+    <button type="button" class="btn btn-default btn-sm" onclick="filterAwardByTypeID(2)" title="@_localizer["Group Individual"]"><i class="fa fa-user" aria-hidden="true"></i><span class="hide-sm">@_localizer["Group Individual"]</span> </button>
+    <button type="button" class="btn btn-default btn-sm" onclick="filterAwardByTypeID(3)" title="@_localizer["Corporate"]"><i class="fa fa-building"></i><span class="hide-sm">@_localizer["Corporate"]</span></button>
+    <button type="button" class="btn btn-default table-sm" style="padding-top: 16px;" onclick="filterAwardByTypeID(0)">@_localizer["ALL"] </button>
+
+    <br />
+    <br />
+    <select class="form-control" asp-items="@(new SelectList(Model.Awards,"Id","Name"))" id="ddlAwards" onchange="filterCategoriesByAwards();">
+        <option>@_localizerCat["Select Award Name"]</option>
+    </select>
+</div>
+<hr>
+<!-- Image loader -->
+<div id='loader' style='display: none;'>
+    <img src="~/Image/loading.gif" />
+</div>
+<!-- Image loader -->
+<div id="divAwardCategories"></div>
+
+<!-- Start Video Slider -->
+
+<div class="container-fluid red_color_bg" style="margin-top: 50px">
+    <h4 class="text-center large-title text-white">@_localizerCat["MediaCenter"]</h4>
+    <div id="myThumbnailSlider" class="carousel slide" data-ride="carousel">
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            @for (int i = 0; i < Model.VideosHome.Count(); i++)
+            {
+                @if ((i % 3) == 0 && i == 0)
+                {
+                    @Html.Raw("<div class='item active'><div class='row'>")
+                }
+                @if ((i % 3) == 0 && i != 0)
+                {
+                    @Html.Raw("<div class='item'><div class='row'>")
+                }
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="thumbnail-container padding-btm_0">
+                        <div class="thumbTitle"> @Model.VideosHome[i].Title</div>
+                        <video width="100%" height="250" controls="controls">
+                            <source src="@Model.VideosHome[i].ThumbnailImagePath" type="video/mp4" />
+                        </video>
+                    </div>
+                </div>
+                @if ((i % 3) == 2)
+                {
+                    @Html.Raw("</div></div>")
+                }
+                @if ((i == Model.VideosHome.Count() - 1) && ((i % 3) != 2))
+                {
+                    @Html.Raw("</div></div>")
+                }
+            }
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control carousel-control-custom" href="#myThumbnailSlider" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only"> @_localizer["Previous"]</span>
+        </a>
+        <a class="right carousel-control carousel-control-custom" href="#myThumbnailSlider" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only"> @_localizer["Next"]</span>
+        </a>
+    </div>
+</div>
+<!-- End Video Slider-->
+
+<hr />
+<!-- start bottom slider -->
+<div id="mySliderbottom" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    @*<ol class="carousel-indicators carousel-indicators-inverse carousel-indicators-custom2" style="top:106%">
+            <li data-target="#mySliderbottom" data-slide-to="0" class="active"></li>
+            <li data-target="#mySliderbottom" data-slide-to="1"></li>
+        </ol>*@
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        @foreach (var An in Model.AnnouncementHome)
+        {
+            if (AnnouncementHomeCount == 0)
+            {
+                <div class="item active">
+                    <div class="row">
+                        <div class="thumbnail-winner-container thumbnail-winner-container_dashboard">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-3 col-md-2">
+
+                                    <img src="~/Image/Announcement/@An.ThumbnailImagePath.ImageName()" class="img-responsive" style="height: 15rem;">
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-md-10">
+                                    <div class="font-weight-bold"> @An.Title </div>
+                                    <div class="content-with-scroll">
+                                        <p>@An.Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="item">
+                    <div class="row">
+                        <div class="thumbnail-winner-container thumbnail-winner-container_dashboard">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-3 col-md-2">
+                                    <img src="~/Image/Announcement/@An.ThumbnailImagePath.ImageName()" class="img-responsive" style="height: 15rem;">
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-md-10">
+                                    <div class="font-weight-bold"> @An.Title </div>
+                                    <div class="content-with-scroll">
+                                        <p>@An.Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            { AnnouncementHomeCount++; }
+        }
+
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="showIntrestmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+
+                @_localizer["ParticipateQuestion"]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addIntrest();">
+                    @_localizer["Yes"]
+
+                </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    @_localizer["No"]
+
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="showMessagesModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <b><span>@_localizer["Message"]</span></b>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span id="spanMsg"></span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        filterAwardByTypeID(0);
+    });
+    function filterCategoriesByAwards() {
+
+        var e = document.getElementById("ddlAwards");
+        var selectedAward = e.options[e.selectedIndex].value;
+        GetCategoriesByAwards(selectedAward);
+    }
+    function GetCategoriesByAwards(awardID) {
+
+        $.ajax({
+            url: '@Url.Action("GetCategoriesByAwardID", "Home")',
+           data: { awardID: awardID },
+            success: function (result) { $("#divAwardCategories").html(result); },
+            beforeSend: function () {
+                // Show image container
+                $("#loader").show();
+                $("#divAwardCategories").hide();
+            }, complete: function (data) {
+                // Hide image container
+                $("#loader").hide();
+                $("#divAwardCategories").show();
+            },
+   });
+    }
+    function filterAwardByTypeID(awardTypeID) {
+
+        $.ajax({
+            url: '@Url.Action("GetCategoriesByAwardTypeID", "Home")',
+           data: { awardTypeID: awardTypeID },
+            success: function (result) { $("#divAwardCategories").html(result); },
+            beforeSend: function () {
+                // Show image container
+                $("#loader").show();
+                $("#divAwardCategories").hide();
+            }, complete: function (data) {
+                // Hide image container
+                $("#loader").hide();
+                $("#divAwardCategories").show();
+            },
+   });
+    }
+
+    var catId;
+    function showIntrest(id) {
+     //   alert(a);
+        catId = id;
+     $('#showIntrestmodal').modal('show');
+    }
+     function addIntrest1() {
+          $.ajax({
+      url: '@Url.Action("AddIntrest","Home")',
+      data: { id: catId }
+   }).done(function() {
+      alert('Added');
+   });
+     //$('#showIntrestmodal').modal('show');
+    }
+     function addIntrest() {
+        $("#loader").show();
+        var url = "/Home/AddIntrest?id=" + escape(catId);
+        $.ajax({
+                type: "Get",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    debugger;
+                    var data = result;
+                    if (data.result == 1) {
+                        document.getElementById("spanMsg").innerHTML = '@_localizer["RequestSubmitted"]';
+                    }
+                    else {
+                        document.getElementById("spanMsg").innerHTML = '@_localizer["RequestAlreadySubmitted"]';
+                    }
+                    $('#showMessagesModel').modal('show');
+                    $("#loader").hide();
+            },
+            error: function (result) {
+                alert( result.responseText);
+            }
+        });
+    }
+</script>

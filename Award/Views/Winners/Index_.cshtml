@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Award.Web.Models.JuryOperationsViewModel>
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.WinnersController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="heading-border">@_localizer["Winners"]</h1>
+<hr />
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+
+
+            <th>
+                @_localizer["IdAward"]
+            </th>
+            <th>
+                @_localizer["IdCategory"]
+            </th>
+            <th>
+                @_localizer["IdEmployee"]
+            </th>
+            <th>
+                @_localizer["IdSector"]
+            </th>
+            <th>
+                @_localizer["AnounceDate"]
+            </th>
+            <th>
+                @_localizer["Score"]
+            </th>
+            <th>
+                @_localizer["Action"]
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.AwardTittle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParticipatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sector)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnounceDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ScoredMarks)
+                </td>
+                <td>
+
+                    @if (item.IsAnnounced == false)
+                    {
+                        <a href="#" id="@item.Id" class="badge btn-danger" onclick="saveWinnersData(@item.SectorId, @item.CatId, @item.AwardId, @item.EmpId);"> @_localizer["Announce"]</a>
+
+                    }
+                    else
+                    {
+                        <a href="#" id="@item.Id" class="badge badge-danger" onclick="return false;"> @_localizer["Announce"]</a>
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="container" id="divMessage" style="display:none">
+    <div class="alert alert-success" style="max-width: 95%;">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> Sucessfully Processed!
+    </div>
+</div>
+
+@section scripts{
+   
+    <script>
+
+         if ('@ViewBag.saveStatus' == "1") {
+            var x = document.getElementById("divMessage");
+                 x.style.display = "block";
+        }
+
+    function saveWinnersData(sectorId, catId, awardId, empId) {
+
+                $.ajax({
+                    url: '@Url.Action("SaveWinners","Winners")',
+                    data: {
+                        sectorId: sectorId,
+                        catId: catId,
+                        awardId: awardId,
+                        empId:empId
+                    }
+                }).done(function () {
+
+
+                      var url = "?saveStatus=" + escape(1);
+
+            window.location.href = '@Url.Content("~/Winners/Index")'+url;
+
+
+                 var x = document.getElementById("divMessage");
+                 x.style.display = "block";
+                });
+
+    }
+
+    </script>
+}

@@ -1,0 +1,82 @@
+﻿@model Award.Core.Entities.Winner
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Winner</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.IsAnnounced)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsAnnounced)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowWinnerImage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ShowWinnerImage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AnounceDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnounceDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAward)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdAward)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCategory)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdCategory)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdEmployee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdEmployee)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdSector)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdSector)
+        </dd>*@
+        @*<dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeletedDate)
+        </dd>*@
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default-custom" /> |
+        <a asp-action="Index" class="custom-link">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Award.Web.Models.ForumTopicsReplyViewModel>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+@{
+    ViewData["Title"] = "Forum Topic Reply";
+}
+
+<div class="row justify-content-between">
+    <div class="col-xs-6">
+        <h1 class="heading-border"> @_localizer["Replies"]</h1>
+    </div>
+    
+</div>
+<div class="row justify-content-between">
+    
+    <div class="col-xs-12">
+        <h3 class="text-right">
+            @*<a asp-action="Create">Create Award</a>*@
+
+            @if (ViewData["ForumText"] != null)
+            {
+                @ViewData["ForumText"].ToString();
+
+            }
+
+        </h3>
+    </div>
+</div>
+
+<hr />
+<div class="table-responsive">
+    <table id="myTable" class="table table-condensed table-sm">
+        <thead>
+            <tr>
+                <th>
+                    @_localizer["Topics"]
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <b>@item.ForumTopicReply</b>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-4"> @_localizer["User"]:  @item.UserName</div>
+                            <div class="col-md-4"> @_localizer["Created"]:  @item.CreatedDate</div>
+                        </div>
+                    </td>
+                    <td>
+                        @if (ViewData["CurrenrUser"].ToString() == item.UserId.ToString())
+                        {
+                            <a asp-controller="Forum" asp-action="ForumTopicsReplyDelete" asp-route-ForumId="@item.ForumId" asp-route-ReplyId="@item.ReplyId"><i class="glyphicon glyphicon-trash"></i> </a>
+
+                        }
+
+                    </td>
+                    
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<hr />
+<div class="panel-body">
+    <form asp-controller="Forum" asp-action="CreateForumTopicsReply" method="post" enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="col-md-12 form-group">
+                @*<label asp-for="award.Description" class="control-label"></label>*@
+                <label class="control-label">@_localizer["Comment"]</label>
+                <textarea name="ForumReply" class="form-control" rows="3" value=""></textarea>
+            </div>
+        </div>
+        @if (ViewData["ForumId"] != null)
+        {
+            <input type="hidden" name="ForumId" value="@ViewData["ForumId"]" />
+        }
+
+        <div class="row">
+            <div class="col-md-12 form-group">
+              <input type="submit" value="@_localizer["Publish"]" class="btn btn-default-custom" />
+            </div>
+        </div>
+    </form>
+</div>
+
+

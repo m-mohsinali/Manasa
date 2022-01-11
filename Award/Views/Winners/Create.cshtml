@@ -1,0 +1,82 @@
+﻿@*@model Award.Core.Entities.Winner*@
+@*@using Award.Core.Entities*@
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.WinnersController> _localizer
+
+@model Award.Web.Models.WinnerViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <h1>@_localizer["Create New Winner"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" asp-for="winner.IsAnnounced" /> @_localizer["IsAnnounced"]  @*@Html.DisplayNameFor(model => model.winner.IsAnnounced)*@
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" asp-for="winner.ShowWinnerImage" /> @_localizer["ShowWinnerImage"]  @*@Html.DisplayNameFor(model => model.winner.ShowWinnerImage)*@
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="AnounceDate" class="control-label"></label>*@@_localizer["AnounceDate"]
+                <input asp-for="winner.AnounceDate" class="form-control" />
+                <span asp-validation-for="AnounceDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="IdAward" class="control-label"></label>*@ @_localizer["IdAward"]
+                @*<input asp-for="IdAward" class="form-control" />*@
+                <select class="form-control" asp-items="@(new SelectList(Model.Awards,"Id","Name"))" asp-for="winner.AwardId">
+                    <option>@_localizer["Select"]</option>
+                </select>
+                <span asp-validation-for="IdAward" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="IdCategory" class="control-label"></label>*@ @_localizer["IdCategory"]
+                @*<input asp-for="IdCategory" class="form-control" />*@
+                <select class="form-control" asp-items="@(new SelectList(Model.Categories,"Id","Name"))" asp-for="winner.CategoryId">
+                    <option>@_localizer["Select"]</option>
+                </select>
+                <span asp-validation-for="IdCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="IdEmployee" class="control-label"></label>*@ @_localizer["IdEmployee"]
+            @*<input asp-for="IdEmployee" class="form-control" />*@
+            <select class="form-control" asp-items="@(new SelectList(Model.Employees,"Id","NameAr"))" asp-for="winner.EmployeeId">
+             <option>@_localizer["Select"]</option>
+            </select>
+            <span asp-validation-for="IdEmployee" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+            @*<label asp-for="IdSector" class="control-label"></label>*@ @_localizer["IdSector"]
+            @*<input asp-for="IdSector" class="form-control" />*@
+                <select class="form-control" asp-items="@(new SelectList(Model.Sectors,"Id","NameAr"))" asp-for="winner.SectorId">
+                    <option>@_localizer["Select"]</option>
+                </select>
+                <span asp-validation-for="IdSector" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@_localizer["Create"]" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">@_localizer["Back to List"]</a>
+</div>
+

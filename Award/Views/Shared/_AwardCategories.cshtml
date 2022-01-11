@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model IEnumerable<Award.Core.Entities.Category>
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@*<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->*@
+
+<div class="table-responsive">
+    <table id="myTable" class="table table-condensed table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+
+                <th> @_localizer["Award"] </th>
+                <th> @_localizer["Category"] </th>
+
+                <th> @_localizer["Opening Date"] </th>
+                <th> @_localizer["Closing Date"] </th>
+
+                <th class="text-center"> @_localizer["ViewDetails"]	</th>
+                <th> @_localizer["Action"]	</th>
+
+            </tr>
+        </thead>
+        <tbody style="max-height: 400px;overflow: auto;">
+            @{
+                int counter = 0;
+            }
+            @foreach (var cat in Model)
+            {
+            <tr>
+                <td> @(++counter)</td>
+                <td> @cat.Award?.Name</td>
+                <td> @cat.Name</td>
+
+                <td> @cat.OpeningDate	</td>
+                <td> @cat.ClosingDate</td>
+
+                <td class="text-center">
+                    @Html.ActionLink(_localizer["More"], "CategoryDetails", "Home", new { categoryid = cat.Id }, new { @class = "badge btn-danger", @target = "_blank" })
+                    @Html.ActionLink(_localizer["PDF"], "print", "Home", new { categoryid = cat.Id }, new { @class = "badge btn-danger", @target = "_blank" })
+
+                </td>
+                <td><a href="#" id="@cat.Id" style="color: #fff;" class="badge btn-danger" onclick="showIntrest(@cat.Id);"> @_localizer["Participate"]</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        //$('#myTable').DataTable();
+        var searchText = '@_localizer["Search"]';
+        $('#myTable').DataTable({
+        "stateSave": true,
+        "oLanguage": {
+            sSearch: '@_localizer["Search"]',
+            sInfo: '@_localizer["sInfo"]',
+            sLengthMenu: '@_localizer["sLengthMenu"]',
+            sInfoEmpty: '@_localizer["sInfoEmpty"]',
+            oPaginate:{sFirst:'@_localizer["First"]',sLast:'@_localizer["Last"]',
+            sNext: '@_localizer["Next"]', sPrevious: '@_localizer["Previous"]'},
+            sEmptyTable: '@_localizer["sEmptyTable"]'
+            }
+        });
+    });
+</script>

@@ -1,0 +1,73 @@
+﻿@model Award.Core.Entities.Awards
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AwardsController> _localizer
+@{
+    ViewData["Title"] = @_localizer["AwardsDetails"];
+}
+
+<h1 class="heading-border">@_localizer["AwardsDetails"]</h1>
+<hr />
+
+<div class="">
+    <div class="panel-body">
+        <dl class="col-md-8">
+            <dt class="col-sm-12">
+                @_localizer["Name"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" name="name" value="@Html.DisplayFor(model => model.Name)" readonly />
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+            <dt class="col-sm-12">
+                @_localizer["Description"]
+            </dt>
+            <dd class="col-sm-12">
+                <textarea class="form-control" rows="3" readonly>@Html.DisplayFor(model => model.Description)</textarea>
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+
+            <dt class="col-sm-12">
+                @_localizer["AwardStatus"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" name="name" value="@Html.DisplayFor(model => model.AwardStatus)" readonly />
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+            <dt class="col-sm-12">
+                @_localizer["OpeningDate"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" name="name" value="@Html.DisplayFor(model => model.OpeningDate)" readonly />
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+
+            <dt class="col-sm-12">
+                @_localizer["ClosingDate"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" readonly type="text" name="name" value="@Html.DisplayFor(model => model.ClosingDate)" />
+            </dd>
+        </dl>
+
+        @*<dt> &nbsp;</dt>
+        <dd> </dd>*@
+        <dl class="col-md-4">
+            <dt class="col-sm-12">
+                @_localizer["awardImagePath"]
+            </dt>
+            <dd class="col-sm-12">
+                <img class="img-responsive img-fluid" src="~/@Model.AwardImagePath">
+            </dd>
+        </dl>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="custom-link">@_localizer["Edit"]</a> |
+    <a asp-action="Index" class="custom-link">@_localizer["Back to List"]</a>
+</div>

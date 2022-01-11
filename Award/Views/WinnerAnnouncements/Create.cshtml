@@ -1,0 +1,134 @@
+﻿@model Award.Web.Models.WinnerAnnouncementViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AwardsController> _localizer
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="container-fluid">
+    <h1 class="heading-border">@_localizer["Create Announcement"]</h1>
+    <hr />
+    <div class="panel-body">
+        <div class="col-md-12">
+            <form asp-controller="WinnerAnnouncements" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input id="hdnuserid" type="hidden" name="winnerAnnouncement.Userid" />
+                <input id="hdnImagePath" type="hidden" name="winnerAnnouncement.ImagePath" />
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">@_localizer["User"]</label>
+                            <input id="txtSearchEmployee" class="form-control" />
+                        </div>
+                        <div class="col-md-8"><button id="btnSearch" type="button" class="btn btn-danger"><i class="fa fa-check"></i> @_localizer["Search"]</button></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img id="imgEmployee" src="~/Image/Award/AvatarImage.png" style="padding: 1rem; margin: auto; max-width: 150px; max-height: 150px;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">@_localizer["EmployeeName"]</label>
+                            <input id="txtEmployeeName" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">@_localizer["Year"]</label>
+                            <select asp-for="winnerAnnouncement.AwardYear" asp-items="@ViewData["AwardYearSelectList"] as SelectList" class="form-control">
+                                <option value="">@_localizer["Select"]</option>
+                            </select>
+                            <span asp-validation-for="winnerAnnouncement.AwardYear" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">@_localizer["Award"]</label>
+                            <select asp-for="winnerAnnouncement.AwardId" asp-items="@ViewData["AwardSelectList"] as SelectList" class="form-control">
+                                <option value="">@_localizer["Select"]</option>
+                            </select>
+                            <span asp-validation-for="winnerAnnouncement.AwardId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">@_localizer["Category"]</label>
+                            <select asp-for="winnerAnnouncement.CategoryId" asp-items="@ViewData["CategoriesSelectList"] as SelectList" class="form-control">
+                                <option value="">@_localizer["Select"]</option>
+                            </select>
+                            <span asp-validation-for="winnerAnnouncement.CategoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">@_localizer["Description"]</label>
+                            <input asp-for="winnerAnnouncement.Description" class="form-control" rows="4" />
+                            <span asp-validation-for="winnerAnnouncement.Description" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">@_localizer["Group"]</label>
+                            <input id="txtGroup" class="form-control" disabled />
+                        </div>
+                    </div>
+              
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="winnerAnnouncement.IsShow" /> @Html.DisplayNameFor(model => model.winnerAnnouncement.IsShow)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group row-direction">
+                    <div class=" ">
+                        <button type="submit" class="btn btn-default-custom"> <i class="fa fa-check"></i> @_localizer["Save"]</button>
+                        <a asp-action="Index" class="btn btn-default">@_localizer["Cancel"]</a>
+
+                    </div>
+                </div>
+            </form>
+
+            <div>
+                <a asp-action="Index" class="custom-link">@_localizer["Back to List"]</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#btnSearch').click(function () {
+                var searchtext = $('#txtSearchEmployee').val();
+            $.getJSON('/WinnerAnnouncements/getEmployee?q=' + searchtext, function (data) {
+                debugger;
+                    if (data == null) {
+                            $('#txtEmployeeName').val('N/A');  
+                        }
+                    else {
+                        $('#txtEmployeeName').val(data.name);
+                        $('#txtGroup').val(data.group);
+                        $('#hdnuserid').val(data.userId);
+                        $('#imgEmployee').attr("src", data.employeeImageURL);
+                        $('#hdnImagePath').val(data.employeeImageURL);
+                        
+                        //alert(data);
+                         //$('#spanNotificationCount').html(data);  
+                        }
+                     }); 
+        });
+    
+          });
+</script>
+   

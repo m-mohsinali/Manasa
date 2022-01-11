@@ -1,0 +1,189 @@
+﻿@model Award.Core.Entities.Category
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizer
+
+@{
+    ViewData["Title"] = @_localizer["Details"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1 class="heading-border"> @_localizer["Categories Details"]</h1>
+
+
+@*<h4> @_localizer["Category"]</h4>*@
+<hr />
+<!--<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+    </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+
+
+    </div>
+</div>-->
+<div class="">
+    @*<h3 class="box-title"> @_localizer["Category Details"]</h3>
+    <hr />*@
+    <div class="panel-body">
+        <dl class="col-md-6 ">
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.Name)*@
+                @_localizer["Name"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" value="@Html.DisplayFor(model => model.Name)" readonly />
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.Description)*@
+                @_localizer["Description"]
+            </dt>
+            <dd class="col-sm-12">
+                <textarea class="form-control" rows="3" readonly>@Html.DisplayFor(model => model.Description)</textarea>
+
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.AwardType)*@
+                @_localizer["AwardType"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" value="@_localizer[@Model.AwardType.ToString()]" readonly />
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.Award)*@
+                @_localizer["Award"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" value="@Html.DisplayFor(model => model.Award.Name)" readonly />
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+            @*<dt>
+            @Html.DisplayNameFor(model => model.DocumentPath)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DocumentPath)
+        </dd>*@
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.OpeningDate)*@
+                @_localizer["OpeningDate"]
+            </dt>
+            <dd class="col-sm-12">
+                <input type="datetime-local" id="txtStartDate" asp-for="@Model.OpeningDate" class="form-control mydatepicker" placeholder="yyyy-mm-dd hh:ii" readonly> 
+
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.ClosingDate)*@
+                @_localizer["ClosingDate"]
+            </dt>
+            <dd class="col-sm-12">
+                <input type="datetime-local" id="txtStartDate" asp-for="@Model.ClosingDate" class="form-control mydatepicker" placeholder="yyyy-mm-dd hh:ii" readonly> 
+
+            </dd>
+            <dt> &nbsp;</dt>
+            <dd> </dd>
+            @*<dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+            <hr />
+        </dd>*@
+        <dt class="col-sm-12">
+             
+            @_localizer["SupportingDocument"]
+
+
+        </dt>
+            <dd class="col-sm-12">
+                @foreach (var v in Model.CategoryDocuments)
+                {
+                    <b> <a href='~/@v.SupportingDocumentPath' target="_blank" download>@v.DocumentName</a> </b>
+                }
+            </dd>
+
+        </dl>
+        <dl class="col-md-6">
+            <dt class="col-sm-12">
+                @_localizer["Criteria"]
+            </dt>
+
+            <dd class="col-sm-12">
+                @**@
+                @if (Model.CategoryCriteria != null && Model.CategoryCriteria.Count > 0)
+                {
+                    foreach (var categoryCriteria in Model.CategoryCriteria)
+                    {
+                        <div class="table-responsive">
+                            <table id="myTable" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>@_localizer["Criteria"]:</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @categoryCriteria.Description
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>@_localizer["Sub Criteria"]:</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @if (categoryCriteria.CategorySubCriteria != null && categoryCriteria.CategorySubCriteria.Count > 0)
+                                            {
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr style="text-align: center;">
+                                                            <th> @_localizer["Description"]</th>
+                                                            <th> @_localizer["TotalMarks"]</th>
+                                                            <th> @_localizer["Total Words"]</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var subCriteria in categoryCriteria.CategorySubCriteria)
+                                                        {
+                                                            <tr>
+                                                                <td class="lang-align">@subCriteria.Description</td>
+                                                                <td>@subCriteria.Marks</td>
+                                                                <td>@subCriteria.MaxWords</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                }
+                @*</dd>*@
+            </dd>
+        </dl>
+
+            
+
+    </div>
+    
+</div>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |*@
+    <a asp-action="Index" class="btn-back custom-link">@*<i class="fa fa-angle-left" aria-hidden="true"></i>*@@_localizer["Back to List"]</a>
+</div>

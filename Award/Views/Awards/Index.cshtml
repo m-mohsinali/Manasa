@@ -1,0 +1,109 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model IEnumerable<Award.Core.Entities.Awards>
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AwardsController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+@inject Award.Web.Common.Auth.IUserSession _usersession
+@*@inject IViewLocalizer _localizer*@
+
+@{
+    ViewData["Title"] = @_localizer["AwardsIndex"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-between">
+    <div class="col-xs-6">
+        <h1 class="heading-border"> @_localizer["Awards"]</h1>
+    </div>
+    @if (@_usersession.IsSuperAdmin)
+    {
+        <div class="col-xs-6">
+            <h1 class="text-right">
+                @*<a asp-action="Create">Create Award</a>*@
+                <a asp-action="Create" class="btn btn-secondary "> @_localizer["Create Award"]</a>
+            </h1>
+        </div>
+    }
+
+
+</div>
+<hr />
+
+
+@*@using (Html.BeginForm())
+    {
+        <p>
+            Name  @Html.TextBox("searchString") |   <input type="submit" value="Search" />
+
+        </p>
+    }*@
+
+@*<form asp-controller="Awards" asp-action="Index">
+    <p>
+        Search Key: <input type="text" name="searchString">
+                    <a asp-action="Index" asp-route-id="searchString"><input type="submit" value="Filter" /></a>
+    </p>
+    </form>*@
+<div class="table-responsive">
+    <table id="myTable" class="table table-condensed table-sm">
+        <thead>
+            <tr>
+                <th>
+                    @_localizer["awardImagePath"]
+                </th>
+                <th>
+                    @_localizer["Name"]
+                </th>
+                <th>
+                    @_localizer["Description"]
+                </th>
+                <th>
+                    @_localizer["AwardStatus"]
+                </th>
+                <th>
+                    @_localizer["OpeningDate"]
+                </th>
+                <th>
+                    @_localizer["ClosingDate"]
+                </th>
+                <th style="min-width: 192px; text-align: center;">@_localizer["Manage"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img style="max-width: 150px; max-height: 150px;" src="@item.AwardImagePath">
+                    </td>
+                    <td style="min-width: 150px !important;">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+
+                        @_localizer[@item.AwardStatus.ToString()]
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OpeningDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClosingDate)
+                    </td>
+                    <td>
+                        @if (@_usersession.IsSuperAdmin)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id"><i class="glyphicon glyphicon-edit text-success"></i> @_localizer["Edit"] | </a> 
+                        }
+
+                        <a asp-action="Details" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list-alt text-info"></i> @_localizer["Details"]</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="glyphicon glyphicon-remove text-danger"></i> @_localizer["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

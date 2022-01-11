@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pie Charts</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
+    <script>
+        debugger;
+        var PieChartData =
+            {
+                labels: [@Html.Raw(ViewBag.Sectors)],
+                datasets: [{
+                    label: 'ProductWise Sales Count',
+                    backgroundColor: [
+                        "#f990a7",
+                        "#aad2ed",
+                        "#9966FF",
+                        "#99e5e5",
+                        "#f7bd83",
+                    ],
+                    borderWidth: 2,
+                    data: [@ViewBag.MobileCount_List]
+                }]
+            };
+
+            window.onload = function () {
+                var ctx1 = document.getElementById("Piecanvas").getContext("2d");
+                window.myBar = new Chart(ctx1,
+                    {
+                        type: 'pie',
+                        data: PieChartData,
+                        options:
+                            {
+                                title:
+                                {
+                                    display: true,
+                                    text: "ProductWise Sales Count"
+                                },
+                                responsive: true,
+                                maintainAspectRatio: true
+                            }
+                    });
+            }
+    </script>
+</head>
+<body>
+    <div style="text-align: center">
+        <canvas id="Piecanvas"></canvas>
+    </div>
+    <div style="text-align: center">
+        Disclaimer:- This data is for demo it is
+        not real data it wont relate to any company
+    </div>
+</body>
+
+</html>

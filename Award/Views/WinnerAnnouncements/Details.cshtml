@@ -1,0 +1,67 @@
+﻿@model Award.Core.Entities.WinnerAnnouncement
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Award.Web.Controllers.VideosHomeController> _localizer
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1 class="heading-border">@_localizer["AnnouncementDetails"]</h1>
+<hr />
+
+<div>
+    <div class="panel-body"> 
+        <dl class="col-md-8">
+            <dt class="col-sm-12">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" name="name" value="@Html.DisplayFor(model => model.Description)" readonly />
+            </dd>
+            <br />
+            <dt class="col-sm-12">
+                @Html.DisplayNameFor(model => model.AnnouncementDate)
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" name="name" value="@Html.DisplayFor(model => model.AnnouncementDate)" readonly />
+            </dd>
+            <br />
+            <dt class="col-sm-12">
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" name="name" value="@Html.DisplayFor(model => model.ImagePath)" readonly />
+            </dd>
+            <br />
+            <dt class="col-sm-12">
+                @Html.DisplayNameFor(model => model.IsShow)
+            </dt>
+            <dd class="col-sm-12">
+                @Html.DisplayFor(model => model.IsShow)
+            </dd>
+            @*<dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeletedDate)
+        </dd>*@
+        </dl>
+    </div>
+</div>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id" class="custom-link">@_localizer["Edit"]</a> |*@
+    <a asp-action="Index" class="custom-link">@_localizer["Back to List"]</a>
+</div>

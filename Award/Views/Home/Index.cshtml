@@ -1,0 +1,331 @@
+﻿@model Award.Models.HomeViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.WinnersController> _localizerWinners
+
+
+@{
+    ViewData["Title"] = "";
+    Layout = "_LayoutHome";
+}
+
+<style>
+    .container-fluid {
+        padding: 0px;
+    }
+
+    p, a {
+        font-size: medium;
+    }
+</style>
+
+
+
+<div class="container-fluid">
+    <!-- <div style="height: 100vh;"> -->
+    <div class="col-md-12">
+        <div class="row " style="">
+            <div class="col-md-4" style="padding-top: 1rem; padding-bottom: 1rem;">
+                <img class="img-fluid img-responsive" src="~/Image/final-logo-manasa.png" />
+            </div>
+            <div class="col-md-8">
+                @*<div class="row " style="margin-top: 1rem; margin-bottom: 1rem;">
+                        <div class="col-md-5  col-md-offset-7">
+                            <img class="img-fluid img-responsive" src="~/image/DNRD Logo.png" style="background-color: white; padding-right: 3rem; padding-left: 3rem; border-radius: 1rem;">
+                        </div>
+                    </div>*@
+                <div class="row " style="margin-top: 1rem; margin-bottom: 1rem;">
+                    <div class="col-md-9" style="padding-top: 1rem;">
+                        @*<h1 class="text-right"><strong>سعادة الفريق / محمد أحمد المري</strong></h1>
+                        <p class="text-right" style="font-size: large;">
+                            ​​​​​​​​​​​​​​​​إن ما وصلت إليه الادارة العامة للاقامة وشؤون الاجانب دبي  من تقدم وتطور في مختلف المجالات كان محصلة للعمل الجاد والدؤوب ، ونتيجة للجهود المبذولة في مختلف القطاعات، وانطلاقاً من طموحنا الذي لا حدود له وعزيمتنا التي لا تلين لمواصلة مسيرة الريادة و التنافسية فإنه لا بُد لنا جميعاً من العمل بروح المبادرة والإبداع، وأن يكون التميز اسلوب حياة لنا جميعا
+                        </p>*@
+                         
+                        @*<p class="text-right" style="font-size:small">
+                                من منطلق حرص الإدارة العامة للإقامة وشؤون الأجانب دبي على الارتقاء بمستوى أداء القطاع الحكومي لمواكبة التطورات في جميع المجالات والتركيز على توفير بيئة عمل تشجع على روح المنافسة الإيجابية والتعاون البناء قامت الإدارة بإطلاق جائزة الريادة المؤسسية تحت شعار مكافأة المجتهد لتحفيز وتكريم  القطاعات و الموظفين على الإبداع والابتكار ولتطوير قدراتهم و كفاءاتهم للارتقاء بالأداء المؤسسي وتهدف الى المساهمة في تحقيق الأهداف الاستراتيجية لإقامة دبي وإنشاء قاعدة بيانات لتوثيق انجازات الموظفين وسهولة الترشح للجوائز المحلية والاتحادية من خلال الرجوع للنظام . تنقسم جائزة الريادة المؤسسية الى ثلاث تصنيفات (19 فئة) وذلك لتراعي التنوع في طبيعة عمل القطاعات في إقامة دبي وتلبي أهداف جائزة الريادة المؤسسية وبرامج التخطيط وتطوير وتنظيم أداء القطاعات والإدارات في دعم تحقيق الريادة في كافة المجالات كما تختلف فئات الجائزة من حيث طريقة التقدم للجائزة.
+                            </p>*@
+                    </div>
+                    <div class="col-md-3">
+                        <div class="col-md-12" style="background-image: url('/image/frame.png'); background-size: cover; padding-right: 2rem; padding-left: 2rem">
+                            @*<img class="img-fluid img-responsive" src="~/image/Head Image.jpg" style="margin: auto;">*@
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="padding: 2rem;">
+                        @*<h3 class="text-right">سعادة الفريق / محمد أحمد المري</h3>
+                        <h3 class="text-right">المدير العام للإدارة العامة للإقامة وشؤون الأجانب دبي</h3>
+                        <h3 class="text-right"></h3>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 " style="background-color: #bbbbbb33;">
+        <div class="row ">
+            <div class="col-lg-3" style="padding-left: 1rem; padding-right: 1rem;">
+                <h2 class="text-center" style="padding-top: 1em;">@_localizerWinners["Winners"]</h2>
+                <div id="demos" class="carousel slide text-center" data-ride="carousel" style=" margin: auto;">
+                    <!-- The slideshow -->
+                    <div class="carousel-inner" style="max-width: 200px; margin: auto;">
+                        @for (int i = 0; i < Model.AnnouncedWinners.Count(); i++)
+                        {
+                            var active = i == 0 ? "active" : "";
+                            <div class="carousel-item @active" style="">
+                                <div class="card" style="background-color: #3b3b3b3b;">
+                                    <!-- <div class="card-body"> -->
+                                    <img class="img-fluid img-responsive" src="@Model.AnnouncedWinners[i].EmployeeImage" style="padding: 1rem; margin: auto; height: 15rem;">
+                                    <div class="text-left" style="height: 150px; overflow: hidden auto; margin-top: 1rem; margin-bottom: 3rem;">
+                                        <p>@_localizer["Name"] : @Model.AnnouncedWinners[i].EmployeeName</p>
+                                        <p>@_localizer["Award"] :  @Model.AnnouncedWinners[i].Award</p>
+                                        <p>@_localizer["Category"] :  @Model.AnnouncedWinners[i].Category</p>
+                                    </div>
+                                    <div class=" text-left">
+                                        @*<a asp-controller="Home" asp-action="WinnerDetails" asp-route-Id="@Model.AnnouncedWinners[i].Id" style="color: red;"><strong>@_localizer["Read More"]</strong></a>*@
+                                        <a asp-controller="Home" asp-action="Winners" asp-route-Year="@Model.AnnouncedWinners[i].Year" style="color: red;"><strong>@_localizer["Read More"]</strong></a>
+                                    </div>
+                                    <!-- </div>   -->
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="carousel-control-prev" href="#demos" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#demos" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+
+                </div>
+            </div>
+            <div class="col-lg-6" style="max-height: 42rem; margin: auto;">
+                <h2 class="text-center" style="padding-top: 1em;">@_localizer["Announcement"]</h2>
+                <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+                    @if (Model.Announcements.Count == 0)
+                    {
+                        <div class="carousel-inner" role="listbox">
+
+                            <!--First slide-->
+                            <div class="carousel-item active">
+
+                                <div class="row">
+
+                                    <div class="col-md-6 clearfix d-none d-md-block">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top img-responsive img-fluid" src="~/image/manasa image 1.png"
+                                                 alt="Card image cap">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 clearfix d-none d-md-block">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top img-responsive img-fluid" src="~/image/manasa image 2.png" alt="Card image cap">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--/.First slide-->
+                            <!--Second slide-->
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top img-responsive img-fluid" src="~/image/manasa image 1.png" alt="Card image cap">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 clearfix d-none d-md-block">
+                                        <div class="card mb-2">
+                                            <img class="card-img-top img-responsive img-fluid" src="~/image/manasa image 2.png" alt="Card image cap">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/.Second slide-->
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="carousel-inner" role="listbox">
+                            @{ var anncounts = Model.Announcements.Count;}
+                            @for (int i = 1; i <= Model.Announcements.Count(); i++)
+                            {
+
+                                var carouselActive = i == 1 ? "active" : "";
+                                var clerfix = (i == 1 || i == 2) ? "clearfix d-none d-md-block" : "";
+
+                                @if (i % 2 != 0)
+                                {
+                                    @Html.Raw("<div class='carousel-item " + carouselActive + "'><div class='row'>")
+                                }
+                                <div class="col-md-6 @clerfix">
+                                    <div class="card mb-2">
+                                        <img class="card-img-top img-responsive img-fluid" style='height: 30rem;' src="@Model.Announcements[i-1].ThumbnailImagePath" alt="Card image cap">
+                                    </div>
+                                    <div class=" text-left">
+                                        <a asp-controller="Home" asp-action="AnnouncementDetails" asp-route-Id="@Model.Announcements[i-1].Id" style="color: red;"><strong>@_localizer["Read More"]</strong></a>
+                                    </div>
+                                    @*<div class="card mb-2">
+                                <button id="@Model.Announcements[i-1].Id" class="btn-default-custom btn-lg btn-block" onclick="showAnnouncementDetails(@Model.Announcements[i-1].Id);">@_localizer["Read More"]</button>
+                            </div>*@
+                                </div>
+                                @if (i % 2 != 0 && Model.Announcements.Count() == i)
+                                {
+                                    @Html.Raw("</div></div>")
+                                    break;
+                                }
+                                @if (i % 2 == 0)
+                                {
+                                    @Html.Raw("</div></div>")
+                                }
+
+
+
+                            }
+                            <!--First slide-->
+                            @*<div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-6 clearfix d-none d-md-block">
+                                <div class="card mb-2">
+                                    <img class="card-img-top" src="~/image/manasa image 1.png" alt="Card image cap">
+                                </div>
+                            </div>
+                            <div class="col-md-6 clearfix d-none d-md-block">
+                                <div class="card mb-2">
+                                    <img class="card-img-top" src="~/image/manasa image 2.png" alt="Card image cap">
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                            <!--/.First slide-->
+
+                        </div>
+                    }
+                    <!--/.Slides-->
+                    <div class="d-inline-flex" style="position: relative; width: 100%;">
+                        <a class="carousel-control-prev" href="#multi-item-example" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#multi-item-example" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 text-center" style="margin: auto; padding-top: 2rem;">
+                <!-- style="background: url('assets/img/user icon-2.png') no-repeat top " -->
+                <!-- <div style="background-image: url('assets/img/shade credential.png'); background-size: cover; min-height: 260px;"> -->
+                <div style="background: url('/image/user icon-2.png') no-repeat top; margin: auto; max-height: 36rem;">
+                    <img class="img-fluid img-responsive" src="~/image/shade credential.png" style="position: relative; top: 40px; margin: auto;">
+                    <img class="img-fluid img-responsive user_icon_2" src="~/image/User Icon@2x.png" style="">
+
+                    <div class="sign_form" style="">
+                        <h3 class="text-center">Sign In</h3>
+                        <form asp-controller="Account" asp-action="Signin" asp-route-returnurl="@this.ViewData["ReturnUrl"]" method="post">
+                            <input class="form-control my-xl-3" style="margin-top: 1.5rem; background: url('/image/un box.png'); background-position: center; background-size: cover; border: 1px solid #ced4da00; height: 3rem; font-size: 2rem; max-width: 20rem; margin: auto;" type="text" id="UserName" placeholder="@_localizer["Username:"]" name="UserName">
+                            <input class="form-control my-xl-3" style="margin-top: 1.5rem; background: url('/image/un box.png'); background-position: center; background-size: cover; border: 1px solid #ced4da00; height: 3rem; font-size: 2rem; max-width: 20rem; margin: auto;" type="password" id="Password" placeholder="@_localizer["Password:"]" name="Password">
+                            <button class="btn btn-block my-xl-3" style="margin-top: 1.5rem; background: url('/image/Login.png') ; background-position: center; background-size: cover; color: transparent; height: 3rem; max-width: 20rem; margin: auto;" type="submit"> ________ </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- </div> -->
+</div>
+<div class="modal fade" id="showAnouncementmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.Title)*@
+                                    @_localizer["Title"]
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.Description)*@
+                                    @_localizer["Description"]
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.StartAnnouncingDate)*@
+                                    @_localizer["StartAnnouncingDate"]
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.EndAnnouncingDate)*@
+                                    @_localizer["EndAnnouncingDate"]
+                                </th>
+                                @*<th>
+                                        @Html.DisplayNameFor(model => model.CreatedAt)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DeletedAt)
+                                    </th>*@
+                            </tr>
+                        </thead>
+                        <tbody id="tBodyAnnouncements">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    //function showAnnouncementDetails(id) {
+    //    alert(id);
+
+    //}
+    function showAnnouncementDetails(id) {
+
+        $("#tBodyAnnouncements").empty();
+        var url = "/Home/LoadAnnouncementDetail?id=" + escape(id);
+        $.ajax({
+            type: "Get",
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                debugger;
+                var data = result;
+                var concept_list = '';
+
+                for (var i = 0; i < data.result.length; i++) {
+                    concept_list += '<tr>';
+                    concept_list += '<td>' + data.result[i].name + '</td>';
+                    concept_list += '<td>' + data.result[i].description + '</td>';
+                    concept_list += '<td>' + data.result[i].startAnnouncingDate + '</td>';
+                    concept_list += '<td>' + data.result[i].endAnnouncingDate + '</td>';
+                    concept_list += '</tr>';
+                }
+                $('#tBodyAnnouncements').append(concept_list);
+                $('#showAnouncementmodal').modal('show');
+            },
+            error: function (result) {
+                alert(result.responseText);
+            }
+        });
+    }
+</script>

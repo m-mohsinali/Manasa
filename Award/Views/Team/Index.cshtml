@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Award.Core.Entities.Category>
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.TeamController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+@{
+    ViewData["Title"] = @_localizer["Teams"];
+}
+
+<h1 class="heading-border"> @_localizer["Teams"]</h1>
+<hr />
+
+<p>
+    @*<a asp-action="Create"> @_localizer["Create New Team"]</a>*@
+</p>
+<div class="cointainer-fluid">
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+
+                <h3 class="box-title m-b-0"> @_localizer["Teams"]</h3>
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @_localizer["Name"]
+                                </th>
+
+                                <th>
+                                    @_localizer["Award"]
+                                </th>
+                                <th>
+                                    @_localizer["AwardType"]
+                                </th>
+                                <th>
+                                    @_localizer["OpeningDate"]
+                                </th>
+
+                                <th>
+                                    @_localizer["ClosingDate"]
+                                </th>
+
+                                <th>
+                                    @_localizer["Manage"]
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Award.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AwardType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OpeningDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClosingDate)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-categoryId="@item.Id" class="glyphicon glyphicon-edit text-success"> @_localizer["Team Edit"]</a> |
+                                        <a asp-action="Details" asp-route-categoryId="@item.Id" class="glyphicon glyphicon-list-alt text-info"> @_localizer["Team Details"]</a> |
+                                        <a asp-action="Delete" asp-route-categoryId="@item.Id" class="glyphicon glyphicon-remove text-danger"> @_localizer["Team Delete"]</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+﻿@model Award.Core.Entities.WinnerAnnouncement
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<h1 class="heading-border">@_localizer["DeleteAnnouncement"]</h1>
+
+<h3>@_localizer["Are you sure you want to delete this?"]</h3>
+<hr />
+
+<div class="panel-body">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label">@_localizer["EmployeeName"]</label>
+                <input id="txtEmployeeName" class="form-control" value="@Model.User.Employee.NameAr" disabled />
+            </div>
+            <div class="col-md-4">
+                <label class="control-label">@_localizer["Year"]</label>
+                <select asp-for="@Model.AwardYear" asp-items="@ViewData["AwardYearSelectList"] as SelectList" class="form-control">
+                    <option value="">@_localizer["Select"]</option>
+                </select>
+                <span asp-validation-for="@Model.AwardYear" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label">@_localizer["Award"]</label>
+                <select asp-for="@Model.AwardId" asp-items="@ViewData["AwardSelectList"] as SelectList" class="form-control">
+                    <option value="">@_localizer["Select"]</option>
+                </select>
+                <span asp-validation-for="@Model.AwardId" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label class="control-label">@_localizer["Category"]</label>
+                <select asp-for="@Model.CategoryId" asp-items="@ViewData["CategoriesSelectList"] as SelectList" class="form-control">
+                    <option value="">@_localizer["Select"]</option>
+                </select>
+                <span asp-validation-for="@Model.CategoryId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label">@_localizer["Description"]</label>
+                <input asp-for="@Model.Description" class="form-control" rows="4" />
+                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input asp-for="IsShow" /> @Html.DisplayNameFor(model => model.IsShow)
+            </label>
+        </div>
+    </div>
+    <input type="hidden" asp-for="Id" />
+    <dl class="col-md-4">
+        <dt class="col-sm-12">
+            @*@Html.DisplayNameFor(model => model.AwardImagePath)*@
+            @_localizer["AnnouncementImagePath"]
+        </dt>
+        <dd class="col-sm-12">
+            <img class="img-responsive img-fluid" src="/@Html.DisplayFor(model => model.ImagePath)">
+        </dd>
+    </dl>
+
+
+</div>
+<div >
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="@_localizer["Delete"]" class="btn btn-default-custom" /> |
+        <a asp-action="Index" class="custom-link">@_localizer["Back to List"]</a>
+    </form>
+</div>

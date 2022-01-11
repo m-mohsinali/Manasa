@@ -1,0 +1,74 @@
+﻿@model Award.Core.Entities.Announcement
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@*@inject Award.Web.Controllers.BaseController _baseController*@
+@{  string lang = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+}
+@{
+    ViewData["Title"] = "AnnouncementDetails";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+@if (lang.Contains("ar"))
+{
+    <style>
+        .direction {
+            direction: rtl;
+            text-align: right;
+        }
+    </style>
+}
+
+
+@{ var imgscr = "\\" + Model.ThumbnailImagePath; }
+
+
+<div class="container direction">
+    <div class="col-xs-12 my-2">
+        <h1 class="heading-border">@Model.Title</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="font-size:x-large;">
+            <div class="col-xs-12 ">
+                <div class="card mb-2" style="max-height:250px; max-width:300px;">
+                    <img class="card-img-top img-responsive img-fluid" style='height: 34rem;' src="@imgscr" alt="Card image cap">
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12" style="font-size:x-large;">
+                <div class="col-sm-12" style="font-weight:bold;">
+                    @_localizer["Title"]
+                </div>
+                <div class="col-sm-12">
+                    <input class="form-control" style="font-size: x-large" type="text" name="name" value="@Model.Title" readonly />
+                </div>
+
+            </div>
+            <div class="col-md-12" style="font-size:x-large;">
+                <div class="col-sm-12" style="font-weight:bold;">
+                    @_localizer["Description"]
+                </div>
+                <div class="col-sm-12">
+                    <textarea class="form-control" style="font-size: x-large" type="text" name="Description" rows="4" readonly>@Model.Description</textarea>
+                </div>
+
+            </div>
+             
+            
+
+            <div class="col-xs-12 my-2">
+                <a class="btn btn-secondary" style="font-size: x-large;" asp-action="Index"><i class="fa fa-angle-left"></i> @_localizer["Back"]</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+

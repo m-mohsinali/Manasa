@@ -1,0 +1,141 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model IEnumerable<Award.Core.Entities.ReportGenericData>
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AwardsController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+@inject Award.Web.Common.Auth.IUserSession _usersession
+@*@inject IViewLocalizer _localizer*@
+
+@{
+    ViewData["Title"] = @_localizer["AwardsIndex"];
+    Layout = "~/Views/Shared/_LayoutReports.cshtml";
+}
+
+<div class="row justify-content-between">
+    @*@if (!@_usersession.IsSuperAdmin)
+        {
+            <div class="col-xs-6">
+                <h1 class="text-right">
+                    <a asp-action="Create" class="btn btn-secondary "> @_localizer["Create Award"]</a>
+                </h1>
+            </div>
+        }*@
+
+
+</div>
+<hr />
+ 
+
+<div class="" style="padding-left:10px;">
+    <h1 class="heading-border"> @_localizer["Reports"]</h1>
+</div>
+<div style="padding-right:10px;">
+    <h1 class="text-right">
+        <a class="btn btn-success" onclick="printContent('reportTable');"> @_localizer["Print"]</a>
+    </h1>
+</div>
+<div></div>
+<div class="table-responsive">
+    <table id="reportTable" class="table table-condensed table-sm" style="padding-right: 10px; padding-left:10px;">
+        <thead>
+            <tr>
+                <th>
+                    @_localizer["Award  Name"]
+                </th>
+                <th>
+                    @_localizer["AwardType"]
+                </th>
+                <th>
+                    @_localizer["Category Name"]
+                </th>
+                <th>
+                    @_localizer["Category Descirption"]
+                </th>
+                <th>
+                    @_localizer["End User"]
+                </th>
+                <th>
+                    @_localizer["QSM"]
+                </th>
+                @*<th>
+                    @_localizer["CategoryCriteraDescription"]
+                </th>
+                <th>
+                    @_localizer["CatSubCriteriaDescription"]
+                </th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AwardName)
+
+                    </td>
+                    <td style="min-width: 150px !important;">
+                        @Html.DisplayFor(modelItem => item.DescEn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryName)
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.CategoryDescirption)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignedUserEnglish)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QSMEnglish)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.CategoryCriteraDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CatSubCriteriaDescription)
+                    </td>*@
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function printContent(el) {
+
+        window.location.href = '@Url.Action("Print", "Reports")';
+        //var restorepage = document.body.innerHTML;
+        //var printcontent = document.getElementById(el).innerHTML;
+        //document.body.innerHTML = printcontent;
+        //window.print();
+        //document.body.innerHTML = restorepage;
+    }
+
+    function createPDF() {
+        var sTable = document.getElementById('reportTable').innerHTML;
+
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 17px Calibri;}";
+        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+    }</script>

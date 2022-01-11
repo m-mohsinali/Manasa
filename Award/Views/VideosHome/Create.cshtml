@@ -1,0 +1,79 @@
+﻿@model Award.Models.VideosHomeViewModel
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Award.Web.Controllers.VideosHomeController> _localizer
+
+@*@{
+        ViewData["Title"] = "Create";
+        Layout = "~/Views/Shared/_AwardLayout.cshtml";
+    }*@
+    <div class="container-fluid">
+        <!-- END HEADER.PHP PART-->
+
+        <h1 class="heading-border">@_localizer["Create Announcement"]</h1>
+        <hr />
+        <div class="panel-body">
+            <div class="col-md-12">
+                <form asp-action="Create" enctype="multipart/form-data" class="form-horizontal form-bordered">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row"> 
+                        <div class="form-group col-md-12 row-direction">
+                            <label class=" col-md-12">@_localizer["Title"]</label>
+                            <div class="col-md-12">
+                                <input type="text" asp-for="VideosHome.Title" placeholder="Enter Announcement Title" class="form-control">
+                                <span asp-validation-for="VideosHome.Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 row-direction">
+                            <label class=" col-md-12">@_localizer["StartAnnouncingDate"]</label>
+                            <div class="col-md-12">
+                                <div class="col-md-12 input-group">
+                                    <input type="datetime-local" asp-for="VideosHome.StartAnnouncingDate" class="form-control mydatepicker" placeholder="mm/dd/yyyy"> @*<span class="input-group-addon"><i class="fa fa-calendar"></i></span>*@
+                                    <span asp-validation-for="VideosHome.StartAnnouncingDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 row-direction">
+                            <label class=" col-md-12">@_localizer["EndAnnouncingDate"]</label>
+                            <div class="col-md-12">
+                                <div class="col-md-12 input-group">
+                                    <input type="datetime-local" asp-for="VideosHome.EndAnnouncingDate" class="form-control mydatepicker" placeholder="mm/dd/yyyy"> @*<span class="input-group-addon"><i class="fa fa-calendar"></i></span>*@
+                                    <span asp-validation-for="VideosHome.EndAnnouncingDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 row-direction">
+                            <label class=" col-md-12">@_localizer["Description"]</label>
+                            <div class="col-md-12">
+                                <textarea id="mymce" asp-for="VideosHome.Description" rows="3" class="form-control"></textarea>
+                                <span asp-validation-for="VideosHome.Description" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 row-direction">
+                            <label asp-for="ThumbnailImage" class=" col-md-12">@_localizer["Add Video"] </label>
+                            <div class="col-md-12">
+                                <input asp-for="ThumbnailImage" class="form-control" type="file" />
+                                <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 row-direction">
+                            <div class=" col-md-12">
+                                <button type="submit" class="btn btn-default-custom"> <i class="fa fa-check"></i> @_localizer["Save"]</button>
+                                <button type="button" class="btn btn-default">@_localizer["Cancel"]</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+
+
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+

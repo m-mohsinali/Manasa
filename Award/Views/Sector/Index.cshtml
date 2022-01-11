@@ -1,0 +1,50 @@
+﻿@using Microsoft.Extensions.Localization
+@model IEnumerable<Award.Core.Entities.Sector>
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Award.Web.Controllers.SectorController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+
+@{
+    ViewData["Title"] = _localizer["Sector"];
+}
+
+<h1 class="heading-border">@_localizer["Sector"]</h1>
+<hr />
+
+<div class="table-responsive">
+    <table id="myTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th style="display:none">
+                </th>
+
+                <th>
+                    @_localizer["SectorNameEnglish"]
+                </th>
+                <th>
+                    @_localizer["SectorNameArabic"]
+                </th>
+                <th> @_localizer["Assign"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sector in Model)
+            {
+                <tr>
+                    <td style="display:none;">
+                        @sector.Id
+                    </td>
+                    <td>
+                        @sector.NameEn
+                    </td>
+                    <td>
+                        @sector.NameAr
+                    </td>
+
+                    <td><a asp-action="AssingQualitySectorManager" asp-route-sectorId="@sector.Id" class="btn btn-success"> @_localizer["Assign QSM"]</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

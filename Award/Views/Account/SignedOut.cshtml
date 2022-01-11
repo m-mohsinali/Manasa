@@ -1,0 +1,13 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AccountController> _localizer
+
+@{
+    ViewData["Title"] = @_localizer["SSigned out"];
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>
+    @_localizer["SYou have successfully signed out."]"
+</p>

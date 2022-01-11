@@ -1,0 +1,112 @@
+﻿@model List<Award.Core.Entities.Contact>
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.AccountController> _Accountlocalizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lang = ViewData["Lang"] != null ? ViewData["Lang"].ToString() : "";
+}
+
+<div class="row justify-content-between">
+    <div class="col-xs-6">
+        <h1 class="heading-border"> @_localizer["Contacts"]</h1>
+    </div>
+    <div class="col-xs-6">
+        <h1 class="text-right">
+            <a asp-action="Create" class="btn btn-secondary">@_localizer["Create"]</a>
+        </h1>
+    </div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table id="myTable" class="table table-condensed table-sm">
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    @_localizer["Name"]
+                </th>
+                <th>
+                    @_Accountlocalizer["Rank Name"]
+                </th>
+                <th>
+                    @_Accountlocalizer["Job Name"]
+                </th>
+                <th>
+                    @_localizer["Email"]
+                </th>
+                <th>
+                    @_localizer["Mobile"]
+                </th>
+                <th>
+                    @_localizer["Phone"]
+                </th>
+
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.Photo" width="150" height="150" alt="@item.RankEn" />
+                    </td>
+                    <td>
+                        @if (lang == "en")
+                        {
+                            @Html.DisplayFor(modelItem => item.EmployeeNameEn)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.EmployeeNameAr)
+                        }
+
+                    </td>
+                    <td class="cut-text">
+                        @if (lang == "en")
+                        {
+                            @Html.DisplayFor(modelItem => item.RankEn)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.RankAr)
+                        }
+                    </td>
+                    <td>
+                        @if (lang == "en")
+                        {
+                            @Html.DisplayFor(modelItem => item.JobEn)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.JobAr)
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td class="cut-text">
+                        @Html.DisplayFor(modelItem => item.Mobile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+
+                    <td>
+                        <a asp-action="Create" asp-route-ContactId="@item.Id"><i class="glyphicon glyphicon-list-alt text-info"></i> @_localizer["Edit"]</a>
+                        <a asp-action="Delete" asp-route-ContactId="@item.Id"><i class="glyphicon glyphicon-remove text-danger"></i> @_localizer["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

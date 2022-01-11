@@ -1,0 +1,79 @@
+﻿@model Award.Core.Entities.Winner
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Winner</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAnnounced)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsAnnounced)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowWinnerImage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ShowWinnerImage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AnounceDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnounceDate)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.IdAward)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdAward)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCategory)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdCategory)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdEmployee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdEmployee)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdSector)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdSector)
+        </dd>*@
+        @*<dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeletedDate)
+        </dd>*@
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="custom-link">Edit</a> |
+    <a asp-action="Index" class="custom-link">Back to List</a>
+</div>

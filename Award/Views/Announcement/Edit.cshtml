@@ -1,0 +1,86 @@
+﻿@model Award.Models.AnnouncementViewModel
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AnnouncementController> _localizer
+@using Microsoft.AspNetCore.Mvc.Localization
+
+<div class="container-fluid">
+    <h1 class="heading-border">@_localizer["Edit Announcement"]</h1>
+    <hr />
+    <div class="">
+        <div class="panel-body">
+            @*<form asp-action="Edit" class="form-horizontal form-bordered" enctype="multipart/form-data">*@
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+
+                <input type="hidden" asp-for="Announcement.Id" />
+                <input type="hidden" asp-for="Announcement.CreatedAt" />
+                <input type="hidden" asp-for="Announcement.ThumbnailImagePath" />
+                <input type="hidden" asp-for="Announcement.Name" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="form-group col-md-12 row-direction">
+                        <label class=" col-md-12">@_localizer["Title"]</label>
+                        <div class="col-md-12">
+                            <input type="text" asp-for="Announcement.Title" placeholder="Enter Announcement Title" class="form-control">
+                            <span asp-validation-for="Announcement.Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 row-direction">
+                        <label class=" col-md-12">@_localizer["StartAnnouncingDate"]</label>
+                        <div class="col-md-12">
+                            <div class="col-md-12 input-group">
+                                <input type="datetime-local" asp-for="Announcement.StartAnnouncingDate" class="form-control mydatepicker" placeholder="mm/dd/yyyy"> @*<span class="input-group-addon"><i class="fa fa-calendar"></i></span>*@
+                                <span asp-validation-for="Announcement.StartAnnouncingDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 row-direction">
+                        <label class=" col-md-12">@_localizer["EndAnnouncingDate"]</label>
+                        <div class="col-md-12">
+                            <div class="col-md-12 input-group">
+                                <input type="datetime-local" asp-for="Announcement.EndAnnouncingDate" class="form-control mydatepicker" placeholder="mm/dd/yyyy"> @*<span class="input-group-addon"><i class="fa fa-calendar"></i></span>*@
+                                <span asp-validation-for="Announcement.EndAnnouncingDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 row-direction">
+                        <label class=" col-md-12">@_localizer["Description"]</label>
+                        <div class="col-md-12">
+                            <textarea id="mymce" asp-for="Announcement.Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Announcement.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group row-direction">
+                        <label class="col-md-12">@_localizer["annoucementImage"]</label>
+                        <div class="col-md-12">
+                            <input class="form-control" asp-for="ThumbnailImage" type="file" />
+                            <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="form-group col-md-12 row-direction">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-default-custom"> <i class="fa fa-check"></i> @_localizer["Save"]</button>
+                            <button type="button" class="btn btn-default">@_localizer["Cancel"]</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index" class="custom-link">@_localizer["Back to List"]</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

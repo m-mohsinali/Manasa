@@ -1,0 +1,147 @@
+﻿@*@model Award.Core.Entities.Awards*@
+@model Award.Web.Models.AwardsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AwardsController> _localizer
+
+@{
+    ViewData["Title"] = @_localizer["AwardsEdit"];
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="heading-border">@_localizer["AwardsEdit"]</h1>
+
+<hr />
+<div class="">
+    @*<div class="panel-heading"><h4> @_localizer["Edit"]</h4> </div>*@
+    <div class="panel-body">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-12 form-group">
+                    @*<label asp-for="award.Name" class="control-label"></label>*@
+                    <label asp-for="award.Name" class="control-label">@_localizer["Name"]</label>
+                    <input asp-for="award.Name" class="form-control" />
+                    <span asp-validation-for="award.Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    @*<label asp-for="award.Description" class="control-label"></label>*@
+                    <label asp-for="award.Description" class="control-label">@_localizer["Description"]</label>
+                    <textarea asp-for="award.Description" rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="award.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row row-direction">
+                <div class="col-md-4 form-group">
+                    @*<label asp-for="award.AwardStatus" class="control-label"></label>*@
+                    <label asp-for="award.AwardStatus" class="control-label">@_localizer["AwardStatus"]</label>
+                    <select asp-for="award.AwardStatus" asp-items="Html.GetEnumSelectList<Award.Core.Entities.AwardStatus>()" class="form-control"></select>
+
+                    @*<input asp-for="award.AwardStatus" class="form-control" />*@
+                    <span asp-validation-for="award.AwardStatus" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 form-group">
+                    @*<label asp-for="award.OpeningDate" class="control-label"></label>*@
+                    <label asp-for="award.OpeningDate" class="control-label">@_localizer["OpeningDate"]</label>
+                    <input asp-for="award.OpeningDate" id="txtStartDate" onchange="check_date()" class="form-control" />
+                    <span asp-validation-for="award.OpeningDate" class="text-danger"></span>
+                    <strong id="validateDate1" class="text-danger"></strong>
+
+                </div>
+                <div class="col-md-4 form-group">
+                    @*<label asp-for="award.ClosingDate" class="control-label"></label>*@
+                    <label asp-for="award.ClosingDate" class="control-label">@_localizer["ClosingDate"]</label>
+                    <input asp-for="award.ClosingDate" class="form-control" id="txtEndDate" onchange="check_date()" />
+                    <span asp-validation-for="award.ClosingDate" class="text-danger"></span>
+                    <strong id="validateDate2" class="text-danger"></strong>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label asp-for="awardImagePath" class="control-label">@_localizer["awardImagePath"]</label>
+                    <input asp-for="awardImagePath" class="form-control" type="file" />
+                    <span asp-validation-for="awardImagePath" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label asp-for="AwardDocuments" class="control-label">@_localizer["AwardDocuments"]</label>
+                    <input asp-for="AwardDocuments" class="form-control" type="file" multiple />
+                    <span asp-validation-for="AwardDocuments" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="award.Id" />
+                <input type="hidden" asp-for="award.AwardDocuments" />
+                <input type="hidden" asp-for="award.AwardImagePath" />
+                @*<div class="form-group">
+                        <label asp-for="CreateDate" class="control-label"></label>
+                        <input asp-for="CreateDate" class="form-control" />
+                        <span asp-validation-for="CreateDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UpdatedDate" class="control-label"></label>
+                        <input asp-for="UpdatedDate" class="form-control" />
+                        <span asp-validation-for="UpdatedDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DeletedDate" class="control-label"></label>
+                        <input asp-for="DeletedDate" class="form-control" />
+                        <span asp-validation-for="DeletedDate" class="text-danger"></span>
+                    </div>*@
+                <div class="col-md-12 form-group">
+                    <input type="submit" value="@_localizer["Save"]" class="btn btn-default-custom" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class=" ">
+    <a asp-action="Index" class="btn-back custom-link">@*<i class="fa fa-angle-left" aria-hidden="true"></i>*@@_localizer["Back to List"]</a>
+</div>
+
+<script type="text/javascript">
+    /**/
+
+  
+
+
+    function check_date() {
+        //document.getElementById("txtEndDate").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) + "-" + new Date().getDate();
+        var date1 = new Date(document.getElementById("txtStartDate").value);
+        var date2 = new Date(document.getElementById("txtEndDate").value);
+        var today = new Date();
+        console.log(date1, date2);
+        //var dateOne = date1.setHours(0, 0, 0, 0);
+        //var dateTwo = date2.setHours(0, 0, 0, 0);
+        if (date1.valueOf() > date2.valueOf()) {
+            document.getElementById("validateDate1").innerHTML = "Start Date can not be greater than End Date!";
+            //alert("Start Date can not be greater than End Date!");
+        } else {
+            document.getElementById("validateDate1").innerHTML = "";
+        }
+        //console.log(document.getElementById("txtEndDate").value + " " + date2);
+        if (date2.valueOf() < today) {
+            document.getElementById("validateDate2").innerHTML = "Please enter a value greater than or equal to " + date2;
+        } else {
+            document.getElementById("validateDate2").innerHTML = "";
+        }
+    }
+
+
+    $(document).ready(function () {
+        jQuery('.mydatepicker, #datepicker').datepicker({
+            orientation: 'top auto'
+        });
+    });
+
+</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

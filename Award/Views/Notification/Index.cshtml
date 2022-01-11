@@ -1,0 +1,67 @@
+﻿@model List<Award.Web.Models.NotificationViewModel>
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .cut-text { 
+  text-overflow: ellipsis !important;
+  overflow: hidden !important; 
+  width: 200px !important; 
+  height: 1.2em !important; 
+  white-space: nowrap !important;
+
+}
+</style>
+<div class="row justify-content-between">
+    <div class="col-xs-6">
+        <h1 class="heading-border"> @_localizer["Notification"]</h1>
+    </div>
+</div>
+<hr />
+<div class="table-responsive">
+    <table id="myTable" class="table table-condensed table-sm">
+        <thead>
+            <tr>
+                <th>
+                    @_localizer["NotificationType"]
+                </th>
+                <th>
+                    @_localizer["Notification"]
+                </th>
+                <th>
+                    @_localizer["NotificationDate"]
+                </th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NotificationType)
+                </td>
+                <td class="cut-text">
+                    @Html.DisplayFor(modelItem => item.NotificationText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+
+                <td>
+                    <a asp-action="NotificationDetail" asp-route-NotificationId="@item.NotificationId"><i class="glyphicon glyphicon-list-alt text-info"></i> @_localizer["Details"]</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

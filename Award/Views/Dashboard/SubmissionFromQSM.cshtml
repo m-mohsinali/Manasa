@@ -1,0 +1,62 @@
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model IEnumerable<Award.Web.Models.QSMSubmissionViewModel>
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.DashboardController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+@{
+    ViewData["Title"] = @_localizer["Total Submission From QSM"];
+}
+
+<h1 class="heading-border"> @_localizer["Total Submission From QSM"]</h1>
+<hr />
+<div class="table-responsive">
+    <table id="myTable" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @_localizerCat["Sector"]
+                </th>
+                <th>
+                    @_localizer["Awards"]
+                </th>
+                <th>
+                    @_localizerCat["Categories"]
+                </th>
+                <th>
+                    @_localizerCat["AssignedTo"]
+                </th>
+                <th>
+                    @_localizer["QSM"]
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SectorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AwardName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignedUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QSM)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

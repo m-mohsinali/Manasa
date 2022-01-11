@@ -1,0 +1,9 @@
+﻿
+@font-face {
+    font-family: 'Dubai-Regular';
+    src: url('../font/Dubai-Regular.ttf') format('truetype');
+}
+
+body {
+    font-family: Dubai-Regular !important;
+}

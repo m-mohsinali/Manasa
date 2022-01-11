@@ -1,0 +1,341 @@
+﻿@model IEnumerable<Award.Web.Models.TeamMemberViewModel>
+@*@using AwardContract.General
+    @model IEnumerable<AwardContract.Models.Category>S
+*@
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizerHome
+
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<div class="cointainer-fluid">
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+
+
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+
+                <h1 class="heading-border"> @_localizer["Evaluation"]</h1>
+                <hr />
+
+                <div class="container" id="divMessage" style="display:none; width: 95%;">
+                    <div class="alert btn-default-custom alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        Sucessfully Saved!
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="myTable1" class="table table-striped">
+                        <thead>
+                            <tr style="width: 100%;">
+                                <th style="display:none">
+
+                                </th>
+                                <th>
+                                    @_localizer["Award"]
+
+                                </th>
+                                <th>
+                                    @_localizer["Categories"]
+
+                                </th>
+
+                                <th>
+                                    @_localizer["Name"]
+
+                                </th>
+
+                                <th>
+                                    @_localizer["Status"]
+                                </th>
+
+                                <th> @_localizer["TotalMarks"]</th>
+
+                                @if (@_usersession.IsJury || _usersession.Isadmin)
+                                {
+                                <th> @_localizer["View"]</th>
+
+                                }
+                                @if (_usersession.Isadmin)
+                                {
+                                <th> @_localizer["AnnounceWinner"]</th>
+
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var currentRow = 1;
+                                var backGroudColor = "";
+
+                            }
+                            @foreach (var item in Model)
+                            {
+                            @if (currentRow == 1)
+                                {
+                                    backGroudColor = "background-color:#8ef688";
+
+                                }
+                            @if (currentRow == 2)
+                                {
+                                    backGroudColor = "background-color:#8ef688";
+
+                                }
+                            @if (currentRow == 3)
+                                {
+                                    backGroudColor = "background-color:#8ef688";
+
+                                }
+                            @if (currentRow > 3)
+                                {
+                                    backGroudColor = "";
+
+                                }
+
+                            <tr style=@backGroudColor>
+                                <td style="display:none">
+                                    @Html.DisplayFor(modelItem => item.UserId)
+                                    @Html.DisplayFor(modelItem => item.CategoryTeamsId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Award)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CatName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalMarks)
+                                </td>
+                                <td><a href="#" id="@item.CatId" class="badge btn-danger" onclick="ViewAllocatedCategory(@item.UserId,@item.CategoryTeamsId,'@item.Status',@item.AuditorId);"> @_localizer["View"]</a></td>
+
+                                @if (_usersession.Isadmin)
+                                {
+                                    @if (currentRow < 4)
+                                    {
+                                        @if (item.AlreadyAnnounced == 1)
+                                        {
+                                            <td><a href="#" id="@item.CatId" class="badge btn-danger" style="background-color:#bf2131" disabled> @_localizer["AnnounceWinner"]</a></td>
+
+                                        }
+                                        else
+                                        {
+                                            <td><a href="#" id="@item.CatId" class="badge btn-danger" style="background-color:#4CAF50" onclick="showModalMessage(@item.UserId,@item.CatId,@item.AwardId);"> @_localizer["AnnounceWinner"]</a></td>
+
+                                        }
+
+                                    }
+                                }
+
+
+                            </tr>
+                                currentRow = currentRow + 1;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-group">
+                    <input action="action" onclick="window.history.go(-1); return false;" type="submit" class="btn btn-default-custom" value="@_localizer["Back"]" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="confirmationModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table id="myTable1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <h3><span>@_localizer["Confirmation"]</span></h3>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h4><span>@_localizer["AreYouSure"]</span></h4>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                        <span>@_localizer["SubmittedMessage"]</span>
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="hdnCategoryId" />
+                                        <input type="hidden" id="hdnUserId" />
+                                        <input type="hidden" id="hdnAwardId" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="width:80%">
+                                        @_localizer["Description"]
+                                    </th>
+                                    <th style="width:20%">
+                                        @_localizer["Year"]
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td style="width:80%">
+                                        <textarea class="form-control" rows="3" id="txtDescription" onblur="hideMsg();"></textarea>
+                                        <span id="descMsg" style="font-weight:bold; color:red;display:none" hidden>@_localizer["DescErrorMsg"]</span>
+                                        @*<input type="area" id="txtDescription" class="form-control" />*@
+                                    </td>
+                                    <td style="width:20%">
+                                        <select asp-items="@ViewData["AwardYearSelectList"] as SelectList" id="ddlYear" class="form-control">
+                                            <option value="">@_localizer["Select"]</option>
+                                        </select>
+                                        <span id="yearMsg" style="font-weight:bold; color:red;display:none" hidden> @_localizer["YearMsg"]</span>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="AnnounceWinner(1);">@_localizer["Yes"]</button>
+                    <button type="button" class="btn btn-default-custom" data-dismiss="modal">@_localizer["No"]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     
+
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function(){
+    $(".show-modal").click(function(){
+        $("#confirmationModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    });
+});
+   
+
+        $(document).ready(function () {
+
+        if ('@ViewBag.saveStatus' == "1") {
+            var x = document.getElementById("divMessage");
+                 x.style.display = "block";
+        }
+        if ('@ViewBag.saveStatus' == "2") {
+            alert("Not Added Successfully.");
+        }
+});
+         function ViewAllocatedCategory(userId,catTeamId,Status,AuditorId) {
+
+
+             var url = '@Url.Action("ViewAllocatedCategory", "Evaluation")';
+                 url += "?userId=" + escape(userId);
+                 url += "&catTeamId=" + escape(catTeamId);
+                 url += "&auditorId=" + escape(AuditorId);
+                 window.location.href = url;
+        }
+
+        function AnnounceWinner(isAnnounce) {
+
+           
+            if (document.getElementById("txtDescription").value != "" && document.getElementById("ddlYear").value != "") {
+                if (isAnnounce == 1) {
+
+                    if (document.getElementById("txtDescription").value == "")
+
+                        if (document.getElementById("ddlYear").value == "")
+
+
+                            $("#loader").show();
+
+                    $.ajax({
+                        url: '@Url.Action("AnnounceWinner","WinnerAnnouncements")',
+                        data: {
+                            catId: document.getElementById("hdnCategoryId").value,
+                            winnerUserId: document.getElementById("hdnUserId").value,
+                            awardId: document.getElementById("hdnAwardId").value,
+                            desc: document.getElementById("txtDescription").value,
+                            year: document.getElementById("ddlYear").value
+                        }
+                    }).done(function () {
+                        $('#confirmationModal').modal('hide');
+                        var x = document.getElementById("divMessage");
+                        x.style.display = "block";
+                        $("#loader").hide();
+                    });
+                }
+                else {
+                    $('#confirmationModal').modal('hide');
+
+                }
+            }
+            else {
+
+                var x = document.getElementById("descMsg");
+                if (document.getElementById("txtDescription").value == "" )
+                x.style.display = "block";
+
+                var y = document.getElementById("yearMsg");
+                if ( document.getElementById("ddlYear").value == "")
+                 y.style.display = "block";
+
+            }
+        }
+
+
+        function showModalMessage(userId, catId, awardId) {
+            document.getElementById("hdnCategoryId").value = catId;
+            document.getElementById("hdnUserId").value = userId;
+            document.getElementById("hdnAwardId").value = awardId;
+
+        $('#confirmationModal').modal('show');
+
+        }
+        function hideMsg() {
+            var x = document.getElementById("descMsg");
+                 x.style.display = "none";
+        }
+
+        function callUserAnswer() {
+            window.location.href = '@Url.Content("~/UserAnswers/Index")';
+
+        }
+
+    </script>
+}

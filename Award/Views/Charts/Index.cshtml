@@ -1,0 +1,350 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script src="//cdn.jsdelivr.net/excanvas/r3/excanvas.js" type="text/javascript"></script>
+    <script src="//cdn.jsdelivr.net/chart.js/0.2/Chart.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>
+    <script src="https://raw.githubusercontent.com/google/palette.js/master/palette.js"></script>
+
+    <form id="form1" runat="server">
+        <script type="text/javascript">
+            $.ajax({
+                type: "POST",
+                url: "/Charts/NewChart",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (chData) {
+                    //debugger;
+                    var aData = chData;
+                    var aLabels = aData.chData[0];
+                    var aDatasets1 = aData.chData[1];
+                    var backgroundColor = aData.chData[2];
+
+                    var dataT = {
+                        labels: aLabels,
+                        datasets: [{
+                            label: "Awards Bar Charts",
+                            data: aDatasets1,
+                            fill: false,
+                            backgroundColor: backgroundColor,// ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+                          //  borderColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                            borderWidth: 1
+                        }]
+                    };
+                    //Bar Chart
+                    //var ctx = $("#myChartBar").get(0).getContext("2d");
+                    //var myNewChart = new Chart(ctx, {
+                    //    type: 'bar',
+                    //    data: dataT,
+                    //    options: {
+                    //        responsive: true,
+                    //        title: { display: true, text: 'Awards Pie Chart' },
+                    //        legend: { position: 'bottom' },
+                    //        scales: {
+                    //            xAxes: [{
+                    //                gridLines: { display: false },
+                    //                display: true,
+                    //                scaleLabel: { display: false, labelString: '' }
+                    //            }],
+                    //            yAxes: [{
+                    //                gridLines: { display: false },
+                    //                display: true,
+                    //                scaleLabel: { display: false, labelString: '' },
+                    //                ticks: { stepSize: 5, beginAtZero: true }
+                    //            }]
+                    //        },
+                    //    }
+                    //});
+
+
+                    //For Pie Chart
+                    var ctx1 = document.getElementById("myChartSectors").getContext('2d');
+                    var myChart = new Chart(ctx1, {
+                        type: 'pie',
+                        height: "100px",
+                        width: "100px",
+                        responsive: true,
+                        animation: true,
+                        fill: true,
+
+                        legend: { position: 'bottom' },
+                        data: dataT
+                        , options: {
+                            // This chart will not respond to mousemove, etc
+                            events: ['click']
+                        }
+                    });
+
+
+                     var dataTNewTest = {
+                        labels: aLabels,
+                        datasets: [{
+                            label: "Awards Bar Charts",
+                            data: aDatasets1,
+                            fill: false,
+                            backgroundColor:["#007ea9","#4bc0c0","#ffcd56","#ff6384"], //backgroundColor,// ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+                            //borderColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                            borderWidth: 1
+                        }]
+                    };
+                    
+                     var ctxChartsAwardTypePieNew = document.getElementById("chartsAwardTypePieNew").getContext('2d');
+                    var myChart = new Chart(ctxChartsAwardTypePieNew, {
+                        type: 'pie',
+                        height: "100px",
+                        width: "100px",
+                        responsive: true,
+                        animation: true,
+                        fill: true,
+
+                        legend: { position: 'bottom' },
+                        data: dataTNewTest
+                        , options: {
+                            // This chart will not respond to mousemove, etc
+                            events: ['click']
+                        }
+                    });
+
+
+
+                    var ctx = document.getElementById("chartDoughnat").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        height: "100px",
+                        width: "100px",
+                        responsive: true,
+                        animation: true,
+                        fill: true,
+
+                        legend: { position: 'bottom' },
+                        data: dataT
+                        , options: {
+                            // This chart will not respond to mousemove, etc
+                            events: ['click']
+                        }
+                    });
+
+
+                    //For line Chart
+                    //var ctx2 = document.getElementById("myLineChart").getContext('2d');
+                    //var myChart = new Chart(ctx2, {
+                    //    type: 'line',
+                    //    responsive: true,
+                    //    animation: true,
+                    //    fill: true,
+
+                    //    legend: { position: 'bottom' },
+                    //    data: {
+                    //        //labels: ["M", "T", "W", "T", "F", "S", "S"],
+                    //        labels: aLabels,
+                    //        datasets: [{
+                    //            label: 'Monthly Expenses',
+                    //            data: aDatasets1,
+                    //            // backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+                    //            backgroundColor: backgroundColor,
+                    //            borderColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                    //            borderWidth: 1
+                    //        }]
+                    //    }, options: {
+                    //        // This chart will not respond to mousemove, etc
+                    //        events: ['click']
+                    //    }
+                    //});
+
+                }
+            });
+
+
+
+
+            //Awards Chart Start here
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Charts/AwardsCharts",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (chData) {
+                    //debugger;
+                    var aData = chData;
+                    var aLabels = aData.chData[0];
+                    var aDatasets1 = aData.chData[1];
+                    var backgroundColor = aData.chData[2];
+
+                    var dataT = {
+                        labels: aLabels,
+                        datasets: [{
+                            label: "Awards Bar Charts",
+                            data: aDatasets1,
+                            fill: false,
+                            backgroundColor: backgroundColor,// ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+                          //  borderColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                            borderWidth: 1
+                        }]
+                    };
+
+                    //For Pie Chart
+                    var ctx1 = document.getElementById("chartsAwardTypePie").getContext('2d');
+                    var myChart = new Chart(ctx1, {
+                        type: 'pie',
+                        height: "100px",
+                        width: "100px",
+                        responsive: true,
+                        animation: true,
+                        fill: true,
+
+                        legend: { position: 'bottom' },
+                        data: dataT
+                        , options: {
+                            // This chart will not respond to mousemove, etc
+                            //  events: ['click']
+                        }
+                    });
+
+                     var dataTNew = {
+                        labels: aLabels,
+                        datasets: [{
+                            label: "Awards Bar Charts",
+                            data: aDatasets1,
+                            fill: false,
+                            backgroundColor:  ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)"],
+                            borderColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+                            borderWidth: 1
+                        }]
+                    };
+
+                      var ctxchartsAwardTypePieNewAwards = document.getElementById("chartsAwardTypePieNewAwards").getContext('2d');
+                    var myChart = new Chart(ctxchartsAwardTypePieNewAwards, {
+                        type: 'pie',
+                        height: "100px",
+                        width: "100px",
+                        responsive: true,
+                        animation: true,
+                        fill: true,
+
+                        legend: { position: 'bottom' },
+                        data: dataTNew
+                        , options: {
+                            // This chart will not respond to mousemove, etc
+                            //  events: ['click']
+                        }
+                    });
+
+
+
+
+                    
+
+                    //For doughnut Chart
+                    var ctxDoughnut = document.getElementById("chartsAwardTypeDoughnut").getContext('2d');
+                    var myChart = new Chart(ctxDoughnut, {
+                        type: 'doughnut',
+                        height: "100px",
+                        width: "100px",
+                        responsive: true,
+                        animation: true,
+                        fill: true,
+
+                        legend: { position: 'bottom' },
+                        data: dataT
+                        , options: {
+                            // This chart will not respond to mousemove, etc
+                            //  events: ['click']
+                        }
+                    });
+                }
+            });
+
+
+
+                                    //Awards Chart End here
+
+
+
+
+        </script>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 col-12 px-1 py-2">
+                <div Style="font-family: Corbel; font-size: small ;text-align:center">
+                    <p Style="font-family: Corbel; font-size: x-large ;text-align:center">Sectors</p>
+
+                    <div style="width:100%;height:100%; background-color:white">
+                        <canvas height="350px" id="myChartSectors"> </canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12 px-1 py-2">
+                <div Style="font-family: Corbel; font-size: small ;text-align:center">
+                    <p Style="font-family: Corbel; font-size: x-large ;text-align:center">Sectors</p>
+
+                    <div style="width:100%;height:100%; background-color:white">
+                        <canvas height="350px" id="chartDoughnat"> </canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12 px-1 py-2">
+                <div Style="font-family: Corbel; font-size: small ;text-align:center">
+                    <p Style="font-family: Corbel; font-size: x-large ;text-align:center">Sectors</p>
+
+                    <div style="width:100%; height:100%; background-color:white">
+                        <canvas height="350px" id="chartsAwardTypePieNew"> </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 col-12 px-1 py-2">
+                <div Style="font-family: Corbel; font-size: small ;text-align:center">
+                    <p Style="font-family: Corbel; font-size: x-large ;text-align:center">Awards Type</p>
+
+                    <div style="width:100%;height:100%; background-color:white">
+                        <canvas height="350px" id="chartsAwardTypePie"> </canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12 px-1 py-2">
+                <div Style="font-family: Corbel; font-size: small ;text-align:center">
+                    <p Style="font-family: Corbel; font-size: x-large ;text-align:center">Awards Type</p>
+
+                    <div style="width:100%;height:100%; background-color:white">
+                        <canvas height="350px" id="chartsAwardTypeDoughnut"> </canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12 px-1 py-2">
+                <div Style="font-family: Corbel; font-size: small ;text-align:center">
+                    <p Style="font-family: Corbel; font-size: x-large ;text-align:center">Awards Type</p>
+
+                    <div style="width:100%;height:100%; background-color:white">
+                        <canvas height="350px" id="chartsAwardTypePieNewAwards"> </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        @*<div Style="font-family: Corbel; font-size: small ;text-align:center " class="row">
+            <div style="width:30%;height:25%; background-color:white">
+                <canvas id="myChartBar" style="padding: 0;margin: auto;display: block; "> </canvas>
+            </div>
+        </div>*@
+    </form>
+</body>
+</html>
+
+
+

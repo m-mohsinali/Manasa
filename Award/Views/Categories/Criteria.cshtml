@@ -1,0 +1,426 @@
+﻿@model Award.Web.Models.CategoryViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+
+@{
+    ViewData["Title"] = @_localizer["Criteria"];
+
+    var @showSubmitCheckBox = true;
+    int @criCounter = 0;
+    int @subCriCounter = 0;
+
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<h1 class="heading-border">@_localizer["Criteria"]</h1>
+<hr />
+<div class="cointainer-fluid">
+
+    <div class="container" id="divMessage" style="display:none">
+        <div class="alert btn-default-custom alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+             @_localizer["Sucessfully Processed"]
+
+        </div>
+    </div>
+    <!-- <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+
+
+        </div>
+        /.col-lg-12
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-12 white-box">
+            <hr />
+            <form asp-action="saveCriteria" enctype="multipart/form-data" id="formCriteria">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Category.Id" />
+                <input type="hidden" asp-for="Category.CategoryDocuments" />
+                <input type="hidden" asp-for="@Model.AssignedUserId" />
+                <input type="hidden" asp-for="@Model.ButtonClickStatus" id="hdnButtonClick" />
+
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @*<label asp-for="Category.Name" class="control-label"></label>*@
+                        <label>@_localizer["Name"]</label>
+                        <input asp-for="Category.Name" class="form-control" readonly />
+                        <span asp-validation-for="Category.Name" class="text-danger" disabled></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Opening Date Time</label>*@
+                        <label>@_localizer["OpeningDate"]</label>
+                        <div class="input-group">
+                            <input type="datetime-local" asp-for="Category.OpeningDate" class="form-control mydatepicker" placeholder="yyyy-mm-dd hh:ii" disabled> @*<span class="input-group-addon"><i class="fa fa-calendar"></i></span>*@
+                            <span asp-validation-for="Category.OpeningDate" class="text-danger" disabled></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Closing Date Time</label>*@
+                        <label>@_localizer["ClosingDate"]</label>
+                        <div class="input-group">
+                            <input type="datetime-local" asp-for="Category.ClosingDate" class="form-control mydatepicker" placeholder="yyyy-mm-dd hh:ii" disabled> @*<span class="input-group-addon"><i class="fa fa-calendar"></i></span>*@
+                            <span asp-validation-for="Category.ClosingDate" class="text-danger" disabled></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Category Description</label>*@
+                        <label>@_localizer["Description"]</label>
+                        <textarea class="form-control" rows="5" asp-for="Category.Description" disabled></textarea>
+                        @*<span asp-validation-for="Category.Description" class="text-danger"></span>*@
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Award Name</label>*@
+                        <label>@_localizer["Award"]</label>
+                        <select class="form-control" disabled asp-items="@(new SelectList(Model.Awards, "Id", "Name"))" asp-for="Category.IdAward">
+                            <option>@_localizer["Select Award Name"]</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Award Type</label>*@
+                        <label>@_localizer["AwardType"]</label>
+                        <select class="form-control" disabled asp-items="@(Html.GetEnumSelectList<Award.Core.Entities.AwardType>())" asp-for="Category.AwardType">
+                            <option>@_localizer["Select Award Type"]</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                @for (int cri = 0; cri < Model.criteriaViewModel.Count(); cri++)
+                {
+                    <div class="col-md-12 form-group">
+                        <input type="hidden" class="form-control" asp-for="@Model.criteriaViewModel[cri].Id" />
+                        <label>@_localizer["Criteria"] @(++criCounter)</label>
+                        <input type="text" class="form-control" readonly asp-for="@Model.criteriaViewModel[cri].Description" />
+                    </div>
+                    @for (int subcri = 0; subcri < Model.criteriaViewModel[cri].subCriteriaViewModel.Count(); subcri++)
+                    {
+                        <input type="hidden" class="form-control" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].Id" />
+                        <div class="col-md-12 form-group">
+                            <label>@_localizer["Sub Criteria"] @(++subCriCounter)</label>
+                            <input type="text" class="form-control" readonly asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].Description" />
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="form-group">
+                                <label>@_localizer["Marks"]</label>
+                                <input type="text" class="form-control" readonly asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].Marks" />
+
+                                <label>@_localizer["MaxWords"]</label>
+                                <input type="text" class="form-control" readonly asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].MaxWords" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 ">
+                            <div class="form-group">
+                                <label>@_localizer["Answer"]</label>
+                                @if (@_usersession.IsEndUser)
+                                {
+                                    <input type="text" class="form-control" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].Answer" />
+                                    @if (@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].Answer == null || @Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].Answer == "")
+                                    {
+                                        showSubmitCheckBox = false;
+
+                                    }
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].Answer" disabled />
+
+                                }
+                                <label>@_localizer["Comments"]</label>
+                                <textarea type="text" class="form-control" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].Comments"></textarea>
+                                <label>@_localizer["Detail"]</label>
+                                <textarea class="form-control" rows="5" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].CommentsDetail" disabled></textarea>
+
+                                <input type="hidden" class="form-control" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].CommentsDetail" />
+
+                                <br />
+                                <label>@_localizer["Documents"]</label>
+
+                                @if (@_usersession.IsEndUser)
+                                {
+                                    <input class="form-control form-control-file" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].SubCategoryDocuments1" type="file" multiple />
+                                    <span asp-validation-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].SubCategoryDocuments1" class="text-danger"></span>
+                                    <input type="hidden" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].SubCategoryDocuments1" />
+                                }
+                                else
+                                {
+                                    <input class="form-control form-control-file" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].SubCategoryDocuments1" type="file" disabled />
+                                    <span asp-validation-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].SubCategoryDocuments1" class="text-danger"></span>
+                                    <input type="hidden" asp-for="@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].SubCategoryDocuments1" />
+                                }
+                                <a href="/UserDetail/DownloadSubCriteriaFiles?subCriteria=@Model.criteriaViewModel[cri].subCriteriaViewModel[subcri].Id&qsmEntryId=@Model.QsmEntryId" target="_blank"> @_localizer["Download"]</a>
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        @if (Model.EnableSubmitChkBox == false)
+                        {
+                            <input type="submit" disabled value="@_localizer["Save"]" class="btn btn-default-custom" /> 
+                        }
+                        else
+                        {
+                            @if (@_usersession.IsQSM)
+                            {
+                                <input id="btnQsmSubmit" type="submit" value="@_localizer["ReturnRevise"]" class="btn btn-default-custom" />    
+                                <input id="btnQSMSave" type="submit" value="@_localizer["Save"]" class="btn btn-default-custom" style="display:none;" /> 
+
+                            }
+                            else
+                            {
+                                <input type="button" value="@_localizer["Save"]" class="btn btn-default-custom" onclick="formSubmit('save');" />
+
+
+                                @if (Model.CurrentStatus == 3)
+                                {
+                                    <input type="button" value="@_localizer["Resubmit"]" class="btn btn-default-custom" onclick="formSubmit('resubmit');" /> 
+
+                                }
+                                else
+                                {
+                                    <input type="button" value="@_localizer["Submit"]" class="btn btn-default-custom" onclick="formSubmit('submit');" /> 
+
+                                }
+
+                            }
+                        }
+                        @if (@_usersession.IsQSM)
+                        {
+                            @*<label for="submit">@_localizer["Submit"]</label>*@
+
+                            @if (Model.EnableSubmitChkBox == true)
+                            {
+
+                                <input id="btnSubmit" type="button" value="@_localizer["Submit"]" class="btn btn-default-custom" onclick="showModalMessage('1')" />
+
+                                @Html.HiddenFor(m => Model.IsSubmitted, new { id = "sumbitCheckBox" })
+                            }
+                            else
+                            {
+                                <input id="btnSubmit" type="button" disabled value="@_localizer["Submit"]" class="btn btn-default-custom" />
+                                @*@Html.CheckBoxFor(m => Model.IsSubmitted, new { disabled = "disabled" })*@
+                            }
+
+                        }
+                        <input action="action" onclick="window.history.go(-1); return false;" type="submit" class="btn btn-default-custom" value="@_localizer["Back"]" />
+
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                </div>
+                <input type="hidden" id="totalCriteria" value="0" />
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="showSubmitMessageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                    </h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table id="myTable1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+
+                                        <h3><span>@_localizer["Alert"]</span></h3>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+
+                                        <h4><span>@_localizer["AreYouSure"]</span></h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+
+                                        <span>@_localizer["SubmittedMessage"]</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="submitCheckBox(1);">
+                        @_localizer["Yes"]
+
+                    </button>
+                    <button type="button" class="btn btn-default-custom" data-dismiss="modal" onclick="submitCheckBox(0);">
+                        @_localizer["No"]
+
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="showMessagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table id="myTable2" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+
+                                        @if (Model.SaveStatus == "2")
+                                        {
+                                            <span style="text-decoration-color:firebrick">@_localizer["Please correct following"]</span>
+                                        }
+                                        else
+                                        {
+                                             @_localizer["Sucessfully Processed"]
+
+
+                                        }
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align:left">
+
+                                        @if (@Html.Raw(@Model.Message).ToString() != "")
+                                        {
+                                            @Html.Raw(@Model.Message)
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="GoToIndexPage(@Model.Category.Id);">
+                                                @_localizer["Ok"]
+
+                                            </button>
+
+                                        }
+
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function formSubmit(status) {
+        $("#hdnButtonClick").val(status);
+        $("#formCriteria").submit();
+    }
+
+    $(document).ready(function () {
+
+        if ('@Model.SaveStatus' == "1") {
+
+                   $('#showMessagemodal').modal('show');
+
+             //var x = document.getElementById("divMessage");
+             //    x.style.display = "block";
+        }
+        if ('@Model.SaveStatus' == "2") {
+
+            //message
+                   $('#showMessagemodal').modal('show');
+
+        }
+
+
+
+    });
+
+     function showModalMessage() {
+
+        $('#showSubmitMessageModal').modal('show');
+
+    }
+
+    function submitCheckBox(id) {
+        if (id == 1) {
+            $("#sumbitCheckBox").prop("checked", true);
+            document.getElementById("btnQsmSubmit").style.display = "none";
+            document.getElementById("btnQSMSave").style.display = "block";
+
+            $("#sumbitCheckBox").val(true);
+            //sumbitCheckBox
+            $("#formCriteria").submit();
+            //SAAD
+
+        }
+        else {
+            $("#sumbitCheckBox").prop("checked", false);
+            document.getElementById("btnQsmSubmit").style.display = "block";
+            document.getElementById("btnQSMSave").style.display = "none";
+
+        }
+
+    }
+
+    function GoToIndexPage(catId) {
+         window.location.href = '@Url.Content("~/Categories/Index")';
+
+    }
+</script>
+
+
+

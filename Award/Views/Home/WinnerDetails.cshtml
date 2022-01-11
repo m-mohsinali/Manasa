@@ -1,0 +1,76 @@
+﻿@model Award.Web.Models.ShowWinnersViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+@{ string lang = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+}
+@{
+    ViewData["Title"] = "Winner Details";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+
+}
+@{ var imgscr = Model.EmployeeImage.StartsWith("http") ? Model.EmployeeImage : "\\" + Model.EmployeeImage; }
+
+@if (lang.Contains("ar"))
+{
+    <style>
+        .direction {
+            direction: rtl;
+            text-align: right;
+        }
+    </style>
+}
+
+
+
+<div class="container direction">
+    <h1 class="heading-border mt-2">@Model.EmployeeName</h1>
+    <hr />
+    <div class="col-md-12">
+
+        <div class="col-sm-12 ">
+
+            @if (Model.ShowImage)
+            {
+                <div class="card mb-2" style="max-height:250px; max-width:300px;">
+                    <img class="img-fluid img-responsive" src="@imgscr" style="padding: 1rem; margin: auto; height: 34rem;">
+                </div>
+            }
+            else
+            {
+                <img class="img-fluid img-responsive float-left" src="~/Image/AvatarImage.png" style="padding: 1rem; margin: auto; height: 34rem;" />
+            }
+
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12" style="font-size:x-large;">
+            <div class="col-sm-12" style="font-weight:bold;">
+                @_localizer["Award"]
+            </div>
+            <div class="col-sm-12">
+                <input class="form-control" style="font-size: x-large" type="text" name="name" value="@Model.Award" readonly />
+            </div>
+            <div class="col-sm-12" style="font-weight:bold;">
+                @_localizer["Category"]
+            </div>
+            <div class="col-sm-12">
+                <input class="form-control" style="font-size: x-large" type="text" name="name" value="@Model.Category" readonly />
+            </div>
+            <div class="col-sm-12" style="font-weight:bold;">
+                @_localizer["Description"]
+            </div>
+            <div class="col-sm-12">
+                <input class="form-control" style="font-size: x-large" type="text" name="name" value="@Model.Description" readonly />
+            </div>
+
+        </div>
+
+        <div class="col-xs-12 my-2">
+            <a class="btn btn-secondary" style="font-size: x-large;" asp-action="Index"><i class="fa fa-angle-left"></i> Back</a>
+        </div>
+    </div>
+</div>
+

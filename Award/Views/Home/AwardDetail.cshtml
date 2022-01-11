@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model Award.Web.Models.AwardsViewModel
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-wrapper">
+    <div class="media">
+        <div class="media-left">
+            <a href="#">
+                <img src="~/Image/award.png" alt="@Model.award.Name" />
+            </a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">@Model.award.Name </h4>
+
+            <div class="row">
+                <div class="col-sm-4"> @_localizer["Opening Date"] @Model.award.OpeningDate</div>
+                <div class="col-sm-4">@_localizer["Closing Date"]  @Model.award.ClosingDate</div>
+            </div>
+            <hr />
+            @foreach (var cat in Model.Categories)
+            {
+
+
+                <div class="row">
+                    <div class="col-sm-12"> @cat.AwardType</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12"> @cat.Description</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">@_localizer["Opening Date"] : @cat.OpeningDate</div>
+                    <div class="col-sm-4">@_localizer["Closing Date"] : @cat.ClosingDate</div>
+                </div>
+                <hr />
+                @foreach (var cri in cat.CategoryCriteria)
+                {
+                    <div class="row">
+                        <div class="col-sm-12"> @cri.Description</div>
+                    </div>
+                    foreach (var subcri in cri.CategorySubCriteria)
+                    {
+                        <div class="row">
+                            <div class="col-sm-6">  @subcri.Description</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4"> @_localizer["Max Words"] :  @subcri.MaxWords </div>
+                            <div class="col-sm-4"> @_localizer["Marks"] :  @subcri.Marks</div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+
+

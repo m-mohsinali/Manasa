@@ -1,0 +1,66 @@
+﻿@model Award.Web.Models.SectorViewModel
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Award.Web.Controllers.SectorController> _localizer
+
+@{
+    ViewData["Title"] = "Sector";
+}
+
+@{
+    var requestCultureFeature = this.Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
+    var requestCulture = requestCultureFeature.RequestCulture;
+    var isArabicLanguage = requestCulture.Culture.TwoLetterISOLanguageName.ToLower() == "ar";
+}
+
+<div>
+    <h1 class="heading-border">@_localizer["Assing Quality Sector Manager"]</h1>
+    <hr />
+    <form asp-action="AssingQualitySectorManager">
+
+        <div class="">
+            <div class="panel-body">
+                <dl class="row row-direction">
+                    <input type="hidden" asp-for="Sector.Id" />
+                    <dt class="col-sm-2">
+                        @_localizer["Sector Name"]
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Sector.NameEn)
+                    </dd>
+                </dl>
+                <dl class="row row-direction">
+                    <dt class="col-sm-2">
+                        @_localizer["Quality Section Manager Users"]
+                    </dt>
+                    <dd class="col-sm-10">
+                        <ul>
+                            @for (var i = 0; i < Model.QualitySectorManagerUsers.Count; i++)
+                            {
+                            <li>
+                                <input type="checkbox" asp-for="@Model.QualitySectorManagerUsers[i].IsSelected" />
+
+                                @if (isArabicLanguage)
+                                {
+                                    <label asp-for="@Model.QualitySectorManagerUsers[i].IsSelected">@Model.QualitySectorManagerUsers[i].User.LastName</label>
+
+
+                                }
+                                else
+                                {
+                                    <label asp-for="@Model.QualitySectorManagerUsers[i].IsSelected">@Model.QualitySectorManagerUsers[i].User.FirstName</label>
+
+
+                                }
+                                <input type="hidden" asp-for="@Model.QualitySectorManagerUsers[i].User.Id" />
+                                <input type="hidden" asp-for="@Model.QualitySectorManagerUsers[i].User.UserName" />
+                            </li>
+                            }
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <input type="submit" value="@_localizer["Save"]" class="btn btn-default-custom" /> |
+        <a asp-action="Index" class="custom-link">@_localizer["Back to List"]</a>
+    </form>
+
+</div>

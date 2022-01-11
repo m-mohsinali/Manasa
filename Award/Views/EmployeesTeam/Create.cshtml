@@ -1,0 +1,250 @@
+﻿@using Microsoft.Extensions.Localization
+@model Award.Web.Models.TeamViewModel
+@inject IStringLocalizer<Award.Web.Controllers.TeamController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+
+
+@{
+    ViewData["Title"] = "Create Team";
+}
+
+<div>
+    <h1 class="heading-border">@_localizer["Create Team"]</h1>
+    <hr />
+    <form asp-action="Create">
+        <input type="hidden" asp-for="TeamId" />
+        <input type="hidden" asp-for="CategoryId" />
+
+        <div class="row" style="margin-bottom:10px;">
+            <div class="form-group row-direction">
+                <div class="col-sm-2">
+                    <label class="control-label">@_localizer["Team Name"]</label>
+                </div>
+                <div class="col-sm-10">
+                    <input asp-for="TeamName" class="form-control" />
+                    <span asp-validation-for="TeamName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:10px;">
+            <div class="form-group row-direction">
+                <div class="col-sm-2">
+                    <label class="control-label">@_localizerCat["AuditManager"]</label>
+                </div>
+                @*<div class="col-sm-10">
+                        <div class="col-sm-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="@Model.AuditManagerUsersIdList" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    AuditManagerUsersIdList
+                                </label>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="col-sm-10">
+                    @*<select multiple="multiple" class="multi-select form-control" id="AuditManagerUsersList" asp-for="@Model.AuditManagerUsersIdList" asp-items="(List<SelectListItem>)ViewBag.AuditManagerUsersList"></select>*@
+
+                    @for (var i = 0; i < @Model.AuditManagerUsersList.Count; i++)
+                    {
+                        <span>
+                            @{
+                                var chkBoxAuditManager = "chkBox" + @Model.AuditManagerUsersList[i].UserId;
+
+                            }
+                            <input type="checkbox" class="checkbox" id="@chkBoxAuditManager" asp-for="@Model.AuditManagerUsersList[i].IsSelected" onclick="auditManagerUsersListClick(this)" style="display: inline-block" />
+                            <label asp-for="@Model.AuditManagerUsersList[i].IsSelected">@Model.AuditManagerUsersList[i].UserName</label>
+                            <input type="hidden" asp-for="@Model.AuditManagerUsersList[i].UserId" />
+                            <input type="hidden" asp-for="@Model.AuditManagerUsersList[i].UserName" />
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:10px;">
+            <div class="form-group row-direction">
+                <div class="col-sm-2">
+                    <label class="control-label">@_localizerCat["Auditor"]</label>
+                </div>
+                @*<div class="col-sm-10">
+                        <div class="col-sm-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="@Model.AuditManagerUsersIdList" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    AuditManagerUsersIdList
+                                </label>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="col-sm-10">
+                    @*<select multiple="multiple" class="multi-select form-control" id="AuditorUsersList" asp-for="@Model.AuditorUsersIdList" asp-items="(List<SelectListItem>)ViewBag.AuditorUsersList"></select>*@
+                    @*@foreach (var info in (List<SelectListItem>)ViewBag.AuditorUsersList)
+                        {
+                            <span>
+                                <input type="checkbox" class="checkbox" name="AuditorUsersList" value="@info.Text" id="@info.Value" style="display: inline-block" />
+                                <label for="@info.Value">@info.Text</label>
+                                <input type="hidden" asp-for="@Model.AuditorUsersIdList" value="@info.Value" />
+                            </span>
+                        }*@
+
+                    @for (var i = 0; i < @Model.AuditorUsersList.Count; i++)
+                    {
+                        <span>
+                            @{
+                                var chkBoxAuditor = "chkBoxAuditor" + @Model.AuditorUsersList[i].UserId;
+
+                            }
+                            <input type="checkbox" class="checkbox" id="@chkBoxAuditor" asp-for="@Model.AuditorUsersList[i].IsSelected" style="display: inline-block" />
+                            <label asp-for="@Model.AuditorUsersList[i].IsSelected">@Model.AuditorUsersList[i].UserName</label>
+                            <input type="hidden" asp-for="@Model.AuditorUsersList[i].UserId" />
+                            <input type="hidden" asp-for="@Model.AuditorUsersList[i].UserName" />
+                        </span>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <!--<div class="row" style="margin-bottom:10px;">
+            <div class="form-group row-direction">
+                <div class="col-sm-2">
+                    <label class="control-label">@_localizerCat["Jury"]</label>
+                </div>
+                <div class="col-sm-10">-->
+                    @*<select multiple="multiple" class="multi-select form-control" id="JuryUserList" asp-for="@Model.JuryUserIdList" asp-items="(List<SelectListItem>)ViewBag.JuryUserList"></select>*@
+
+                    <!--@for (var i = 0; i < @Model.JuryUserList.Count; i++)
+                    {
+                        <span>
+                            @{
+                                var chkBoxJury = "chkBoxJury" + @Model.JuryUserList[i].UserId;
+
+                            }
+                            <input type="checkbox" id="@chkBoxJury" class="checkbox" asp-for="@Model.JuryUserList[i].IsSelected" style="display: inline-block" />
+                            <label asp-for="@Model.JuryUserList[i].IsSelected">@Model.JuryUserList[i].UserName</label>
+                            <input type="hidden" asp-for="@Model.JuryUserList[i].UserId" />
+                            <input type="hidden" asp-for="@Model.JuryUserList[i].UserName" />
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>-->
+        <input type="submit" value="@_localizer["Create"]" class="btn btn-default-custom" id="btnSubmit" /> |
+        <a asp-action="Index" class="custom-link">@_localizer["Back to List"]</a>
+    </form>
+</div>
+
+
+<div class="modal fade" id="showMessagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <b>@_localizer["Alert"]</b>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span id="msgAlert">
+
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    var auditManagerCount = 0;
+    var auditorCount = 0;
+    var juryCount = 0;
+
+    function auditManagerUsersListClick(check) {
+        var checkBox = document.getElementById(check.id);
+        if (checkBox.checked == true) {
+            auditManagerCount = auditManagerCount + 1;
+        } else {
+            auditManagerCount = auditManagerCount - 1;
+        }
+        if (auditManagerCount > 1) {
+            document.getElementById("btnSubmit").disabled = true;
+            var spanAudManager = document.getElementById("msgAlert");
+            $(spanAudManager).html("");
+            var txtAudManager = document.createTextNode("You can not select more than one Audit Manager");
+            spanAudManager.appendChild(txtAudManager);
+            $('#showMessagemodal').modal('show');
+        }
+        else {
+            document.getElementById("btnSubmit").disabled = false;
+
+            $('#showMessagemodal').modal('hide');
+        }
+    }
+
+    //function auditorUsersListClick(check) {
+    //    var checkBox = document.getElementById(check.id);
+    //    if (checkBox.checked == true) {
+    //        auditorCount = auditorCount + 1;
+    //    } else {
+    //        auditorCount = auditorCount - 1;
+    //    }
+    //    if (auditorCount > 2) {
+    //         document.getElementById("btnSubmit").disabled = true;
+    //        var span = document.getElementById("msgAlert");
+    //        $(span).html("");
+    //        var txt = document.createTextNode("You can not select more than two Auditors");
+    //        span.appendChild(txt);
+
+    //        $('#showMessagemodal').modal('show');
+    //    }
+    //    else {
+    //        if (auditManagerCount == 1 && auditorCount == 2 && juryCount == 2) {
+    //        document.getElementById("btnSubmit").disabled = false;
+    //        }
+    //        $('#showMessagemodal').modal('hide');
+
+    //    }
+    //}
+
+    //function juryUsersListClick(check) {
+    //    var checkBox = document.getElementById(check.id);
+    //    if (checkBox.checked == true) {
+    //        juryCount = juryCount + 1;
+    //    } else {
+    //        juryCount = juryCount - 1;
+    //    }
+    //    if (juryCount > 2) {
+    //          document.getElementById("btnSubmit").disabled = true;
+    //        var span = document.getElementById("msgAlert");
+    //        $(span).html("");
+    //        var txt = document.createTextNode("You can not select more than two Jury Members");
+    //        span.appendChild(txt);
+    //        $('#showMessagemodal').modal('show');
+    //    }
+    //    else {
+    //        if (auditManagerCount == 1 && auditorCount == 2 && juryCount == 2) {
+    //        document.getElementById("btnSubmit").disabled = false;
+    //        }
+    //        $('#showMessagemodal').modal('hide');
+
+    //    }
+    //}
+
+</script>

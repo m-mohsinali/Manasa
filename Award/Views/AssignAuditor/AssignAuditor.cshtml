@@ -1,0 +1,257 @@
+﻿@model IEnumerable<Award.Web.Models.AuditorAssignModel>
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+
+@{
+    ViewData["Title"] = @_localizer["Edit"];
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<div class="cointainer-fluid">
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                @if (@_usersession.Isadmin)
+                {
+                    <h1 class="heading-border">@_localizer["AssignTeam"]</h1>
+                }
+                else
+                {
+                    <h1 class="heading-border">@_localizer["AssignMember"]</h1>
+
+                }
+                <hr />
+
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr style="width: 100%">
+                                <th style="display:none">
+
+                                </th>
+                                <th>
+                                    @_localizer["Award"]
+
+                                </th>
+                                <th>
+                                    @_localizer["Category"]
+                                </th>
+                                <th>
+                                    @_localizer["Name"]
+                                </th>
+
+
+                                @if (@_usersession.Isadmin)
+                                {
+                                    <th> @_localizer["AssignTeam"]</th>
+
+                                }
+                                else
+                                {
+                                    <th> @_localizer["AssignMember"]</th>
+
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AwardName)
+
+                                    </td>
+                                    <td style="display:none;">
+                                        @Html.DisplayFor(modelItem => item.QsmEntryId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CatName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+
+                                    </td>
+                                    @if (@_usersession.Isadmin)
+                                    {
+                                        <td><a href="#" id="@item.QsmEntryId" class="badge btn-danger" onclick="loadTeam(@item.QsmEntryId,@item.CatId);"> @_localizer["AssignTeam"]</a></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a href="#" id="@item.QsmEntryId" class="badge btn-danger" onclick="openAssignMemberPopUp(@item.QsmEntryId);"> @_localizer["AssignMember"]</a></td>
+                                    }
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container" id="divMessage" style="display:none">
+        <div class="alert btn-default-custom alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            Sucessfully Assigned!
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="showAllocatemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @_localizer["Id"]
+                                </th>
+                                <th>
+                                    @_localizer["AuditManager"]
+                                </th>
+                                <th>
+                                    @_localizer["Name"]
+                                </th>
+                                <th> @_localizer["AssignTeam"]</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tBodySectors">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+            var qsmId;
+            function openAssignMemberPopUp(id) {
+                qsmId = id;
+                $('#showAllocatemodal').modal('show');
+        }
+         function openAssignTeamPopUp(id) {
+                qsmId = id;
+                $('#showAllocatemodal').modal('show');
+        }
+
+            function assignMember(userId) {
+
+                $.ajax({
+                    url: '@Url.Action("AssignMember","Categories")',
+                    data: {
+                        catId: qsmId,
+                        assignedUserId: userId
+                    }
+                }).done(function () {
+                      $('#showAllocatemodal').modal('hide');
+                 var x = document.getElementById("divMessage");
+                 x.style.display = "block";
+                });
+        }
+
+               function loadTeam(qsmEntryId,catId) {
+
+                   $("#tBodySectors").empty();
+                   var url = "/Evaluation/LoadTeamsData?qsmId=" + escape(qsmEntryId);
+                    $.ajax({
+                             type: "Get",
+                             url: url,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            debugger;
+                            var data = result;
+                            var concept_list = '';
+                            var disabled = "";
+
+                            for (var i = 0; i < data.result.length; i++){
+
+                                for (var j = 0; j < data.result.length; j++) {
+                                     if (data.result[j].isSubmitted === true) {
+                                         disabled = "disabled";
+                                         break;
+                                         }
+                                }
+
+                concept_list += '<tr>';
+                concept_list += '<td>' + data.result[i].id + '</td>';
+                concept_list += '<td>' + data.result[i].userName + '</td>';
+                concept_list += '<td>' + data.result[i].name + '</td>';
+                if (data.result[i].isSubmitted === true) {
+
+                    var buttonLabel = '@_localizer["UnAllocate"]';
+                    var btnClass = 'btn-default-custom';
+                    disabled = "";
+                }
+                else {
+                    var buttonLabel = '@_localizer["Allocate"]';
+                    var btnClass = 'btn btn-secondary';
+                }
+                concept_list += '<td><button  type="button"'+ disabled+' class="btn '+btnClass+'" style=" width: 100px;" onclick="allocateTeam(' + data.result[i].id + "," + qsmEntryId +"," + catId + ')" >' + buttonLabel + '</button></td>';
+                 concept_list += '</tr>';
+            }
+                            $('#tBodySectors').append(concept_list);
+                            $("#loader").hide();
+                    $('#showAllocatemodal').modal('show');
+         },
+         error: function (result) {
+             alert( result.responseText);
+         }
+     });
+        }
+
+         function allocateTeam(teamId,qsmEntryId,catId) {
+             $('#showAllocatemodal').modal('hide');
+             $("#loader").show();
+                   $("#tBodySectors").empty();
+             var url = "/Evaluation/AllocateTeam?qsmId=" + escape(qsmEntryId);
+             url = url + "&teamId=" + escape(teamId);
+             url = url+"&catId="+ escape(catId);
+
+                    $.ajax({
+                             type: "Get",
+                             url: url,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            debugger;
+                            var data = result;
+                            $("#loader").hide();
+                            $("#divMessage").show();
+         },
+         error: function (result) {
+             alert( result.responseText);
+         }
+     });
+
+        }
+
+        function callUserAnswer() {
+            window.location.href = '@Url.Content("~/UserAnswers/Index")';
+
+        }
+
+    </script>
+}
+

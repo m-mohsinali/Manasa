@@ -1,0 +1,64 @@
+﻿@using Microsoft.Extensions.Localization
+@model IEnumerable<Award.Web.Models.UserRolesViewModel>
+@inject IStringLocalizer<Award.Web.Controllers.AccountController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _Sharedlocalizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+
+@{
+    ViewData["Title"] = "UserRoles";
+}
+
+<h1 class="heading-border">@_localizer["User Roles"]</h1>
+<hr />
+
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @_localizer["UserName"]
+            </th>
+            <th>
+                @_localizer["Name"]
+            </th>
+            <th>
+                @_localizer["Sector Name"]
+            </th>
+            <th>
+                @_localizer["Roles"]
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SectorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RolesNameList)
+                </td>
+                <td>
+                    <a asp-action="UserRolesDetails" asp-route-userId="@item.UserId"><i class="glyphicon glyphicon-list-alt text-info"></i> @_Sharedlocalizer["Details"]</a> |
+                    @if (@_usersession.IsSuperAdmin)
+                    {
+                        <a asp-action="UserRolesEdit" asp-route-userId="@item.UserId"><i class="glyphicon glyphicon-edit text-success"></i> @_Sharedlocalizer["Edit"] | </a>
+                        <a asp-action="UserRolesDelete" asp-route-userId="@item.UserId"><i class="glyphicon glyphicon-remove text-danger"></i> @_Sharedlocalizer["Delete"]</a>
+                    }
+
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

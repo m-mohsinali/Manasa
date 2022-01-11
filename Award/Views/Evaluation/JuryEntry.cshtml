@@ -1,0 +1,169 @@
+﻿@model IEnumerable<Award.Web.Models.TeamMemberViewModel>
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+
+
+    <div class="cointainer-fluid">
+        <h1 class="heading-border"> @_localizer["Jury Entry"]</h1>
+        <br />
+        <br />
+        <div class="">
+            <div class="panel-body">
+                <h3 class="heading-border"> @_localizer["Award Details"]</h3>
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label>Award Title</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" value="Best Energy Award of Dubai" readonly />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label>Award Category</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" value="Best Energy Award of Dubai" readonly />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label>Award Type</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" value="Best Energy Award of Dubai" readonly />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label>Description</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" readonly>Best Energy Award of Dubai Best Energy Award of Dubai Best Energy Award of Dubai Best Energy Award of Dubai Best Energy Award of Dubai Best Energy Award of Dubai Best Energy Award of Dubai Best Energy Award of Dubai Best Energy Award of Dubai Best Energy Award of Dubai </textarea>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="~/Image/thumb-winner.jpg" class="img-fluid img-responsive" alt="Award Image" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="panel-body">
+                <h3 class="heading-border"> @_localizer["Files"]</h3>
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive" style="padding: 10px;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr style="width: 100%;">
+                                        <th>@_localizer["S. No."]</th>
+                                        <th>@_localizer["Name"]</th>
+                                        <th> @_localizer["Size"]</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@_localizer["S. No."]</td>
+                                        <td>@_localizer["Name"]</td>
+                                        <td> @_localizer["Size"]</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="panel-body">
+                <h3 class="heading-border"> @_localizer["Summary"]</h3>
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Description of Criteria here</label>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-sm-12">
+                        <div class="table-responsive" style="padding: 10px;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr style="width: 100%;">
+                                        <th>@_localizer["S. No."]</th>
+                                        <th>@_localizer["Sub Criteria"]</th>
+                                        <th> @_localizer["Max Marks"]</th>
+                                        <th> @_localizer["Answer"]</th>
+                                        <th> @_localizer["Marks"]</th>
+                                        <th> @_localizer["Comment"]</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@_localizer["S. No."]</td>
+                                        <td>@_localizer["Sub Criteria"]</td>
+                                        <td> @_localizer["Max Marks"]</td>
+                                        <td> @_localizer["Answer"]</td>
+                                        <td> @_localizer["Marks"]</td>
+                                        <td> @_localizer["Comment"]</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="heading-border">@_localizer["Total"] = 15</h1>
+            </div>
+        </div>
+
+        @*<div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1 class="heading-border"> @_localizer["Files"]</h1>
+                        <div class="row border">
+                            <div class="col-sm-4">
+                                S.No.
+                            </div>
+                            <div class="col-sm-4">
+                                Name
+                            </div>
+                            <div class="col-sm-4">
+                                Size
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="divMessage" style="display:none">
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> Sucessfully Saved!
+            </div>
+        </div>*@
+    </div>
+    @*<script>
+        $(document).ready(function () {
+            $('.myTable').DataTable();
+        });
+    </script>*@

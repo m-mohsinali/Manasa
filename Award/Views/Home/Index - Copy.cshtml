@@ -1,0 +1,532 @@
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+
+@{
+    ViewData["Title"] = "";
+    Layout = "_LayoutHome";
+}
+
+<div class="container-fluid" style="padding-left: 0; padding-right:0">
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        @*<ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>*@
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            @{var annCont = 0; }
+
+            @if (Model.Announcements.Count > 0)
+            {
+                @foreach (var item in Model.Announcements)
+                {
+                    annCont++;
+                    var active = annCont == 1 ? "active" : "";
+                    <div class="item @active" style="height: 300px;">
+                        <img class="img-fluid img-responsive" @*@item.ThumbnailImagePath*@ src="@item.ThumbnailImagePath" alt="Anouncements" style="margin: auto; height: auto;">
+                        <div class="carousel-caption">
+                            <h3 style="margin-bottom: 40px;"><strong style="background: #000000aa; padding: 10px;">@item.Title</strong></h3>
+                            <p class="" style="background: #000000aa; padding: 15px;">
+                                <strong>@item.Description</strong>
+                            </p>
+                        </div>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <div class="item active">
+                    <img class="img-fluid img-responsive text-center" src="~/Image/Announcement/img_mountains_wide.jpg" alt="Anouncement" style="margin: auto; height: 500px;">
+                    <div class="carousel-caption">
+                        <h3 style="background: #000000aa; padding: 10px;">General Directorate of Residency and Foreigners Affairs</h3>
+                        @*<p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                        veniam, quis nostrud exercitation ullamco.
+                    </p>*@
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img class="img-fluid img-responsive text-center" src="~/Image/Announcement/img_nature_wide.jpg" alt="Anouncement" style="margin: auto; height: 500px;">
+                    <div class="carousel-caption">
+                        <h3 style="background: #000000aa; padding: 10px;">General Directorate of Residency and Foreigners Affairs</h3>
+                        @*<p>Lorem ipsum dolor sit amet</p>*@
+                    </div>
+                </div>
+
+                <div class="item">
+                    <img class="img-fluid img-responsive text-center" src="~/Image/Announcement/img_snow_wide.jpg" alt="Anouncement" style="margin: auto; height: 500px;">
+                    <div class="carousel-caption">
+                        <h3 style="background: #000000aa; padding: 10px;">General Directorate of Residency and Foreigners Affairs</h3>
+                        @*<p>Lorem ipsum dolor sit amet</p>*@
+                    </div>
+                </div>
+            }
+            @*@foreach (var item in Model.Announcements)
+            {
+            if (annCont == 0)
+            if (annCont == 0)
+            {
+            <div class="item active">
+                <img class="img-fluid img-responsive text-center" src="~/Image/Announcement/img_mountains_wide.jpg" alt="Anouncement" style="margin: auto; height: 500px;">
+                <div class="carousel-caption">
+                    <h3>General Directorate of Residency and Foreigners Affairs</h3>
+                    @*<p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                    veniam, quis nostrud exercitation ullamco.
+                </p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img class="img-fluid img-responsive text-center" src="~/Image/Announcement/img_nature_wide.jpg" alt="Anouncement" style="margin: auto; height: 500px;">
+                <div class="carousel-caption">
+                    <h3>General Directorate of Residency and Foreigners Affairs</h3>
+                    @*<p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img class="img-fluid img-responsive text-center" src="~/Image/Announcement/img_snow_wide.jpg" alt="Anouncement" style="margin: auto; height: 500px;">
+                <div class="carousel-caption">
+                    <h3 class="custom-link text-white">General Directorate of Residency and Foreigners Affairs</h3>
+                    @*<p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+            *@
+
+
+
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev" title="@_localizer["Previous"]">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+            <span class="sr-only"> @_localizer["Previous"]</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next" title="@_localizer["Next"]">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+            <span class="sr-only">@_localizer["Next"]</span>
+        </a>
+    </div>
+</div>
+
+<div class="banner-winner mt-4">
+    <div class="container-fluid" style="padding-left:0; padding-right:0;">
+        @*<h1 class="text-center large-title">Award</h1>*@
+        <h1 class="text-center large-title text-white">@_localizer["Award"]</h1>
+        <div id="myThumbnailSlider" class="carousel slide my-4" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                @{var i = 0; }
+
+                @if (Model.Awards.Count > 0)
+                {
+                    @foreach (var award in Model.Awards)
+                    {
+                        i++;
+                        var active = i == 1 ? "active" : "";
+                        <div class="item @active" style="height: 200px;">
+                            @*<img class="img-fluid img-responsive" src="~/Image/thumb-winner.jpg" style="margin: auto;" />*@
+                            <img class="img-fluid img-responsive" src="@award.AwardImagePath" alt="Awards" style="max-width:100%; max-height:100%;display:block;">
+                            <div class="carousel-caption">
+                                <h3 style="margin-bottom: 0px;"><strong style="background: #000000aa; padding: 10px;">@award.Name</strong></h3>
+                                <div><p>@award.Description</p></div>
+                                <div class="row justify-content-between">
+                                    <div class="col-xs-6">
+                                        <div class="opendate" style="background: #000000aa; padding: 10px;">
+                                            <p class="font-weight-bold">تاريخ البداية</p>
+                                            <p>@award.OpeningDate.ToShortDateString()</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="closedate" style="background: #000000aa; padding: 10px;">
+                                            <p class="font-weight-bold">تاريخ النهاية</p>
+                                            <p>@award.ClosingDate.ToShortDateString()</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <div class="item active">
+                        <img class="img-fluid img-responsive text-center" src="~/Image/Announcement/img_mountains_wide.jpg" alt="Anouncement" style="margin: auto; height: 500px;">
+                        <div class="carousel-caption">
+                            <h3 style="background: #000000aa; padding: 10px;">General Directorate of Residency and Foreigners Affairs</h3>
+                            @*<p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco.
+                            </p>*@
+                        </div>
+                            </div>
+
+                    <div class="item">
+                        <img class="img-fluid img-responsive text-center" src="~/Image/Announcement/img_nature_wide.jpg" alt="Anouncement" style="margin: auto; height: 500px;">
+                        <div class="carousel-caption">
+                            <h3 style="background: #000000aa; padding: 10px;">General Directorate of Residency and Foreigners Affairs</h3>
+                            @*<p>Lorem ipsum dolor sit amet</p>*@
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img class="img-fluid img-responsive text-center" src="~/Image/Announcement/img_snow_wide.jpg" alt="Anouncement" style="margin: auto; height: 500px;">
+                        <div class="carousel-caption">
+                            <h3 style="background: #000000aa; padding: 10px;">General Directorate of Residency and Foreigners Affairs</h3>
+                            @*<p>Lorem ipsum dolor sit amet</p>*@
+                        </div>
+                    </div>
+                }
+
+                <!-- Wrapper for slides -->
+                @*
+                <div class="carousel-inner">
+
+                    <div class="item active">
+                        <div class="row">
+                            @foreach (var award in Model.Awards)
+                            {
+                                <div class="col-xs-6" style="max-height: 500px;">
+                                    <div class="thumbnail-container">
+                                        @*<img src="@award.AwardImagePath" class="img-responsive">~/@award.AwardImagePath
+                                        <img src="~/Image/logo.png" style="max-height: 120px; max-width: 100%;" />
+
+                                        <div class="thumbTitle">@award.Name</div>
+                                        <div class="thumbDesc text-left">
+                                            <span class="opendate">
+                                                <p class="font-weight-bold">تاريخ البداية</p>
+                                                <p>@award.OpeningDate.ToShortDateString()</p>
+                                            </span>
+                                            <span class="closedate">
+                                                <p class="font-weight-bold">تاريخ النهاية</p>
+                                                <p>@award.ClosingDate.ToShortDateString()</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @@Url.ActionLink("Download", "Awards")
+                                <a asp-controller="Awards" asp-action="Download">Download pdf</a>
+                            }
+                        </div>
+                    </div>
+
+
+                    @*<div class="item active">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="thumbnail-container">
+                                    <img src="~/Image/award.png" class="img-responsive">
+                                    <div class="thumbTitle">Best Performace Award</div>
+                                    <div class="thumbDesc text-left">
+                                        <span class="opendate">
+                                            <p class="font-weight-bold">Opening Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                        <span class="closedate">
+                                            <p class="font-weight-bold">Closing Date</p>
+                                            <p>12.2.2020</p>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @*</div>
+
+                </div>
+                *@
+                <!-- Left and right controls -->
+                <a class="left carousel-control carousel-control-custom" href="#myThumbnailSlider" data-slide="prev" title="@_localizer["Previous"]">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    @*<span class="sr-only">Previous</span>*@
+                    <span class="sr-only">@_localizer["Previous"]</span>
+                </a>
+                <a class="right carousel-control carousel-control-custom" href="#myThumbnailSlider" data-slide="next" title="@_localizer["Next"]">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    @*<span class="sr-only">Next</span>*@
+                    <span class="sr-only">@_localizer["Next"]</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Thumbnail Slider for Award-->
+<!-- Start Thumbail Slider for Winner -->
+<div class="banner-winner">
+    <div class="container-fluid">
+        <h1 class="text-center large-title text-white">@_localizer["Winner"]</h1>
+        @*<p class=" text-white text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>*@
+        <p class=" text-white text-center">@*@_localizer["Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"]*@ </p>
+
+        <div class="container-fluid" style="margin-top: 50px">
+            <div id="mySliderWinner" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators carousel-indicators-custom2">
+                    <li data-target="#mySliderWinner" data-slide-to="0" class="active"></li>
+                    <li data-target="#mySliderWinner" data-slide-to="1"></li>
+                    <li data-target="#mySliderWinner" data-slide-to="2"></li>
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+
+                    <div class="item active">
+                        <div class="row">
+                            @foreach (var winner in Model.AnnouncedWinners)
+                            {
+
+                                <div class="col-xs-4">
+                                    <div class="thumbnail-winner-container" style="margin-top:10px; margin-bottom:10px;">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-4 col-md-3 py-2">
+                                                @if (winner.ShowWinnerImage && winner.Category.AwardType != Award.Core.Entities.AwardType.Corporate)
+                                                {
+                                                    <img src="~/Image/thumb-winner.jpg">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Image/thumb-winner.jpg">
+                                                }
+                                            </div>
+                                            <div class="col-xs-12 col-sm-8 col-md-9 py-2">
+
+                                                @if (winner.Category.AwardType == Award.Core.Entities.AwardType.Corporate)
+                                                {
+                                                    <div class="thumbTitle">
+                                                        @winner.Sector.Name
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="thumbTitle">
+                                                        @winner.Employee.NameEn
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="font-weight-bold">@winner.Category.Name</div>
+                                            <div>@winner.Category.Description</div>
+                                            <a href="#" class="btn btn-default-custom mt-6">@_localizer["More"]</a>
+
+                                            @*<div class="thumbTitle">@_localizer["John Dow2"]</div>
+                                                <div class="font-weight-bold">@_localizer["Award Title"]</div>
+                                                <div>@_localizer["Lorem ipsum dolor sit amet"]</div>
+                                                <a href="#" class="btn btn-default-custom mt-6">@_localizer["More"]</a>*@
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- End of Winner Slider -->
+
+</div>

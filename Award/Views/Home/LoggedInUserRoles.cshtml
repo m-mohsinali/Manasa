@@ -1,0 +1,86 @@
+﻿@model List<Award.Web.Models.UserRoles>
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+@{
+    string lang = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+    ViewData["Title"] = "User Roles";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+
+}
+@*@{ var imgscr = Model[0].EmpImage.StartsWith("http") ? Model[0].EmpImage : "\\" + Model[0].EmpImage; }*@
+@*<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>*@
+
+@if (lang.Contains("ar"))
+{
+    <style>
+        .arabic {
+            text-align: right;
+            direction: rtl;
+        }
+    </style>
+}
+
+
+    <div class="container" style="width:100vw; height: 90vh;">
+        <h1 class="heading-border mt-5">@Model[0].EmployeeName</h1>
+        @*<div class="col-md-12">
+
+                <div class="col-sm-6 ">
+                    <div class="card mb-2" style="max-height:250px; max-width:300px;">
+                        <img class="img-fluid img-responsive" src="@imgscr" style="padding: 1rem; margin: auto; height: 34rem;">
+                    </div>
+                </div>
+            </div>*@
+        <div class="row justify-content-center" style="margin-top: 25vh;">
+            <div class="col-xs-6">
+                <div class="card panel panel-body shadow-lg" style="padding: 1rem; background: #ffffff99; border-top: 0.5rem solid #bf2131;">
+                    <div class="card-header px-5 arabic" style="font-size:x-large; font-weight:bold;">
+                        @_localizer["RoleSelectMessage"]
+                    </div>
+                    <div class="card-body" style="font-size:large; font-weight:normal;">
+                        @{
+                            for (var i = 0; i < Model.Count; i++)
+                            {
+                                <div class="arabic">
+                                    @*@Html.RadioButtonFor(model => model[0].SelectedRole, new { id = "role" + Model[i].RoleId, @onchange = "Submit(this);" })
+                                        @Html.Label("role" + Model[i].RoleId, Model[i].RoleName)*@
+                                    <label><input class="custom-control-inline custom-radio" type="radio" name="role" value="@Model[i].RoleId">@Model[i].RoleName</label>
+                                    <input type="hidden" value="@Model[0].UserId" id="hdnUserId" />
+                                    <input type="hidden" value="@Model[0].UserName" id="hdnUserName" />
+                                    <input type="hidden" value="@Model[0].Email" id="hdnEmail" />
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="card-footer arabic">
+                        <a class="btn" style="font-size: large; background: #bf2131; color: white;" onclick="Submit();"><i class="fa fa-angle-left"></i> Submit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    function Submit() {
+
+        var radioValue = $("input[name='role']:checked").val();
+        if (radioValue) {
+            var url = "?urole=" + escape(radioValue);
+            url += "&siginStatus=" + escape(1);
+            url += "&userId=" + document.getElementById('hdnUserId').value;
+            url += "&userName=" + document.getElementById('hdnUserName').value;
+            url += "&email=" + document.getElementById('hdnEmail').value;
+
+
+            window.location.href = '@Url.Content("~/Account/UpdateLastLoginUser")'+url;
+        }
+        else {
+            alert("Please select role");
+        }
+
+    }
+
+    </script>

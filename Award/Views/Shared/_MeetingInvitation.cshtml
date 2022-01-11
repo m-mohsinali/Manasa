@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model Award.Web.Models.MeetingInvitationViewModel
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+
+@{
+    ViewData["Title"] = @_localizer["Schedule Meeting"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="heading-border">@_localizer["Meeting"]</h1>
+<div class="">
+    <div class="panel-body">
+        <form asp-controller="Home" asp-action="SetMeeting" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="ToUserId"/>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    @*<label asp-for="award.Description" class="control-label"></label>*@
+                    <label asp-for="EventDescription" class="control-label">@_localizer["Description"]</label>
+                    <textarea asp-for="EventDescription" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="EventDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row row-direction">
+                <div class="col-md-6 form-group">
+                    @*<label asp-for="award.OpeningDate" class="control-label"></label>*@
+                    <label asp-for="StartTime" class="control-label">@_localizer["StartTime"]</label>
+                    <input asp-for="StartTime" class="form-control" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 form-group">
+                    @*<label asp-for="award.ClosingDate" class="control-label"></label>*@
+                    <label asp-for="EndTime" class="control-label">@_localizer["EndTime"]</label>
+                    <input asp-for="EndTime" class="form-control" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <a asp-action="Create"><input type="submit" value="@_localizer["Create"]" class="btn btn-default-custom" /></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index" class="btn-back custom-link">@*<i class="fa fa-angle-left" aria-hidden="true">*@</i>@_localizer["Back to List"]</a>
+</div>
+
+<div class="modal fade" id="showMessagemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="myTableNew" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @_localizer["Alert"]
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    
+                                    <span>
+                                        @if (@Model.ErrorMessage == "")
+                                        {
+                                            @_localizer["MeetingSuccessfulyscheduled"]
+                                        }
+                                        else
+                                        {
+                                            @Model.ErrorMessage
+                                        }
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            if(@Model.SaveStatus == 1) {
+                $('#showMessagemodal').modal('show');
+            }
+            else if(@Model.SaveStatus == 2) {
+                $('#showMessagemodal').modal('show');
+            }
+        });
+
+
+    </script>
+}

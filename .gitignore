@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Award/bin
+/Award/obj
+/Award.Core/bin
+/Award.Core/obj
+/Award.Infrastructure/bin
+/Award.Infrastructure/obj

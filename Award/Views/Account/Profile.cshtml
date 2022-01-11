@@ -1,0 +1,145 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AccountController> _localizer
+@model Award.Core.Entities.User
+
+@{
+    ViewData["Title"] = _localizer["Profile"];
+    var requestCultureFeature = this.Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
+    var requestCulture = requestCultureFeature.RequestCulture;
+    var isArabicLanguage = requestCulture.Culture.TwoLetterISOLanguageName.ToLower() == "ar";
+}
+@{
+    //ViewData["Title"] = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+</style>
+
+
+<h1 class="heading-border">@ViewData["Title"]</h1>
+<hr />
+<div class="">
+    <div class="panel-body">
+        <div class="row row-direction">
+            @*<dt class="col-sm-2">
+
+                </dt>
+                <dd class="col-sm-10">
+                    <img src="~/@Model.Employee.EmployeePhotoUrl" width="60" height="60">
+
+                </dd>*@
+            <div class="col-md-8 ">
+                <div class="row row-direction">
+                    <div class="col-sm-4">
+                        <label>@_localizer["Name"]</label>
+                    </div>
+                    <div class="col-sm-7">
+                        @(isArabicLanguage ? Model.Employee.NameAr : Model.Employee.NameEn)
+                    </div>
+                </div>
+                <div class="row row-direction">
+                    <div class="col-sm-4">
+                        <label>@_localizer["UserName"]</label>
+                    </div>
+                    <div class="col-sm-7">
+                        @Html.DisplayFor(model => model.UserName)
+                    </div>
+                </div>
+                <div class="row row-direction">
+                    <div class="col-sm-4">
+                        <label>@_localizer["Email"]</label>
+                    </div>
+                    <div class="col-sm-7">
+                        @Html.DisplayFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="row row-direction">
+                    <div class="col-sm-4">
+                        <label>@_localizer["Rank Name"]</label>
+                    </div>
+                    <div class="col-sm-7">
+                        @(isArabicLanguage ? Model.Employee.RankAr : Model.Employee.RankEn)
+                    </div>
+                </div>
+                <div class="row row-direction">
+                    <div class="col-sm-4">
+                        <label>@_localizer["Job Name"]</label>
+                    </div>
+                    <div class="col-sm-7">
+                        @(isArabicLanguage ? Model.Employee.JobAr : Model.Employee.JobEn)
+                    </div>
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Model?.Employee?.Sector?.NameEn))
+                {
+                    <div class="row row-direction">
+                        <div class="col-sm-4">
+                            <label>@_localizer["Sector Name"]</label>
+                        </div>
+                        <div class="col-sm-7">
+                            @(isArabicLanguage ? Model.Employee.Sector.NameAr : Model.Employee.Sector.NameEn)
+                        </div>
+                    </div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Model?.Employee?.Department?.NameEn))
+                {
+                    <div class="row row-direction">
+                        <div class="col-sm-4">
+                            <label>@_localizer["Department Name"]</label>
+                        </div>
+                        <div class="col-sm-7">
+                            @(isArabicLanguage ? Model.Employee.Department.NameAr : Model.Employee.Department.NameEn)
+                        </div>
+                    </div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model?.Employee?.Section?.NameEn))
+                {
+                    <div class="row row-direction">
+                        <div class="col-sm-4">
+                            <label>@_localizer["Section Name"]</label>
+                        </div>
+                        <div class="col-sm-7">
+                            @(isArabicLanguage ? Model.Employee.Section.NameAr : Model.Employee.Section.NameEn)
+                        </div>
+                    </div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model?.Employee?.Branch?.NameEn))
+                {
+                    <div class="row row-direction">
+                        <div class="col-sm-4">
+                            <label>@_localizer["Branch Name"]</label>
+                        </div>
+                        <div class="col-sm-7">
+                            @(isArabicLanguage ? Model.Employee.Branch.NameAr : Model.Employee.Branch.NameEn)
+                        </div>
+                    </div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model?.Employee?.Unit?.NameEn))
+                {
+                    <div class="row row-direction">
+                        <div class="col-sm-4">
+                            <label>@_localizer["Unit Name"]</label>
+                        </div>
+                        <div class="col-sm-7">
+                            @(isArabicLanguage ? Model.Employee.Unit.NameAr : Model.Employee.Unit.NameEn)
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="col-md-4">
+                <div class="col-sm-12 text-center">
+                    <label>@_localizer["Employee Photo"]</label>
+                </div>
+                <div class="col-sm-12">
+                    <img src="@Model?.Employee.EmployeePhotoUrl" class="img-fluid img-responsive img-rounded" style="margin: auto;">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

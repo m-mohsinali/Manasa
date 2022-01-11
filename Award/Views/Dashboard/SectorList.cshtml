@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model IEnumerable<Award.Core.Entities.Sector>
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.DashboardController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+@{
+    ViewData["Title"] = @_localizer["Sector"];
+}
+
+<h1 class="heading-border"> @_localizer["Sector"]</h1>
+<hr />
+
+<div class="table-responsive">
+    <table id="myTable" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @_localizer["Name English"]
+                </th>
+                <th>
+                    @_localizer["Name Arabic"]
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameEn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameAr)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

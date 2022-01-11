@@ -1,0 +1,77 @@
+﻿@using Microsoft.Extensions.Localization
+@model Award.Web.Models.TeamViewModel
+@inject IStringLocalizer<Award.Web.Controllers.TeamController> _localizer
+
+
+@{
+    ViewData["Title"] = "Team Edit";
+}
+
+    <div>
+        <h4>@_localizer["Team Edit"]</h4>
+        <hr />
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="TeamId" />
+            <input type="hidden" asp-for="CategoryId" />
+
+            <dl class="row">
+                @*<dt class="col-sm-2">
+            @_localizer["Category Name"]
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.)
+        </dd>*@
+                <dt class="col-sm-2">
+                    @_localizer["Audit Manager Users"]
+                </dt>
+                <dd class="col-sm-10">
+                    <ul>
+                        @for (var i = 0; i < Model.AuditManagerUsersList.Count; i++)
+                        {
+                            <li>
+                                <input type="checkbox" asp-for="@Model.AuditManagerUsersList[i].IsSelected" />
+                                <label asp-for="@Model.AuditManagerUsersList[i].IsSelected">@Model.AuditManagerUsersList[i].User.UserName</label>
+                                <input type="hidden" asp-for="@Model.AuditManagerUsersList[i].User.Id" />
+                                <input type="hidden" asp-for="@Model.AuditManagerUsersList[i].User.UserName" />
+                            </li>
+                        }
+                    </ul>
+                </dd>
+                <dt class="col-sm-2">
+                    @_localizer["Auditors Users"]
+                </dt>
+                <dd class="col-sm-10">
+                    <ul>
+                        @for (var i = 0; i < Model.AuditorUsersList.Count; i++)
+                        {
+                            <li>
+                                <input type="checkbox" asp-for="@Model.AuditorUsersList[i].IsSelected" />
+                                <label asp-for="@Model.AuditorUsersList[i].IsSelected">@Model.AuditorUsersList[i].User.UserName</label>
+                                <input type="hidden" asp-for="@Model.AuditorUsersList[i].User.Id" />
+                                <input type="hidden" asp-for="@Model.AuditorUsersList[i].User.UserName" />
+                            </li>
+                        }
+                    </ul>
+                </dd>
+                <dt class="col-sm-2">
+                    @_localizer["Jury Users"]
+                </dt>
+                <dd class="col-sm-10">
+                    <ul>
+                        @for (var i = 0; i < Model.JuryUserList.Count; i++)
+                        {
+                            <li>
+                                <input type="checkbox" asp-for="@Model.JuryUserList[i].IsSelected" />
+                                <label asp-for="@Model.JuryUserList[i].IsSelected">@Model.JuryUserList[i].User.UserName</label>
+                                <input type="hidden" asp-for="@Model.JuryUserList[i].User.Id" />
+                                <input type="hidden" asp-for="@Model.JuryUserList[i].User.UserName" />
+                            </li>
+                        }
+                    </ul>
+                </dd>
+            </dl>
+            <input type="submit" value="@_localizer["Edit"]" class="btn btn-default-custom" /> |
+            <a asp-action="Index" class="custom-link">@_localizer["Back to List"]</a>
+        </form>
+    </div>
+

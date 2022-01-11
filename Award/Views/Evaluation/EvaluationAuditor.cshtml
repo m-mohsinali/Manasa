@@ -1,0 +1,185 @@
+﻿@model IEnumerable<Award.Web.Models.TeamMemberViewModel>
+@*@using AwardContract.General
+    @model IEnumerable<AwardContract.Models.Category>S
+*@
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizer
+
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->*@
+</head>
+<div class="cointainer-fluid">
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+
+
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+
+                <h3 class="box-title m-b-0"> @_localizer["Categories"]</h3>
+                
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="display:none">
+
+                                </th>
+                                <th>
+                                    @_localizer["Name"]
+
+                                </th>
+
+                                <th>
+                                    @_localizer["Status"]
+                                </th>
+                                @*<th>
+                                        @_localizer["AssignedTo"]
+                                    </th>*@
+
+                                <th> @_localizer["AssignMember"]</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                 
+                            <tr>
+                                <td style="display:none">
+                                    @Html.DisplayFor(modelItem => item.UserId)
+                                    @Html.DisplayFor(modelItem => item.CategoryTeamsId)
+
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                             
+                                <td><a href="#" id="@item.UserId" class="badge btn-danger" onclick="allocateTeamLead(@item.UserId,@item.CategoryTeamsId);"> @_localizer["AssignMember"]</a></td>
+
+                            </tr>
+                                 
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container" id="divMessage" style="display:none">
+        <div class="alert btn-default-custom alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success!</strong> Sucessfully Assigned!
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="showAllocatemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="display:none">
+                                    @_localizer["UserName"]
+
+                                </th>
+
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.Award)*@
+                                    @_localizer["UserName"]
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.AwardType)*@
+                                    @_localizer["Name"]
+                                </th>
+                                <th> @_localizer["AssignMember"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*@foreach (var user in ViewBag.Users)
+                            {
+                                <tr>
+                                    <td style="display:none;">
+                                        @user.Id
+                                    </td>
+                                    <td>
+                                        @user.UserName
+                                    </td>
+                                    <td>
+                                        @user.FirstName
+                                    </td>
+
+                                    <td><a href="#" id="@user.Id" class="btn btn-success" onclick="assignMember(@user.Id);"> @_localizer["AssignMember"]</a></td>
+
+                                </tr>
+                            }*@
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+                         var catId;
+            function openAssignMemberPopUp(id) {
+                   alert(id);
+                catId = id;
+                $('#showAllocatemodal').modal('show');
+            }
+
+            function allocateTeamLead(userId,catTeamId) {
+                $.ajax({
+                    url: '@Url.Action("AllocateTeamLead","Evaluation")',
+                    data: {
+                        userId: userId,
+                        catTeamId:catTeamId
+                    }
+                }).done(function () {
+                      $('#showAllocatemodal').modal('hide');
+                 var x = document.getElementById("divMessage");
+                 x.style.display = "block";
+                });
+        }
+        function callUserAnswer() {
+            window.location.href = '@Url.Content("~/UserAnswers/Index")';
+
+        }
+
+    </script>
+}

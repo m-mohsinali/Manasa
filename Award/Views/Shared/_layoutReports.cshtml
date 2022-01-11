@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+@*<html lang="en">*@
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+@inject Award.Web.Common.Auth.IUserSession _usersession
+@*@inject Award.Web.Controllers.BaseController _baseController*@
+@{ string lang = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+    var profilePic = @HttpContextAccessor.HttpContext.Session.GetString("empsig");
+    var emproles = @HttpContextAccessor.HttpContext.Session.GetString("emproles");
+    var curuserid = _usersession.Id;
+}
+<html>
+<head>
+    <title>@_localizer["General Directorate of Residency and Foreigners Affairs"]</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/lib//bootstrap-3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/app.css" />
+    <link href="~/css/evo-calendar.css" rel="stylesheet" />
+    <link href="~/css/evo-calendar.midnight-blue.css" rel="stylesheet" />
+
+    @if (lang.Contains("ar"))
+    {
+        <link rel="stylesheet" href="~/css/app-ar.css" />
+    }
+
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" />
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/evo-calendar.js"></script>
+    <script src="~/lib/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+
+
+    <style>
+        .topbar_admin > .center .Langdropdown {
+            @*width: 165px;*@
+            margin: 0 10px;
+        }
+
+        .topbar_admin {
+            padding: 10px 0;
+        }
+
+        .notification {
+            color: #555555;
+            text-decoration: none;
+            //background-color: #555;
+            //color: white;
+            //text-decoration: none;
+            //padding: 15px 26px;
+            //width: 18rem;
+            //position: relative;
+            //border-radius: 2px;
+        }
+
+        .notification:hover {
+            //background: darkred;
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 50%;
+            background: darkred;
+            color: white;
+        }
+
+        .notif_back {
+            width: 30rem;
+            padding: 3rem;
+            color: #ffffff;
+            background-color: maroon;
+            height: 385px;
+            overflow: hidden auto;
+        }
+
+        .notif {
+            display: inline-flex;
+            justify-content: flex-end;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            direction: ltr;
+        }
+    </style>
+
+
+
+</head>
+<body style="background-image: url('../../image/new_back.jpeg'); background-position: center; background-size: cover;">
+
+    <div id='loader' style='vertical-align: middle; width: 100%; height: 100%; top: 0; left: 0; position: fixed; display: block; opacity: 0.7; background-color: #fff; z-index: 9999;'>
+        <img style="position: absolute; top: 35%; left:40%; z-index: 100;" src="~/Image/loader.gif" />
+    </div>
+
+
+    @*    <div class="row topbar_admin justify-content-between" style="background-color: #ffffff99;">
+    *@
+    <div class="" style="background-color: #ffffff99;">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 ">
+            <img src="~/Image/DNRD Logo.png" alt="Logo" class="img-responsive img-fluid" style="" />
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-5 col-xs-8 lang" style="padding-top: 3rem;">
+            @await Html.PartialAsync("_SelectLanguagePartial")
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 notif">
+            <div class="dropdown" style="margin-top: 2rem; margin-right: 2rem; ">
+
+                <a href="#" class="notification dropdown-toggle">
+                    <span class="glyphicon glyphicon-bell" style="font-size: 5rem;"></span>
+                    <span id="spanNotificationCount" class="badge">3</span>
+                </a>
+                <div id="divNotification" class="ShowNotification dropdown-menu " style="width: 20rem; max-height: 25rem; overflow-y: scroll; padding: 1rem;">
+                    @*<div style="border-bottom: 1px solid lightgray; max-width: 5rem;">
+                            <a style="text-decoration: none;" href="/Notification/NotificationDetail?NotificationId=notification['notificationId']"  >
+                                <h4 style="display: block; overflow: hidden; text-overflow: ellipsis; line-height: 1;">Heading1</h4>
+                                <p style="display: block; overflow: hidden; text-overflow: ellipsis; line-height: 1;">asdfasdf ads fadfsdasdfasfasdf asdfsa</p>
+                            </a>
+                        </div>
+                        <div style="border-bottom: 1px solid lightgray; color: darkgray;">
+                            <h4>Heading1</h4>
+                            <p>asdfasdf ads fa dsf asd f</p>
+                        </div>
+                        <div style="border-bottom: 1px solid lightgray; color: darkgray;">
+                            <h4>Heading1</h4>
+                            <p>افضل قطاع في تطبيق في معيار تقديم الخدمات سبع نجوم	</p>
+                        </div>*@
+                </div>
+            </div>
+
+
+            <div class="dropdown" style="float: right;">
+                <div class="user_profile dropdown-toggle" data-toggle="dropdown" style="direction: ltr;">
+                    <img src="@profilePic">
+                    @*<img src="~/Image/User image.png" style="margin-top: 0.5rem;">*@
+                </div>
+                <ul class="dropdown-menu lang-align" style="padding-bottom: 0;">
+                    <li><a href="#">@_localizerCat[@emproles]</a></li>
+                    <li><a asp-controller="Account" asp-action="Profile" asp-route-username="@User.Identity.Name">@_localizer["MyProfile"] (@User.Identity.Name)</a></li>
+                    <li><a asp-controller="Account" asp-action="SwitchUser">@_localizer["SwitchUser"]</a></li>
+                    @*<li><a href="#">@_localizer["Setting"]</a></li>*@
+
+                    <li>
+                        <form class="form-inline" method="post" asp-controller="Account" asp-action="Signout">
+                            <input type="submit" class="btn btn-default-custom btn-block rounded-0" style=" border-radius: 0;" value="@_localizer["Logout"]" />
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div>
+
+
+        <div id="wrapper">
+            @RenderBody()
+            <!-- end bottom slider-->
+            <!--start footer -->
+            <div class="footer-container">
+                <p>@_localizer["2020 © All Rights Reserved."]</p>
+            </div>
+            <!-- end footer-->
+        </div>
+
+    </div>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $('#loader').hide();
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown()
+        });
+    </script>
+
+    <script>
+        $('.sidebar .current').on('click', function () {
+            //$(this).addClass('current').siblings('a').removeClass('current');;
+            $(this).next('.dropdown-menu').slideToggle();
+            $(this).siblings('a').next('.dropdown-menu').slideUp();
+        });
+    </script>
+
+    <script>
+        jQuery(function ($) {
+            var path = window.location; // because the 'href' property of the DOM element is the absolute path
+            $('.sidebar a').filter(function () {
+                return this.href == path || path.href.indexOf(this.href) == 0;
+            }).addClass('active').parent().addClass('in').parent();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            //$('#myTable').DataTable();
+            var searchText = '@_localizer["Search"]';
+            $('#reportTable').DataTable({
+            "stateSave": true,
+            "oLanguage": {
+                sSearch: '@_localizer["Search"]',
+                sInfo: '@_localizer["sInfo"]',
+                sLengthMenu: '@_localizer["sLengthMenu"]',
+                sInfoEmpty: '@_localizer["sInfoEmpty"]',
+                oPaginate:{sFirst:'@_localizer["First"]',sLast:'@_localizer["Last"]',
+                    sNext: '@_localizer["Next"]', sPrevious: '@_localizer["Previous"]',
+                    sInfoFiltered:"("+'@_localizer["sInfoFiltered"]'+")"
+                },
+                sEmptyTable: '@_localizer["sEmptyTable"]'
+            }
+            });
+
+            $(".notification").click(function(){
+            $(".ShowNotification").toggle();
+            });
+
+
+            $.getJSON('/Notification/GetNotificationList', function (data) {
+                 var items = '';
+                $.each(data, function (i, notification) {
+                    if (notification["isRead"] == true) {
+                        items += "<div style='border-bottom: 1px solid lightgray; max-width: 18rem;'>  <a style='text-decoration: none;'  href='/Notification/NotificationDetail?NotificationId="+notification["notificationId"]+"'  > <b> <h4 style='display: block; overflow: hidden; text-overflow: ellipsis; line-height: 1;'>" + notification["notificationType"] + "</h4> </b><p  style='display: block; overflow: hidden; text-overflow: ellipsis; line-height: 1;'>" + notification["notificationText"] + "</p> </a> </div>";
+                    }
+                    else {
+                        items += "<div style='border-bottom: 1px solid lightgray; color: darkgray; max-width: 18rem;'> <a style='text-decoration: none;' href='/Notification/NotificationDetail?NotificationId="+notification["notificationId"]+"'  > <h4 style='display: block; overflow: hidden; text-overflow: ellipsis; line-height: 1;'>" + notification["notificationType"] + "</h4><p style='display: block; overflow: hidden; text-overflow: ellipsis; line-height: 1;'>" + notification["notificationText"] + "</p></a></div>";
+                    }
+                 });
+                 $('#divNotification').html(items);
+            });
+
+
+            $.getJSON('/Notification/UnReadNotification', function (data) {
+                if (data == 0) {
+                    $('#spanNotificationCount').hide();
+                }
+                else {
+                 $('#spanNotificationCount').html(data);
+                }
+             });
+
+
+
+        });
+    </script>
+
+</body>
+</html>

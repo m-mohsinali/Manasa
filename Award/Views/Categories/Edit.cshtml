@@ -1,0 +1,544 @@
+﻿@*@model Award.Core.Entities.Category*@
+@*@using AwardContract.General*@
+@model Award.Web.Models.CategoryViewModel
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizer
+
+@{
+    ViewData["Title"] = @_localizer["Edit"];
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    string lang = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();
+
+    var baseurl = @Context.Request.Host;
+
+}
+
+@*<h1>@_localizer["Edit"]</h1>*@
+
+<h1 class="heading-border">@_localizer["Category Edit"]</h1>
+<hr />
+<div class="cointainer-fluid">
+    @*<div class="row bg-title">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            </div>
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+
+
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>*@
+
+    <div class="">
+        <div class="panel-body">
+            @*<h3 class="box-title m-b-0">@_localizer["Add Category"]</h3>
+                <hr />*@
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Category.Id" />
+
+                @*<input type="hidden" asp-for="Category.CategoryCriteria.CategoryCriteriaDocuments" />*@
+                @*<div class="form-group">
+                        <label asp-for="IdAward" class="control-label"></label>
+                        <select asp-for="IdAward" class="form-control" asp-items="ViewBag.IdAward"></select>
+                        <span asp-validation-for="IdAward" class="text-danger"></span>
+                    </div>*@
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @*<label asp-for="Category.Name" class="control-label"></label>*@
+                        @_localizer["Name"]
+                        <input asp-for="Category.Name" class="form-control" />
+                        <span asp-validation-for="Category.Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Category Description</label>*@
+                        @_localizer["Description"]
+                        <textarea class="form-control" rows="3" asp-for="Category.Description"></textarea>
+                        <span asp-validation-for="Category.Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Opening Date Time</label>*@
+                        @_localizer["OpeningDate"]
+                        <div class="input-group">
+                            <input type="datetime-local" id="txtStartDate" asp-for="Category.OpeningDate" class="form-control mydatepicker" onchange="check_date()" placeholder="yyyy-mm-dd hh:ii"> @*<span class="input-group-addon"><i class="fa fa-calendar"></i></span>*@
+                            <span asp-validation-for="Category.OpeningDate" class="text-danger"></span>
+                        </div>
+                        <strong id="validateDate1" class="text-danger"></strong>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Closing Date Time</label>*@
+                        @_localizer["ClosingDate"]
+                        <div class="input-group">
+                            <input type="datetime-local" id="txtEndDate" asp-for="Category.ClosingDate" class="form-control mydatepicker" onchange="check_date()" placeholder="yyyy-mm-dd hh:ii"> @*<span class="input-group-addon"><i class="fa fa-calendar"></i></span>*@
+                            <span asp-validation-for="Category.ClosingDate" class="text-danger"></span>
+                        </div>
+                        <strong id="validateDate2" class="text-danger"></strong>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Award Name</label>*@
+                        @_localizer["Award"]
+                        <select class="form-control" asp-items="@(new SelectList(Model.Awards, "Id", "Name"))" asp-for="Category.IdAward">
+                            <option>@_localizer["Select Award Name"]</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*<label for="exampleInputEmail1">Award Type</label>*@
+                        @_localizer["AwardType"]
+
+
+                        @if (lang == "ar-AE")
+                        {
+                            <select class="form-control" asp-items="@(new SelectList(Model.AwardsType, "Id", "DescAr"))" asp-for="Category.AwardType">
+                                <option>@_localizer["Select Award Type"]</option>
+                            </select>
+
+                        }
+                        else
+                        {
+                            <select class="form-control" asp-items="@(new SelectList(Model.AwardsType,"Id","DescEn"))" asp-for="Category.AwardType">
+                                <option>@_localizer["Select Award Type"]</option>
+                            </select>
+
+                        }
+
+                        @*<select class="form-control" asp-items="@(Html.GetEnumSelectList<Award.Core.Entities.AwardType>())" asp-for="Category.AwardType">
+                                <option>@_localizer["Select Award Type"]</option>
+                            </select>*@
+                    </div>
+                </div>
+                @if (Model.Category.CategoryDocuments != null)
+                {
+                    @foreach (var v in Model.Category.CategoryDocuments)
+                    {
+                        <b> <a href='~/@v.SupportingDocumentPath' target="_blank" download>@v.DocumentName</a> </b>
+                    }
+                }
+                <div class="form-group  ">
+                    @*<label asp-for="CategoryDocuments" class="control-label">Attach Document</label>*@
+                    @_localizer["CategoryDocuments"]
+                    <input class="form-control form-control-file" asp-for="Category.CategoryDocuments" type="file" multiple>
+                    @*<input multiple name="CategoryDocuments[]" class="form-control form-control-file" type="file" />*@
+                    <span asp-validation-for="Category.CategoryDocuments" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                        <label asp-for="OpeningDate" class="control-label"></label>
+                        <input asp-for="OpeningDate" class="form-control" />
+                        <span asp-validation-for="OpeningDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ClosingDate" class="control-label"></label>
+                        <input asp-for="ClosingDate" class="form-control" />
+                        <span asp-validation-for="ClosingDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CreationDate" class="control-label"></label>
+                        <input asp-for="CreationDate" class="form-control" />
+                        <span asp-validation-for="CreationDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DeletionDate" class="control-label"></label>
+                        <input asp-for="DeletionDate" class="form-control" />
+                        <span asp-validation-for="DeletionDate" class="text-danger"></span>
+                    </div>*@
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button value="Add" style="margin-top: 25px;" onclick="add()" id="addcriteria" class="btn btn-default-custom waves-effect waves-light" type="button">
+                            <span class="btn-label"><i class="fa fa-plus"></i></span>@_localizer["Add Criteria"]
+                        </button>
+                    </div>
+                </div>
+
+                <div id="criteria" style="display: none;" class="row">
+                    <div id="dynamic"></div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="submit" value="@_localizer["Save"]" class="btn btn-default-custom" />
+                    </div>
+                </div>
+
+
+                <input type="hidden" id="totalCriteria" value="0" />
+
+            </form>
+
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index" class="btn-back custom-link">@*<i class="fa fa-angle-left" aria-hidden="true"></i>*@@_localizer["Back to List"]</a>
+    </div>
+</div>
+
+
+<script>
+
+    var meaningcount = 1;
+    var critarea = 100;
+    var count = 200;
+    var srno = 1;
+    var srnoc = 1;
+
+
+    function removeCriteria(totalCriteria) {
+        $('#Criteria' + totalCriteria).remove();
+    }
+
+    function removeSubCriteria(totalSubCriteria) {
+
+        var row = document.getElementById('SubCriteria' + totalSubCriteria);
+        if (row == null) {
+            row = document.getElementById('SubCriteria0' + totalSubCriteria);
+            if (row == null) { return; }
+        }
+        var table = row.parentNode;
+        while (table && table.tagName != 'TABLE')
+            table = table.parentNode;
+        if (!table)
+            return;
+        table.deleteRow(row.rowIndex);
+    }
+
+    function headerDiv(totalCriteria) {
+        var headingDiv = $('<div class="col-md-10 form-group" />');
+        var headingTxt = "<h2> Criteria " + totalCriteria + "</h2>";
+        headingDiv.append(headingTxt);
+        return headingDiv;
+    }
+
+    function buttonDiv(totalCriteria) {
+        var mainDiv = $('<div class="col-md-2 text-right" />');
+
+        var addBtn = $("<button />").attr("style", "margin: 3px;").attr("type", "button").attr("class", "btn btn-default-custom btn-circle btn-lg")
+            .attr("onclick", 'appendCriteria(' + totalCriteria + ')');
+        var plusSign = $('<i class="fa fa-plus"/>');
+        addBtn.append(plusSign);
+        mainDiv.append(addBtn);
+
+        var removeBtn = $("<button />").attr("style", "margin: 3px;").attr("type", "button").attr("class", "btn btn-default-custom btn-circle btn-lg")
+            .attr("onclick", 'removeCriteria(' + totalCriteria + ')');
+        var removeSign = $('<i class="fa fa-trash"/>');
+        removeBtn.append(removeSign);
+        mainDiv.append(removeBtn);
+
+        return mainDiv;
+    }
+
+    function descriptionDiv(totalCriteria) {
+        var mainDiv = $('<div class="col-md-12 form-group" />');
+        var lblDescription = $('<label>@_localizer["Description"]</label> ');
+        var txtDescription = $('<input />').attr("type", "text").attr("class", "form-control")
+            .attr("name", 'Category.CategoryCriteria[' + totalCriteria + '].Description');
+        mainDiv.append(lblDescription);
+        mainDiv.append(txtDescription);
+        return mainDiv;
+    }
+    function checkMarks(id) {
+        if (id.value > 100) {
+            alert("Max value should be 100");
+            id.value = "100";
+        }
+    }
+    function getTableRow(totalCriteria, totalSubCriteria) {
+        var row = $('<tr id=SubCriteria' + totalCriteria + totalSubCriteria + '/> '); // Change here
+        var serialNo = $('<label />').append(totalSubCriteria + 1);
+        var columnSerialNo = $('<td/>').attr("class", "text-center").append(serialNo);
+        row.append(columnSerialNo);
+
+        var description = $('<input/>').attr("class", "form-control").attr("name",
+            'Category.CategoryCriteria[' + totalCriteria + '].CategorySubCriteria[' + totalSubCriteria + '].Description');
+        var descriptionValidator = $('<span />').attr("class", "text-danger").attr("asp-validation-for",
+            'Category.CategoryCriteria[' +
+            totalCriteria +
+            '].CategorySubCriteria[' +
+            totalSubCriteria +
+            '].Description');
+
+        var columnDescription = $('<td/>').attr("style", "width:57%;").append(description).append(descriptionValidator);
+        row.append(columnDescription);
+
+
+        var mark = $('<input/>').attr("class", "form-control").attr("type", "number").attr("onChange", "checkMarks(this)").attr("name",
+            'Category.CategoryCriteria[' + totalCriteria + '].CategorySubCriteria[' + totalSubCriteria + '].Marks');
+        var columnMarks = $('<td/>').append(mark);
+        row.append(columnMarks);
+
+        var maxWords = $('<input/>').attr("class", "form-control").attr("type", "number").attr("name",
+            'Category.CategoryCriteria[' + totalCriteria + '].CategorySubCriteria[' + totalSubCriteria + '].MaxWords');
+        var columnMaxWords = $('<td/>').append(maxWords);
+        row.append(columnMaxWords);
+
+        var addBtn = $("<button/>").attr("type", "button").attr("style", "margin: 3px;").attr("class", "btn btn-default-custom btn-circle btn-sm my-1").attr("onclick", 'appendSubCriteria(' + totalCriteria + ',' + totalSubCriteria + ')');
+        var plusSign = $('<i class="fa fa-plus"/>');
+        addBtn.append(plusSign);
+
+        var removeBtn = $("<button/>").attr("type", "button").attr("style", "margin: 3px;").attr("class", "btn btn-default-custom btn-circle btn-sm my-1").attr("onclick", 'removeSubCriteria(' + totalCriteria + totalSubCriteria + ')');
+        var removeSign = $('<i class="fa fa-trash"/>');
+        removeBtn.append(removeSign);
+        var btnColumn = $('<td/>').append(addBtn).append(removeBtn);
+        row.append(btnColumn);
+        return row;
+    }
+
+
+    function getTableBody(totalCriteria, totalSubCriteria) {
+        var tableBody = $('<tbody/>');
+        tableBody.append(getTableRow(totalCriteria, totalSubCriteria));
+        return tableBody;
+    }
+
+
+    function defaultSubCriteria(totalCriteria, totalSubCriteria) {
+
+        var mainDiv = $('<div class="col-md-12" />');
+        var tabRes = $('<div class="table-responsive" />');
+        var table = $('<table />').attr("class", "table table-hover manage-u-table").attr("id", "SubCriteriaTable" + totalCriteria);
+        var header = $(
+            '<thead><tr><th>@_localizer["S.No"]</th><th>@_localizer["Sub Criteria"]</th><th>@_localizer["Marks"]</th><th>@_localizer["Max Words"]</th><th>@_localizer["Action"]</th></tr></thead>');
+        table.append(header);
+
+        table.append(getTableBody(totalCriteria, totalSubCriteria));
+        mainDiv.append(tabRes);
+        mainDiv.append(table);
+        return mainDiv;
+    }
+
+    function appendCriteria() {
+        var totalCriteriaBaseVal = parseInt(document.getElementById("totalCriteria").value);
+        var totalCriteriaIncrement = totalCriteriaBaseVal + 1;
+        document.getElementById("totalCriteria").value = totalCriteriaIncrement;
+
+        var criteriaDiv = $('<div class="col-md-12" /> ').attr("id", 'Criteria' + totalCriteriaBaseVal);
+
+        criteriaDiv.append(headerDiv(totalCriteriaIncrement));
+        criteriaDiv.append(buttonDiv(totalCriteriaBaseVal));
+        criteriaDiv.append(descriptionDiv(totalCriteriaBaseVal));
+        criteriaDiv.append(defaultSubCriteria(totalCriteriaBaseVal, 0));
+
+        $('#dynamic').append(criteriaDiv);
+    }
+
+    function appendSubCriteria(totalCriteria, totalSubCriteria) {
+
+        var subCriteriaTable = document.getElementById("SubCriteriaTable" + totalCriteria);
+        totalSubCriteria = $('tr', $(subCriteriaTable).find('tbody')).length;
+        console.log("SubCriteriaTable" + totalCriteria);
+        console.log(totalSubCriteria);
+        $(subCriteriaTable).append(getTableRow(totalCriteria, totalSubCriteria));
+    }
+
+
+    function addCriteriaSubCriteriaDiv() {
+
+        var criteriaCount = parseInt(document.getElementById("totalCriteria").value);
+        console.log("Criteria Count: " + criteriaCount);
+        document.getElementById("totalCriteria").value = criteriaCount + 1;
+
+        $.html = '<div id="critareas' + criteriaCount + '"><div class="col-md-10"> \
+                                        <div class="form-group"> \
+                                            <h2>Criteria '+ criteriaCount + '</h2> \
+                                            </div> \
+                                        </div> \
+                                            <div class="col-md-2"> \
+                                           <button onclick="addCriteriaSubCriteriaDiv()" type="button" class="btn btn-inverse btn-circle btn-lg"><i class="fa fa-plus"></i> </button> \
+                                           <button onclick="removecrit('+ criteriaCount + ')" type="button" class="btn btn-default btn-circle btn-lg"><i class="fa fa-trash"></i> </button> \
+                                       </div> \
+                                        <div class="col-md-12"> \
+                                        <div class="form-group"> \
+                                            <label for="exampleInputEmail1">@_localizer["Description"]</label> \
+                                            <input type="text" class="form-control" id="exampleInputEmail1" name="Category.CategoryCriteria['+ criteriaCount + '].Description" /> \
+                                        </div> \
+                                   </div> \
+                                   <div class="col-md-12 "> \
+                        <div class="panel"> \
+                            <div class="table-responsive"> \
+                                <table id="testtest'+ criteriaCount + '" class="table table-hover manage-u-table"> \
+                                    <thead> \
+                                        <tr> \
+                                            <th style="width: 70px;" class="text-center"> @_localizer["S.No"]</th> \
+                                            <th>@_localizer["Sub Criteria"]</th> \
+                                            <th>@_localizer["Marks"]</th> \
+                                            <th>@_localizer["Max Words"]</th> \
+                                            <th>@_localizer["Action123"]</th> \
+                                        </tr> \
+                                    </thead> \
+                                    <tbody> \
+                                        <tr id=SubCriteria"'+ criteriaCount + '"> \
+                                            <td class="text-center">1</td> \
+                                            <td style="width:57%;"><input type="text" class="form-control" id="exampleInputEmail1"> \
+                                            </td> \
+                                            <td> \
+                                               <input type="text" class="form-control" id="exampleInputEmail1"> \
+                                            </td> \
+                                            <td><input type="text" class="form-control" id="exampleInputEmail1"></td> \
+                                            <td><button type="button" id="addsub" onclick="addsubc('+ criteriaCount + ')" class="btn btn-primary btn-circle btn-lg"><i class="fa fa-plus"></i> </button> \
+                                           <button onclick="removesubc('+ criteriaCount + ')" id="removesub" type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i> </button></td> \
+                                        </tr> \
+                                     </tbody> \
+                                </table> \
+                            </div> \
+                        </div> \
+                    </div></div>';
+        $('#dynamic').append($.html);
+
+
+
+
+    }
+
+    function addsubc(tableId) {
+
+        count = ++count;
+        srno = ++srno;
+        var table = parseInt($('#testtest' + tableId + ' tr:last-child td').html());
+        $.html = '<tr id="' + count + '"> \
+                                            <td class="text-center">'+ (table + 1) + '</td> \
+                                            <td style="width:57%;"><input type="text" class="form-control" id="exampleInputEmail1"> \
+                                            </td> \
+                                            <td> \
+                                               <input type="text" class="form-control" id="exampleInputEmail1"> \
+                                            </td> \
+                                            <td><input type="text" class="form-control" id="exampleInputEmail1"></td> \
+                                            <td><button onclick="addsubc('+ tableId + ')" type="button" id="addsub" class="btn btn-primary btn-circle btn-lg"><i class="fa fa-plus"></i> </button> \
+                                           <button onclick="removesubc('+ count + ')" id="removesub" type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-trash"></i> </button></td> \
+                                        </tr> \
+            ';
+
+        $('#testtest' + tableId).append($.html);
+        $('#removesub').on('click', function () {
+            $(this).find('tr').remove();
+        });
+
+
+
+    }
+
+    function add() {
+        $('#criteria').show();
+        appendCriteria();
+    }
+
+    function removecrit(rowid) {
+
+        if (rowid == 1) {
+            $('#critareas' + rowid).hide();
+        } else {
+            $('#critareas' + rowid).remove();
+        }
+
+
+    }
+
+    function removesubc(rowid) {
+
+        $('#' + rowid).remove();
+
+
+    }
+
+    function remove(rowid) {
+
+        $('#' + rowid).remove();
+    }</script>
+
+<script type="text/javascript">
+    /**/
+
+$(document).ready(function () {
+                //jQuery('.mydatepicker, #datepicker').datepicker({
+                //    orientation: 'top auto'
+                //});
+    $.ajax({
+        url: "@Url.Action("GetCriteriaDetails", "Categories",new { Id = Model.Category.Id })",
+        type: 'GET',
+        dataType: 'json',
+        success: function(res) {
+            console.log(JSON.stringify(res));
+            //alert(res);
+            if (res) {
+                for (var i = 0; i < res.length; i++) {
+                    var criteria = res[i];
+                    var subCriteriaList = res[i].categorySubCriteria;
+
+                    //$('#totalCriteria').val(criteria.id);
+                    add();
+                    //$("input[name='Category.CategoryCriteria["+i+"].Description']").attr("name", "#Category.CategoryCriteria["+criteria.Id+"].Description");
+                    //$("input[name='Category.CategoryCriteria["+criteria.id+"].Description']").val(criteria.description);
+                    $("input[name='Category.CategoryCriteria["+i+"].Description']").val(criteria.description);
+                    if (subCriteriaList) {
+                        for (var j = 0; j < subCriteriaList.length; j++) {
+                            var subCritirea = subCriteriaList[j];
+                            if (j > 0) {
+                                appendSubCriteria(i, j)
+                            }
+                            $("input[name='Category.CategoryCriteria["+i+"].CategorySubCriteria["+j+"].Description']").val(subCritirea.description);
+                            $("input[name='Category.CategoryCriteria["+i+"].CategorySubCriteria["+j+"].Marks']").val(subCritirea.marks);
+                            $("input[name='Category.CategoryCriteria["+i+"].CategorySubCriteria["+j+"].MaxWords']").val(subCritirea.maxWords);
+                        }
+                    }
+
+                }
+
+            }
+        },
+        error: function  (xhr, ajaxOptions, thrownError) {
+        console.log(xhr.status);
+        console.log(thrownError);
+      }
+    });
+});
+
+
+    function check_date() {
+         
+        var date1 = new Date(document.getElementById("txtStartDate").value);
+        var date2 = new Date(document.getElementById("txtEndDate").value);
+        var today = new Date();
+
+        if (date1.valueOf() > date2.valueOf()) {
+            document.getElementById("validateDate1").innerHTML = "Start Date can not be greater than End Date!";
+        } else {
+            document.getElementById("validateDate1").innerHTML = "";
+        }
+        if (date2.valueOf() < today) {
+            document.getElementById("validateDate2").innerHTML = "Please enter a value greater than or equal to " + date2;
+        } else {
+            document.getElementById("validateDate2").innerHTML = "";
+        }
+    }
+
+</script>
+
+<script type="text/javascript">
+        /**/
+
+$(document).ready(function () {
+                                jQuery('.mydatepicker, #datepicker').datepicker({
+                                    orientation: 'top auto'
+                                });
+            });</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

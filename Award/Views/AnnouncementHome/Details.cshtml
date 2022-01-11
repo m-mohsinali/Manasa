@@ -1,0 +1,72 @@
+﻿@model Award.Core.Entities.AnnouncementHome
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AnnouncementHomeController> _localizer
+
+@{
+    ViewData["Title"] = "Details";
+    //Layout = "~/Views/Shared/_AwardLayout.cshtml";
+}
+
+<h1 class="heading-border">@_localizer["AnnouncementDetails"]</h1>
+<hr />
+
+<div class="">
+    <div class="panel-body">
+        <dl class="col-md-8">
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.Title)*@ @_localizer["Title"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" name="name" value="@Html.DisplayFor(model => model.Title)" readonly />
+            </dd>
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.Description)*@ @_localizer["Description"]
+            </dt>
+            <dd class="col-sm-12">
+                <textarea class="form-control" rows="3" readonly>@Html.DisplayFor(model => model.Description)</textarea>
+            </dd>
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.StartAnnouncingDate)*@ @_localizer["StartAnnouncingDate"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" name="name" value="@Html.DisplayFor(model => model.StartAnnouncingDate)" readonly />
+            </dd>
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.EndAnnouncingDate)*@ @_localizer["EndAnnouncingDate"]
+            </dt>
+            <dd class="col-sm-12">
+                <input class="form-control" type="text" name="name" value="@Html.DisplayFor(model => model.EndAnnouncingDate)" readonly />
+               
+            </dd>
+        </dl>
+        <dl class="col-md-4">
+            <dt class="col-sm-12">
+                @*@Html.DisplayNameFor(model => model.AwardImagePath)*@
+                @_localizer["announcementImagePath"]
+            </dt>
+            <dd class="col-sm-12">
+                @*@Html.DisplayFor(model => model.AwardImagePath)*@
+                <img class="img-responsive img-fluid" src="/@Model.ThumbnailImagePath">
+            </dd>
+        </dl>
+            @*<dt>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedAt)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DeletedAt)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DeletedAt)
+            </dd>*@
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="custom-link">@_localizer["Edit"]</a> |
+    <a asp-action="Index" class="custom-link">@_localizer["Back to List"]</a>
+</div>

@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="- Award" xml:space="preserve">
+    <value>- Award</value>
+  </data>
+  <data name="2020 © All Rights Reserved." xml:space="preserve">
+    <value>2020 © All Rights Reserved.</value>
+  </data>
+  <data name="8th Aug 2019 12:00:00" xml:space="preserve">
+    <value>8th Aug 2019 12:00:00</value>
+  </data>
+  <data name="ABC Categories" xml:space="preserve">
+    <value>ABC Categories</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="ALL" xml:space="preserve">
+    <value>ALL</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>Announcement</value>
+  </data>
+  <data name="AnnouncementHome" xml:space="preserve">
+    <value>Announcement Home</value>
+  </data>
+  <data name="AnnouncementWinner" xml:space="preserve">
+    <value>Winner Announcement</value>
+  </data>
+  <data name="Award" xml:space="preserve">
+    <value>Award</value>
+  </data>
+  <data name="Award Title" xml:space="preserve">
+    <value>Award Title</value>
+  </data>
+  <data name="Award1" xml:space="preserve">
+    <value>Award</value>
+  </data>
+  <data name="Awards" xml:space="preserve">
+    <value>Awards</value>
+  </data>
+  <data name="AwardType" xml:space="preserve">
+    <value>Award Type</value>
+    <comment>النوع</comment>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Back to List" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+  <data name="Best Performace Award" xml:space="preserve">
+    <value>Best Performace Award</value>
+  </data>
+  <data name="Calendar" xml:space="preserve">
+    <value>Calendar</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="Closing Date" xml:space="preserve">
+    <value>Closing Date</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+    <comment>تعليق</comment>
+  </data>
+  <data name="CommonQuestionDetail" xml:space="preserve">
+    <value>Common Questions Detail</value>
+  </data>
+  <data name="CommonQuestions" xml:space="preserve">
+    <value>Common Questions</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Contacts</value>
+    <comment>Contacts</comment>
+  </data>
+  <data name="Corporate" xml:space="preserve">
+    <value>Corporate</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Create Contacts" xml:space="preserve">
+    <value>Create Contacts</value>
+    <comment>Create Contacts</comment>
+  </data>
+  <data name="Create Topic" xml:space="preserve">
+    <value>Create Topic</value>
+    <comment>إنشاء موضوع</comment>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+    <comment>Created</comment>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+    <comment>Email</comment>
+  </data>
+  <data name="EmployeeName" xml:space="preserve">
+    <value>Employee Name</value>
+  </data>
+  <data name="EndAnnouncingDate" xml:space="preserve">
+    <value>EndAnnouncingDate</value>
+  </data>
+  <data name="Evaluations" xml:space="preserve">
+    <value>Evaluations</value>
+  </data>
+  <data name="Event" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="Express Interest" xml:space="preserve">
+    <value>Express Interest</value>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>First</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>Forum</value>
+    <comment>بيانات</comment>
+  </data>
+  <data name="Forum Topics" xml:space="preserve">
+    <value>Forum Topics</value>
+    <comment>بيانات الطلب</comment>
+  </data>
+  <data name="General Directorate of Residency and Foreigners Affairs" xml:space="preserve">
+    <value>General Directorate of Residency and Foreigners Affairs</value>
+  </data>
+  <data name="Group Individual" xml:space="preserve">
+    <value>Individual</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Special Award</value>
+  </data>
+  <data name="Job (Arabic)" xml:space="preserve">
+    <value>Job (Arabic)</value>
+    <comment>Job (Arabic)</comment>
+  </data>
+  <data name="Job (English)" xml:space="preserve">
+    <value>Job (English)</value>
+    <comment>Job (English)</comment>
+  </data>
+  <data name="John Dow2" xml:space="preserve">
+    <value>John Dow2</value>
+  </data>
+  <data name="Jury" xml:space="preserve">
+    <value>Jury</value>
+  </data>
+  <data name="Language:" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Last" xml:space="preserve">
+    <value>Last</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Lorem ipsum dolor sit amet" xml:space="preserve">
+    <value>Lorem ipsum dolor sit amet</value>
+  </data>
+  <data name="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor" xml:space="preserve">
+    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</value>
+  </data>
+  <data name="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus" xml:space="preserve">
+    <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="MeetingScheduleInvitation" xml:space="preserve">
+    <value>Meeting invitaion has been sent to you by (AuditorName)</value>
+  </data>
+  <data name="MeetingSuccessfulyscheduled" xml:space="preserve">
+    <value>Meetaing has been successfully scheduled</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
+    <comment>Mobile</comment>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="More details" xml:space="preserve">
+    <value>More details</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>my Profile</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Name (Arabic)" xml:space="preserve">
+    <value>Name (Arabic)</value>
+    <comment>Name (Arabic)</comment>
+  </data>
+  <data name="Name (English)" xml:space="preserve">
+    <value>Name (English)</value>
+    <comment>Name (English)</comment>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Notification</value>
+  </data>
+  <data name="NotificationDate" xml:space="preserve">
+    <value>Notification Date</value>
+  </data>
+  <data name="NotificationType" xml:space="preserve">
+    <value>Notification Type</value>
+  </data>
+  <data name="Opening Date" xml:space="preserve">
+    <value>Opening Date</value>
+  </data>
+  <data name="Opening Date: 20-12-2020 , Closing Date: 30-12-2020" xml:space="preserve">
+    <value>Opening Date: 20-12-2020 , Closing Date: 30-12-2020</value>
+  </data>
+  <data name="Partial" xml:space="preserve">
+    <value>Partial</value>
+  </data>
+  <data name="ParticipateQuestion" xml:space="preserve">
+    <value>Are you intrested in this category?</value>
+  </data>
+  <data name="Password:" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="PleaseInsertMeetingDescription" xml:space="preserve">
+    <value>Please insert meeting description</value>
+  </data>
+  <data name="PleaseInsertMeetingEndTime" xml:space="preserve">
+    <value>Please insert meeting end time</value>
+  </data>
+  <data name="PleaseInsertMeetingStartTime" xml:space="preserve">
+    <value>Please insert meeting start time</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Publish" xml:space="preserve">
+    <value>Publish</value>
+    <comment>ينشر</comment>
+  </data>
+  <data name="Rank (Arabic)" xml:space="preserve">
+    <value>Rank (Arabic)</value>
+    <comment>Rank (Arabic)</comment>
+  </data>
+  <data name="Rank (English)" xml:space="preserve">
+    <value>Rank (English)</value>
+    <comment>Rank (English)</comment>
+  </data>
+  <data name="Read More" xml:space="preserve">
+    <value>Read More</value>
+  </data>
+  <data name="Replies" xml:space="preserve">
+    <value>Replies</value>
+    <comment>الردود</comment>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Reply</value>
+    <comment>الرد</comment>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="RequestAlreadySubmitted" xml:space="preserve">
+    <value>You have already submitted the request</value>
+  </data>
+  <data name="RequestSubmitted" xml:space="preserve">
+    <value>Your request has been submitted</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>Response</value>
+  </data>
+  <data name="RoleSelectMessage" xml:space="preserve">
+    <value>You have more than one role. Please select role you want to log in with</value>
+  </data>
+  <data name="Schedule Meeting" xml:space="preserve">
+    <value>Schedule Meeting</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Sector" xml:space="preserve">
+    <value>Sector</value>
+  </data>
+  <data name="Select Category" xml:space="preserve">
+    <value>Select Category</value>
+  </data>
+  <data name="sEmptyTable" xml:space="preserve">
+    <value>No data available in table</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="sInfo" xml:space="preserve">
+    <value>Showing _START_ to _END_ of _TOTAL_ entries</value>
+  </data>
+  <data name="sInfoEmpty" xml:space="preserve">
+    <value>Showing 0 to 0 of 0 entries</value>
+  </data>
+  <data name="sLengthMenu" xml:space="preserve">
+    <value>Show _MENU_ entries</value>
+  </data>
+  <data name="StartAnnouncingDate" xml:space="preserve">
+    <value>StartAnnouncingDate</value>
+  </data>
+  <data name="StartTimeMsg" xml:space="preserve">
+    <value>Start time can not be greater than end time</value>
+  </data>
+  <data name="StartTimeMsgLessThanTodayMessage" xml:space="preserve">
+    <value>Please select future date</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="SuperAdmin" xml:space="preserve">
+    <value>SuperAdmin</value>
+  </data>
+  <data name="SwitchUser" xml:space="preserve">
+    <value>Switch User</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Topics" xml:space="preserve">
+    <value>Topics</value>
+    <comment>الطلب</comment>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Username:" xml:space="preserve">
+    <value>Username:</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="VideosHome" xml:space="preserve">
+    <value>Videos Home</value>
+  </data>
+  <data name="ViewDetails" xml:space="preserve">
+    <value>ViewDetails</value>
+  </data>
+  <data name="Winner" xml:space="preserve">
+    <value>Winner</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+</root>

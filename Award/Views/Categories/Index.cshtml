@@ -1,0 +1,422 @@
+﻿@model IEnumerable<Award.Core.Entities.Category>
+@*@using AwardContract.General
+    @model IEnumerable<AwardContract.Models.Category>*@
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+
+
+@{
+    // ViewData["Title"] = @_localizer["Index"];
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row justify-content-between">
+    <div class="col-xs-6">
+        <h1 class="heading-border">@_localizer["Categories"]</h1>
+    </div>
+    <div class="col-xs-6">
+        @if (@_usersession.Isadmin)
+        {
+
+            <h1 class="text-right">
+                <a class="btn btn-secondary" asp-action="Create"> @_localizer["Create New"]</a>
+            </h1>
+
+        }
+    </div>
+</div>
+
+<hr />
+
+<div class="cointainer-fluid" style="">
+    <div class="container" id="divMessage" style="display:none">
+        <div class="alert btn-default-custom alert-dismissible" style="max-width: 95%;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @_localizer["Sucessfully Processed"]
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+
+                @*<h3 class="box-title m-b-0"> @_localizer["Categories"]</h3>*@
+                @if (!string.IsNullOrEmpty(TempData["CategorySuccessMsg"]?.ToString()))
+                {
+
+                    <div class="alert btn-default-custom alert-dismissible" style="max-width: 95%;">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        @TempData["CategorySuccessMsg"]
+                    </div>
+                }
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                @if (@_usersession.IsQSM)
+                                {
+                                    <th>
+
+                                        @_localizer["Sector"]
+
+                                    </th>
+                                }
+                                <th>
+                                    @_localizer["Name"]
+                                </th>
+
+                                <th>
+                                    @_localizer["Award"]
+                                </th>
+
+                                @if (!@_usersession.IsQSM)
+                                {
+                                    <th>
+
+                                        @_localizer["AwardType"]
+
+                                    </th>
+                                }
+
+                                <th>
+                                    @_localizer["OpeningDate"]
+                                </th>
+
+                                <th>
+                                    @_localizer["ClosingDate"]
+
+                                </th>
+
+                                @if (@_usersession.Isadmin)
+                                {
+                                    <th style="min-width: 185px; text-align: center;"> @_localizer["Manage"]</th>
+                                    <th style="text-align: center;"> @_localizer["Action"]</th>
+                                    <th style="text-align: center;"> @_localizer["Submission"]</th>
+                                }
+                                @if (@_usersession.IsQSM)
+                                {
+
+                                    <th> @_localizer["View"]</th>
+                                }
+
+
+                                @if (@_usersession.IsEndUser)
+                                {
+
+                                    <th> @_localizer["Action"]</th>
+                                }
+                                <th> @_localizer["Download"]</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if ((@_usersession.IsQSM))
+                            {
+
+
+                                @foreach (var item in ViewBag.data as List<Award.Web.Models.QsmAssignViewModel>)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SectorName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AwardName)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.OpeningDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ClosingDate)
+                                        </td>
+                                        @if (@_usersession.IsQSM)
+                                        {
+                                            <td>
+                                                @Html.ActionLink(_localizer["View"], "Index", "UserDetail", new { catId = item.CatId, sectorId = item.SectorId }, new { @class = "badge btn-danger" })
+                                            </td>
+                                        }
+                                        <td>
+                                            @Html.ActionLink(_localizer["Download"], "DownloadCategoryFiles", "Categories", new { catId = item.CatId }, new { @class = "badge btn-info" })
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Award.Name)
+                                        </td>
+                                        <td>
+                                            @*@Html.DisplayFor(modelItem => item.AwardType)*@
+
+                                            @_localizer[item.AwardType.ToString()]
+
+
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.OpeningDate)
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ClosingDate)
+                                        </td>
+                                        @if (@_usersession.Isadmin)
+                                        {
+                                            <td style="text-align: center;">
+                                                <a asp-action="Edit" asp-route-id="@item.Id"><i class="glyphicon glyphicon-edit text-success"></i> @_localizer["Edit"]</a> |
+                                                <a asp-action="Details" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list-alt text-info"></i> @_localizer["Details"]</a> |
+                                                <a asp-action="Delete" asp-route-id="@item.Id"><i class="glyphicon glyphicon-remove text-danger"></i> @_localizer["Delete"]</a>
+                                            </td>
+                                            <td style="text-align: center;"><a id="@item.Id" class="badge btn-danger" onclick="openAllocatePopUp(@item.Id);"> @_localizer["Allocate"]</a></td>
+                                            <td style="text-align: center;">@Html.ActionLink(_localizer["Submission"], "FillSubmission", "Categories", new { catId = item.Id }, new { @class = "badge btn-danger" })</td>
+
+                                        }
+                                        @if (@_usersession.IsQSM)
+                                        {
+                                            <td>
+                                                @Html.ActionLink(_localizer["View"], "Index", "UserDetail", new { catId = item.Id }, new { @class = "badge btn-danger" })
+                                            </td>
+                                        }
+                                        @if (@_usersession.IsEndUser)
+                                        {
+                                            <td>
+                                                @if (@item.CurrentStatusId == 3)
+                                                {
+                                                    @Html.ActionLink(_localizer["ReSubmit"], "FillCriteria", "Categories", new { catId = item.Id }, new { @class = "badge badge-danger" })
+
+                                                }
+                                                else @if (@item.CurrentStatusId == 5)
+                                                {
+                                                    @Html.ActionLink(_localizer["ReSubmitted"], "FillCriteria", "Categories", new { catId = item.Id }, new { @class = "badge badge-danger" })
+
+                                                }
+                                                else
+                                                {
+                                                    @if (@item.CurrentStatusId == 2)
+                                                    {
+                                                        @Html.ActionLink(_localizer["Submited"], "FillCriteria", "Categories", new { catId = item.Id }, new { @class = "badge badge-danger" })
+
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.ActionLink(_localizer["Response"], "FillCriteria", "Categories", new { catId = item.Id }, new { @class = "badge btn-danger" })
+
+                                                    }
+                                                }
+
+                                            </td>
+                                        }
+                                        <td>
+                                            @Html.ActionLink(_localizer["Download"], "DownloadCategoryFiles", "Categories", new { catId = item.Id }, new { @class = "badge btn-info" })
+                                        </td>
+
+
+
+                                    </tr>
+                                }
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="showAllocatemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="display:none">
+                                    @*@Html.DisplayNameFor(model => model.Name)*@
+                                </th>
+
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.Award)*@
+                                    @_localizer["SectorNameEnglish"]
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.AwardType)*@
+                                    @_localizer["SectorNameArabic"]
+                                </th>
+                                <th> @_localizer["Allocate"]</th>
+                                <th>
+                                    @_localizer["Select"]
+
+                                    @*<label class="check" for="checkheader" style="cursor: pointer">@_localizer["Allocate All"]</label> <INPUT id="checkheader" type="checkbox" onchange="checkAll(this)" name="chk[]" />*@
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tBodySectors">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        function checkAll(ele) {
+            var checkboxes = document.getElementsByTagName('input');
+            if (ele.checked) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].type == 'checkbox') {
+                        checkboxes[i].checked = true;
+                    }
+                }
+            } else {
+                //for (var i = 0; i < checkboxes.length; i++) {
+                //    console.log(i)
+                //    if (checkboxes[i].type == 'checkbox') {
+                //        checkboxes[i].checked = false;
+                //    }
+                //}
+            }
+        }
+
+                var catId;
+            function openAllocatePopUp(id) {
+                    $("#loader").show();
+                    $("#tBodySectors").empty();
+                    var disabled = "";
+                var buttonLabel = "";
+
+                    catId = id;
+                    var url = "/Categories/LoadSectorData?catId=" + escape(id);
+                    $.ajax({
+                             type: "Get",
+                             url: url,
+                        contentType: "application/json; charset=utf-8",
+
+                        success: function (result) {
+                            debugger;
+                            var data = result;
+                            var concept_list = '';
+            for(var i=0;i<data.result.length;i++ ){
+
+                        concept_list += '<tr>';
+                        concept_list += '<td>' + data.result[i].nameEn + '</td>';
+                        concept_list += '<td>' + data.result[i].nameAr + '</td>';
+
+                        if (data.result[i].isSubmitted === true) {
+
+                            if (data.result[i].isQsmAssigned == true) {
+                                disabled = "disabled";
+                            }
+                            else {
+                                disabled = "";
+
+                            }
+                              buttonLabel = '@_localizer["UnAllocate"]';
+                            var btnClass = 'btn btn-success';
+                            var checkbox = "checked";
+                        }
+                        else {
+                              buttonLabel = '@_localizer["Allocate"]';
+                            var btnClass = 'btn-default-custom';
+                            var checkbox = "";
+                                disabled = "";
+
+
+                        }
+                        concept_list += '<td><button  type="button"'+ disabled+'  class="btn '+btnClass+'" style=" width: 100px;" onclick="allocateSector(' + data.result[i].id + "," + data.result[i].isSubmitted +","+1+ ')" >' + buttonLabel + '</button></td>';
+                        concept_list += '<td><input type="checkbox" name="sector"  class="checkbox" id="'+ data.result[i].id +  '" style="display: inline-block"' +checkbox +" "+ disabled+'/></td>';
+                        concept_list += '</tr>';
+                            }
+                            disabled = "";
+                        concept_list += '<tr><td><button  type="button"'+ disabled+'  class="btn btn-success" style=" width: 100px;" onclick="allocateAllSector()">' + '@_localizer["Save"]' + '</button></td> </tr>';
+
+                    $('#tBodySectors').append(concept_list);
+                    $("#loader").hide();
+                    $('#showAllocatemodal').modal('show');
+
+
+                },
+                error: function (result) {
+                    alert( result.responseText);
+                }
+            });
+        }
+        function allocateSector(sectorId, isAllocated, showMsg) {
+            debugger;
+            $('#showAllocatemodal').modal('hide');
+            $("#loader").show();
+            $.ajax({
+                url: '@Url.Action("AllocateSector","Categories")',
+                data: {
+                    catId: catId,
+                    sectorId: sectorId,
+                    isAllocated:isAllocated
+                }
+            }).done(function () {
+                //if (showMsg == 1) {
+                var x = document.getElementById("divMessage");
+                x.style.display = "block";
+                $("#loader").hide();
+               // }
+
+
+                });
+                $('[class^=dataTables_] [type=search],[class^=dataTables_] select').addClass('form-control formcontrol-width');
+        }
+
+        function allocateAllSector() {
+
+            var count = 1;
+            var showMsg = 0;
+            //alert($('input[name=sector]').length);
+            $('input:checkbox[name=sector]').each(function()
+            {
+                var isAllocated = true;
+                // if (count == $('input[name=sector]').length)
+                   //showMsg = 1;
+                 if ($(this).is(':checked'))
+                    isAllocated = false;
+                 allocateSector($(this).attr("id"), isAllocated, showMsg);
+                count++;
+                //alert(showMsg);
+
+
+                });
+
+
+            }
+
+
+    </script>
+
+}

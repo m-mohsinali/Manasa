@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Award.Core.Entities.VideosHome>
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Award.Web.Controllers.VideosHomeController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+
+@{
+    ViewData["Title"] = "Index";
+    //Layout = "~/Views/Shared/_AwardLayout.cshtml";
+}
+<div class="row justify-content-between">
+    <div class="col-xs-6">
+        <h1 class="heading-border">@_localizer["VideosHome"]</h1>
+    </div>
+    <div class="col-xs-6">
+        <h1 class="text-right">
+            <a asp-action="Create" class="btn btn-secondary">@_localizer["Create New"]</a>
+        </h1>
+    </div>
+</div> 
+<hr />
+
+<div class="table-responsive">
+    <table id="myTable" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Title)*@   @_localizer["Title"]
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Description)*@   @_localizer["Description"]
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.StartAnnouncingDate)*@  @_localizer["StartAnnouncingDate"]
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.EndAnnouncingDate)*@  @_localizer["EndAnnouncingDate"]
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.CreatedAt)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeletedAt)
+                    </th>*@
+                <th style="min-width: 192px; text-align: center;">@_localizer["Manage"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartAnnouncingDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndAnnouncingDate)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.CreatedAt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DeletedAt)
+                        </td>*@
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="glyphicon glyphicon-edit text-success"></i> @_localizer["Edit"]</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list-alt text-info"></i> @_localizer["Details"]</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="glyphicon glyphicon-remove text-danger"></i> @_localizer["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

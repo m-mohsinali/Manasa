@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Award.Web.Models.TeamViewModel>
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.TeamController> _localizer
+@inject IStringLocalizer<Award.Web.Controllers.CategoriesController> _localizerCat
+
+
+@{
+    ViewData["Title"] = @_localizer["Teams"];
+}
+
+
+<div class="row justify-content-between">
+    <div class="col-xs-6">
+        <h1 class="heading-border"> @_localizer["Team"]</h1>
+    </div>
+    <div class="col-xs-6">
+        <h1 class="text-right">
+            <a asp-action="Create" class="btn btn-secondary mb-2 "> @_localizer["Create Team"]</a>
+        </h1>
+    </div>
+</div>
+<hr />
+
+
+<div class="cointainer-fluid">
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+
+
+                @if (!string.IsNullOrEmpty(TempData["CategorySuccessMsg"]?.ToString()))
+                {
+                    @TempData["CategorySuccessMsg"]
+                    ;
+                }
+                <div class="table-responsive">
+                    <table id="myTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @_localizer["Name"]
+                                </th>
+                                <th>
+                                    @_localizer["Manage"]
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TeamName)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-teamId="@item.TeamId" class="glyphicon glyphicon-edit text-success"> @_localizer["Edit"]</a> |
+                                        <a asp-action="Details" asp-route-teamId="@item.TeamId" class="glyphicon glyphicon-list-alt text-info"> @_localizer["Details"]</a> |
+                                        <a asp-action="Delete" asp-route-teamId="@item.TeamId" class="glyphicon glyphicon-remove text-danger"> @_localizer["Delete"]</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

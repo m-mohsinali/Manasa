@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Award.Core.Entities.Winner>
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.WinnersController> _localizer
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@_localizer["Winners"]</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.IsAnnounced)*@
+                @_localizer["IsAnnounced"]
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.ShowWinnerImage)*@
+                @_localizer["ShowWinnerImage"]
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.AnounceDate)*@
+                @_localizer["AnounceDate"]
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.IdAward)*@
+                @_localizer["IdAward"]
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.IdCategory)*@
+                @_localizer["IdCategory"]
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.IdEmployee)*@
+                @_localizer["IdEmployee"]
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.IdSector)*@
+                @_localizer["IdSector"]
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DeletedDate)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsAnnounced)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShowWinnerImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnounceDate)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.IdAward)*@
+                    @Html.DisplayFor(modelItem => item.Award.Name)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.IdCategory)*@
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.IdEmployee)*@
+                    @Html.DisplayFor(modelItem => item.Employee.NameAr)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.IdSector)*@
+                    @Html.DisplayFor(modelItem => item.Sector.NameAr)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpdatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeletedDate)
+                    </td>*@
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">@_localizer["Edit"]</a> |
+                    @* <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                    @*<a asp-action="AnnounceWinner" asp-route-id="@item.Id,@item">Announce As Winner</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

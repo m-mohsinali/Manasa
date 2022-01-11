@@ -1,0 +1,126 @@
+﻿@*@model Award.Core.Entities.Awards*@
+@model Award.Web.Models.AwardsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.AwardsController> _localizer
+
+@{
+    ViewData["Title"] = @_localizer["Create Award"];
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="heading-border">@_localizer["Add New Awards"]</h1>
+
+@*<h4>@_localizer["Awards"]</h4>*@
+<hr />
+
+<div class="">
+        <div class="panel-body">
+            <form asp-controller="Awards" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-12 form-group">
+                        @*<label asp-for="award.Name" class="control-label"></label>*@
+                        <label asp-for="award.Name" class="control-label">@_localizer["Name"]</label>
+                        <input asp-for="award.Name" class="form-control" />
+                        <span asp-validation-for="award.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        @*<label asp-for="award.Description" class="control-label"></label>*@
+                        <label asp-for="award.Description" class="control-label">@_localizer["Description"]</label>
+                        <textarea asp-for="award.Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="award.Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row row-direction">
+                    <div class="col-md-6 form-group">
+                        @*<label asp-for="award.OpeningDate" class="control-label"></label>*@
+                        <label asp-for="award.OpeningDate" class="control-label">@_localizer["OpeningDate"]</label>
+                        <input asp-for="award.OpeningDate" id="txtStartDate" onchange="check_date()" class="form-control" />
+                        <span asp-validation-for="award.OpeningDate" class="text-danger"></span>
+                        <strong id="validateDate1" class="text-danger"></strong>
+
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        @*<label asp-for="award.ClosingDate" class="control-label"></label>*@
+                        <label asp-for="award.ClosingDate" class="control-label">@_localizer["ClosingDate"]</label>
+                        <input asp-for="award.ClosingDate" id="txtEndDate" onchange="check_date()" class="form-control" />
+                        <span asp-validation-for="award.ClosingDate" class="text-danger"></span>
+                        <strong id="validateDate2" class="text-danger"></strong>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        @*<label asp-for="awardImagePath" class="control-label"></label>*@
+                        <label asp-for="awardImagePath" class="control-label">@_localizer["awardImagePath"]</label>
+                        <input asp-for="awardImagePath" class="form-control" type="file" />
+                        <span asp-validation-for="awardImagePath" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        @*<label asp-for="AwardDocuments" class="control-label"></label>*@
+                        <label asp-for="AwardDocuments" class="control-label">@_localizer["AwardDocuments"]</label>
+                        <input asp-for="AwardDocuments" class="form-control" type="file" multiple />
+                        <span asp-validation-for="AwardDocuments" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <a asp-action="Create"><input type="submit" value="@_localizer["Create"]" class="btn btn-default-custom" /></a>
+                        @*<a asp-action="Publish"><input type="submit" value="@_localizer["Publish"]" class="btn btn-default-custom" /></a>*@
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+
+<div>
+    <a asp-action="Index" class="btn-back custom-link">@*<i class="fa fa-angle-left" aria-hidden="true">*@</i>@_localizer["Back to List"]</a>
+</div>
+
+<script type="text/javascript">
+    /**/
+
+$(document).ready(function () {
+                jQuery('.mydatepicker, #datepicker').datepicker({
+                    orientation: 'top auto'
+                });
+});
+
+
+    function check_date() {
+        //document.getElementById("txtEndDate").min = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) + "-" + new Date().getDate();
+        var date1 = new Date(document.getElementById("txtStartDate").value);
+        var date2 = new Date(document.getElementById("txtEndDate").value);
+        var today = new Date();
+        console.log(date1, date2);
+        //var dateOne = date1.setHours(0, 0, 0, 0);
+        //var dateTwo = date2.setHours(0, 0, 0, 0);
+        if (date1.valueOf() > date2.valueOf()) {
+            document.getElementById("validateDate1").innerHTML = "Start Date can not be greater than End Date!";
+            //alert("Start Date can not be greater than End Date!");
+        } else {
+            document.getElementById("validateDate1").innerHTML = "";
+        }
+        //console.log(document.getElementById("txtEndDate").value + " " + date2);
+        if (date2.valueOf() < today) {
+            document.getElementById("validateDate2").innerHTML = "Please enter a value greater than or equal to " + date2;
+        } else {
+            document.getElementById("validateDate2").innerHTML = "";
+        }
+    }
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

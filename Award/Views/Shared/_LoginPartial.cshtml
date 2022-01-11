@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+
+<ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item">
+            <a>@User.Identity.Name</a>@*USER.FINDFIRST(SYSTEM.SECURITY.CLAIMS.CLAIMTYPES.NAME).VALUE*@
+        </li>
+        <li class="nav-item">
+            <form method="post" asp-controller="Account" asp-action="Signout">
+                <input type="submit" class="btn btn-primary" value="@_localizer["Logout"]" />
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="dropdown nav-item">
+            <a asp-controller="Account" asp-action="Signin">@_localizer["Login"]</a>
+        </li>
+
+    }
+
+</ul>

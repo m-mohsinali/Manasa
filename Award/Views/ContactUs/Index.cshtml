@@ -1,0 +1,65 @@
+﻿@model List<Award.Core.Entities.Contact>
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment _hostEnv
+@inject IStringLocalizer<Award.Web.Controllers.HomeController> _localizer
+@inject Award.Web.Common.Auth.IUserSession _usersession
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <style>
+        .show_hover {
+            overflow: hidden;
+        }
+        .show_hover:hover {
+            overflow: visible;
+        }
+    </style>
+
+<div class="row">
+    <div class="col-xs-6">
+        <h1 class="heading-border"> @_localizer["Contacts"]</h1>
+    </div>
+</div>
+<hr />
+<div class="container-fluid">
+    
+        @for (int item = 0; item < Model.Count; item++)
+        {
+            if(item %3 ==0)
+            {
+                Html.Raw("<div class='row'>");
+            }
+            var backgroundcss = item % 2 == 0 ? "#f2ecd699" : "#b6b7b899";
+            var borderTop = item % 2 == 0 ? "#325b5a" : "#bf2131";
+            var iconBack = item % 2 == 0 ? "#325b5a" : "#bf2131";
+            <div class="col-md-4 mt-2" style="font-size:large;">
+                <div class="col-md-12 justify-content-between" style="padding: 1rem; background: @backgroundcss; border-top: 0.5rem solid @borderTop;">
+                    <div class="col-xs-6" style="min-height: 20rem;">
+                        <div style="font-weight:bolder">@Model[item].EmployeeNameEn</div>
+                        <div style="color:#454545">@Model[item].RankEn</div>
+                        <div style="color:#454545">@Model[item].JobEn</div>
+                    </div>
+                    <div class="col-xs-6 text-right" style="">
+                        <img src="@Model[item].Photo" class="img-circle" alt="Cinque Terre" style="max-width: 8rem; max-height: 8rem;">
+                    </div>
+                    <div class="col-xs-12" style="font-size: small; padding: 0;">
+                        <div class="col-sm-4 show_hover" style="z-index: 999;"><span style="display: inline-flex; "><span class="glyphicon glyphicon-phone-alt" style="background: @iconBack; color: white; padding: 5px; margin-bottom: 1px; border-radius: 50%;"></span> <span style="padding-left: 3px; padding-top: 3px; color: @borderTop;">@Model[item].Phone</span></span></div>
+                        <div class="col-sm-4 show_hover" style="z-index: 99;"><span style="display: inline-flex; "><span class="glyphicon glyphicon-phone" style="background: @iconBack; color: white; padding: 5px; margin-bottom: 1px; border-radius: 50%;"></span> <span style="padding-left: 3px; padding-top: 3px; color: @borderTop;">@Model[item].Mobile</span></span></div>
+                        <div class="col-sm-4 show_hover" style="z-index: 9;"><span style="display: inline-flex; "><span class="glyphicon glyphicon-envelope" style="background: @iconBack; color: white; padding: 5px; margin-bottom: 1px; border-radius: 50%;"></span> <span style="padding-left: 3px; padding-top: 3px; color: @borderTop;">@Model[item].Email</span></span></div>
+                    </div>
+                </div>
+
+
+    </div>
+    if( item % 2 ==0 && item !=0)
+            {
+                Html.Raw("</div>");
+            }
+
+}
+    
+    
+</div>

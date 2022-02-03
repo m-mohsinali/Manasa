@@ -4,10 +4,10 @@
 @inject IStringLocalizer<Award.Web.Controllers.AccountController> _localizer
 
 @{
-    ViewData["Title"] = @_localizer["SAccess denied"];
+    ViewData["Title"] = @_localizer["Access denied"];
 }
 
 <header>
     <h2 class="text-danger">@ViewData["Title"]</h2>
-    <p class="text-danger">@_localizer["SYou do not have access to this resource."]</p>
+    <p class="text-danger">@_localizer["You do not have access to this resource."]</p>
 </header>

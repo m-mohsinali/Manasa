@@ -8,6 +8,6 @@ namespace Award.Core.Interfaces
         Awards GetAward(string username);
         ManasaEmployee GetByUsername(string username, string email="");
         List<ReportGenericData> GetReportGenericData();
-
+        List<ManasaEmployee> UpdateBulkData(string logfilepath);
     }
 }

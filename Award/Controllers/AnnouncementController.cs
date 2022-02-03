@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Award.Web.Controllers
 {
-     [Authorize]
+    [Authorize(Roles = "Administrator , SuperAdmin")]
     public class AnnouncementController : BaseController
     {
         private readonly AwardDbContext _context;

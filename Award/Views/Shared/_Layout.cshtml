@@ -162,7 +162,7 @@
 
         <div id="sidebar" class="sidebar">
             <a id="home" asp-controller="Home" asp-action="Opening"><i class="fa fa-fw fa-home"></i>&nbsp;@_localizer["Home"]</a>
-            @if (@_usersession.Isadmin || _usersession.IsAuditor || _usersession.IsSuperAdmin)
+            @if (@_usersession.Isadmin || _usersession.IsSuperAdmin)
             {
                 <a id="dashboard" asp-controller="Dashboard" asp-action="Index"><i class="fa fa-trophy" aria-hidden="true"></i>&nbsp;@_localizer["Dashboard"]</a>
 

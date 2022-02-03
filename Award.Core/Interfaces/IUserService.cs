@@ -30,7 +30,8 @@ namespace Award.Core.Interfaces
         Task<Teams> EditEmployeesTeam(Teams team);
         Task<IReadOnlyList<User>> GetAllUsersWithRoleNameAsyncByIds(string roleName, string[] ids); 
 
-        //Task<User> InsertBulkUserInDB();
+        Task<User> InsertBulkUserInDB();
+        Task<object> UploadBulkUserInDB(string logfilepath);
 
     }
 }

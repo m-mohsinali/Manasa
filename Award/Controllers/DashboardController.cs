@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Award.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator , SuperAdmin")]
     public class DashboardController : BaseController
     {
         private readonly AwardDbContext _context;

@@ -27,10 +27,11 @@
     <!-- <div style="height: 100vh;"> -->
     <div class="col-md-12">
         <div class="row " style="">
-            <div class="col-md-4" style="padding-top: 1rem; padding-bottom: 1rem;">
+            
+            <div class="col-4 offset-4" style="padding-top: 1rem; padding-bottom: 1rem;">
                 <img class="img-fluid img-responsive" src="~/Image/final-logo-manasa.png" />
             </div>
-            <div class="col-md-8">
+            <div class="col-4">
                 @*<div class="row " style="margin-top: 1rem; margin-bottom: 1rem;">
                         <div class="col-md-5  col-md-offset-7">
                             <img class="img-fluid img-responsive" src="~/image/DNRD Logo.png" style="background-color: white; padding-right: 3rem; padding-left: 3rem; border-radius: 1rem;">
@@ -63,6 +64,27 @@
     </div>
 
     <div class="col-md-12 " style="background-color: #bbbbbb33;">
+        <div class="row">
+            <div class="col-lg-3 text-center" style="margin: auto; padding-top: 2rem;">
+                <!-- style="background: url('assets/img/user icon-2.png') no-repeat top " -->
+                <!-- <div style="background-image: url('assets/img/shade credential.png'); background-size: cover; min-height: 260px;"> -->
+                <div style="background: url('/image/user icon-2.png') no-repeat top; margin: auto; max-height: 36rem;">
+                    <img class="img-fluid img-responsive" src="~/image/shade credential.png" style="position: relative; top: 40px; margin: auto;">
+                    <img class="img-fluid img-responsive user_icon_2" src="~/image/User Icon@2x.png" style="">
+
+                    <div class="sign_form" style="">
+                        <h3 class="text-center">Sign In</h3>
+                        <form asp-controller="Account" asp-action="Signin" asp-route-returnurl="@this.ViewData["ReturnUrl"]" method="post">
+                            <input class="form-control my-xl-3" style="margin-top: 1.5rem; background: url('/image/un box.png'); background-position: center; background-size: cover; border: 1px solid #ced4da00; height: 3rem; font-size: 2rem; max-width: 20rem; margin: auto;" type="text" id="UserName" placeholder="@_localizer["Username:"]" name="UserName">
+                            <input class="form-control my-xl-3" style="margin-top: 1.5rem; background: url('/image/un box.png'); background-position: center; background-size: cover; border: 1px solid #ced4da00; height: 3rem; font-size: 2rem; max-width: 20rem; margin: auto;" type="password" id="Password" placeholder="@_localizer["Password:"]" name="Password">
+                            <button class="btn btn-block my-xl-3" style="margin-top: 1.5rem; background: url('/image/Login.png') ; background-position: center; background-size: cover; color: transparent; height: 3rem; max-width: 20rem; margin: auto;" type="submit"> ________ </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- </div> -->
+            </div>
+        </div>
         <div class="row ">
             <div class="col-lg-3" style="padding-left: 1rem; padding-right: 1rem;">
                 <h2 class="text-center" style="padding-top: 1em;">@_localizerWinners["Winners"]</h2>
@@ -219,26 +241,8 @@
 
                 </div>
             </div>
-
-            <div class="col-lg-3 text-center" style="margin: auto; padding-top: 2rem;">
-                <!-- style="background: url('assets/img/user icon-2.png') no-repeat top " -->
-                <!-- <div style="background-image: url('assets/img/shade credential.png'); background-size: cover; min-height: 260px;"> -->
-                <div style="background: url('/image/user icon-2.png') no-repeat top; margin: auto; max-height: 36rem;">
-                    <img class="img-fluid img-responsive" src="~/image/shade credential.png" style="position: relative; top: 40px; margin: auto;">
-                    <img class="img-fluid img-responsive user_icon_2" src="~/image/User Icon@2x.png" style="">
-
-                    <div class="sign_form" style="">
-                        <h3 class="text-center">Sign In</h3>
-                        <form asp-controller="Account" asp-action="Signin" asp-route-returnurl="@this.ViewData["ReturnUrl"]" method="post">
-                            <input class="form-control my-xl-3" style="margin-top: 1.5rem; background: url('/image/un box.png'); background-position: center; background-size: cover; border: 1px solid #ced4da00; height: 3rem; font-size: 2rem; max-width: 20rem; margin: auto;" type="text" id="UserName" placeholder="@_localizer["Username:"]" name="UserName">
-                            <input class="form-control my-xl-3" style="margin-top: 1.5rem; background: url('/image/un box.png'); background-position: center; background-size: cover; border: 1px solid #ced4da00; height: 3rem; font-size: 2rem; max-width: 20rem; margin: auto;" type="password" id="Password" placeholder="@_localizer["Password:"]" name="Password">
-                            <button class="btn btn-block my-xl-3" style="margin-top: 1.5rem; background: url('/image/Login.png') ; background-position: center; background-size: cover; color: transparent; height: 3rem; max-width: 20rem; margin: auto;" type="submit"> ________ </button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- </div> -->
-            </div>
+            <div class="col-lg-3"></div>
+            
         </div>
     </div>
 

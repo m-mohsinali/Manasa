@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Award.Core.Entities;
 using Award.Core.Interfaces;
@@ -13,6 +15,7 @@ using Award.Web.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,14 +34,15 @@ namespace Award.Web.Controllers
         private readonly IUserService _userService;
         private readonly AwardDbContext _context;
         private readonly IStringLocalizer<CategoriesController> _localizer;
-
+        private readonly IWebHostEnvironment _appEnvironment;
 
         public AccountController(
             ISignInManager signInManager,
             ILdapAuthenticationService authService,
             IConfiguration configuration,
             IUserService userService,
-            AwardDbContext context, IStringLocalizer<CategoriesController> localizer) : base(context)
+            AwardDbContext context, IStringLocalizer<CategoriesController> localizer,
+            IWebHostEnvironment appEnvironment) : base(context)
         {
             _context = context;
             this._signInManager = signInManager;
@@ -46,6 +50,7 @@ namespace Award.Web.Controllers
             this._configuration = configuration;
             this._userService = userService;
             _localizer = localizer;
+            _appEnvironment = appEnvironment;
         }
 
         [HttpGet]
@@ -58,7 +63,28 @@ namespace Award.Web.Controllers
 
             return this.View();
         }
-
+        [HttpGet]
+        public async Task<object> startScheduler()
+        {
+            UpdateDbRecord(null);
+            System.Threading.Timer Order_Timer = new System.Threading.Timer(new TimerCallback(UpdateDbRecord), null, 60*60*1000, 24 *60 * 60 * 1000);
+            //System.Threading.Timer Order_Timer = new System.Threading.Timer(new TimerCallback(UpdateDbRecord), null, 2 * 60 * 1000, 2 * 60 * 1000);
+            return null;
+        }
+        public async void UpdateDbRecord(object state)
+        {
+            var path = _appEnvironment.WebRootPath+ "/Logging/Scheduler_log_file.txt";
+            try
+            {
+                System.IO.File.AppendAllText(path,DateTime.Now + ": Scheduler start" + Environment.NewLine);
+                var InsertAllUsersFromDNRDToAwardDb = await _userService.UploadBulkUserInDB(path);
+                System.IO.File.AppendAllText(path, DateTime.Now + ": Data Updated" + Environment.NewLine);
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.AppendAllText(path, DateTime.Now + ": Scheduler Exception :" + ex.Message + Environment.NewLine);
+            }            
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Signin(SigninViewModel model, string returnUrl = null)
@@ -78,7 +104,7 @@ namespace Award.Web.Controllers
             var email = "";
             if (dataInsertRequired == "true")
             {
-                // var InsertAllUsersFromDNRDToAwardDb = _userService.InsertBulkUserInDB();
+                 //var InsertAllUsersFromDNRDToAwardDb = _userService.InsertBulkUserInDB();
 
             }
 
@@ -290,7 +316,7 @@ namespace Award.Web.Controllers
 
             return this.View(user);
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator , SuperAdmin")]
         public async Task<IActionResult> UserRoles()
         {
             var userRoles = await _userService.GetUserRolesListAsync();
@@ -306,7 +332,7 @@ namespace Award.Web.Controllers
 
             return this.View(userRolesVM);
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator , SuperAdmin")]
         public async Task<IActionResult> UserRolesDetails(long userId)
         {
             var user = await _userService.GetUserRolesAsync(userId);
@@ -316,14 +342,14 @@ namespace Award.Web.Controllers
 
             return this.View(userRolesVM);
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator , SuperAdmin")]
         public async Task<IActionResult> UserRolesDelete(long userId)
         {
             var user = await _userService.GetUserRolesAsync(userId);
             var userRolesVM = user != null ? new UserRolesViewModel { UserId = user.Id, UserName = user.UserName, UserRoles = user.UserRoles.Select(b => new RoleViewModel(b.Role)).ToList() } : new UserRolesViewModel();
             return this.View(userRolesVM);
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator , SuperAdmin")]
         [HttpPost, ActionName("UserRolesDelete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UserRolesDeleteConfirmed(long userId)
@@ -331,7 +357,7 @@ namespace Award.Web.Controllers
             await _userService.DeleteUserRolesAsync(userId);
             return RedirectToAction(nameof(UserRoles));
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator , SuperAdmin")]
         public async Task<IActionResult> UserRolesEdit(long userId)
         {
             var user = await _userService.GetUserRolesAsync(userId);
@@ -349,7 +375,7 @@ namespace Award.Web.Controllers
 
             return this.View(userRolesVM);
         }
-        [Authorize]
+        [Authorize(Roles = "Administrator , SuperAdmin")]
         [HttpPost, ActionName("UserRolesEdit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UserRolesEdit(UserRolesViewModel userRole)

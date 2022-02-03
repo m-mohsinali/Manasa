@@ -11,9 +11,11 @@ using Microsoft.Extensions.Configuration;
 using Award.Core.Interfaces;
 using Award.Web.Models;
 using static Award.Core.Common.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Award.Web.Controllers
 {
+    [Authorize(Roles = "Administrator , SuperAdmin")]
     public class JuryTeamsController : BaseController
     {
         private readonly AwardDbContext _context;

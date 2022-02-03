@@ -11,7 +11,7 @@ using static Award.Core.Common.Constants;
 
 namespace Award.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator , SuperAdmin")]
 
     public class SectorController : Controller
     {

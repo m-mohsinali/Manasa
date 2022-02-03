@@ -622,165 +622,69 @@ namespace Award.Infrastructure.Services
             return true;
 
         }
-
-        public async Task<User> InsertBulkUserInDB()
-
+        public async Task<object> UploadBulkUserInDB(string logfilepath)
         {
-
-
-
             try
-
             {
-
+                 var data =_manasaEmployeeRepository.UpdateBulkData(logfilepath);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return null;
+        }
+        public async Task<User> InsertBulkUserInDB()
+        {
+            try
+            {
                 //using (var searcher = new PrincipalSearcher(new UserPrincipal(new PrincipalContext(ContextType.Domain, Environment.UserDomainName))))
-
                 {
 
                     var searcher = new PrincipalSearcher(new UserPrincipal(new PrincipalContext(ContextType.Domain, Environment.UserDomainName)));
-
                     List<UserPrincipal> users = searcher.FindAll().Select(u => (UserPrincipal)u).ToList();
-
-
-
-
-
                     //users = users.Where(u => u.EmailAddress != null).ToList();
-
-
-
-
-
                     //users = users.Where(u => u.SamAccountName != null).ToList();
-
-
-
-
-
                     foreach (var u in users)
-
                     {
-
-
-
                         DirectoryEntry d = (DirectoryEntry)u.GetUnderlyingObject();
-
-
-
                         var fullName = d.Properties["GivenName"]?.Value?.ToString() + d.Properties["sn"]?.Value?.ToString();
-
-
-
                         //var testemail = d.Properties["Mail"]?.Value?.ToString() + d.Properties["sn"]?.Value?.ToString();
-
-
-
                         var testEmail = u.EmailAddress;
-
                         var test = u.UserPrincipalName;
-
                         if (test == "c6068@dnrd.gov.ae")
-
                         {
-
                             string trt = "";
-
                         }
-
-
-
                         if (u.SamAccountName == "c5556" || u.SamAccountName == "c6061" || u.SamAccountName == "c6068")
-
                         {
-
                             string stre = "";
-
                         }
-
-
-
                         if (u.EmailAddress != null && u.SamAccountName != null)
-
                         {
-
-
-
-                            Employee employee = GetByUsername(u.SamAccountName);
-
-
-
-
-
-                            if (employee == null)
-
+                            var manasaEmployee = _manasaEmployeeRepository.GetByUsername(u.SamAccountName, u.EmailAddress);
+                            if (manasaEmployee != null)
                             {
-
-                                var manasaEmployee = _manasaEmployeeRepository.GetByUsername(u.SamAccountName, u.EmailAddress);
-
-
-
-                                if (manasaEmployee != null)
-
+                                var success = 1;// await _dbContext.SaveChangesAsync().ConfigureAwait(false);
+                                if (success <= 0)
                                 {
-
-
-
-                                    var success = 1;// await _dbContext.SaveChangesAsync().ConfigureAwait(false);
-
-                                    if (success <= 0)
-
-                                    {
-
-                                        return null;
-
-                                    }
-
-
-
+                                    return null;
                                 }
-
-
-
-
-
-                            }
-
+                            }                            
                         }
-
                         else
-
                         {
-
                             string testEmailNEW = u.EmailAddress;
-
                             string TESTusernamr04u = u.SamAccountName;
-
-
-
                         }
-
-
-
                     }
-
                 }
-
             }
-
             catch (Exception ex)
-
             {
-
-
-
                 throw ex;
-
             }
-
-
-
             return null;
-
         }
 
         private Employee GetByUsername(string username)

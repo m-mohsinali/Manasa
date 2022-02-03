@@ -130,6 +130,7 @@
     <Folder Include="wwwroot\Document\temp\" />
     <Folder Include="wwwroot\Image\lang\" />
     <Folder Include="wwwroot\Image\NewFolder\" />
+    <Folder Include="wwwroot\Logging\" />
     <Folder Include="wwwroot\temp\" />
   </ItemGroup>
 

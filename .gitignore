@@ -8,3 +8,10 @@
 /Award.Core/obj
 /Award.Infrastructure/bin
 /Award.Infrastructure/obj
+/Award/.config
+/Award/Properties/PublishProfiles
+/.vs/Award/v16
+/.vs/VSWorkspaceState.json
+/.vs/Manasa/v16
+/.vs/Award/DesignTimeBuild
+/.vs/Award/config

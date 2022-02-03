@@ -1,0 +1,147 @@
+03/02/2022 16:52:22: Scheduler start
+03/02/2022 16:52:55: Connecting Inegration Database
+03/02/2022 16:53:19: Loading Data from View
+03/02/2022 16:53:35: Inserting Data for :m1456
+03/02/2022 16:55:56: Inserting Data for :newton
+03/02/2022 16:55:57: Inserting Data for :Einstein
+03/02/2022 16:55:57: Inserting Data for :tesla
+03/02/2022 16:55:58: Inserting Data for :euler
+03/02/2022 16:55:59: Inserting Data for :curie
+03/02/2022 16:55:59: Inserting Data for :jmacy
+03/02/2022 16:56:00: Inserting Data for :SaadTestNew
+03/02/2022 16:56:00: Inserting Data for :boyle
+03/02/2022 16:56:02: Inserting Data for :euclid
+03/02/2022 16:56:05: Inserting Data for :galieleo
+03/02/2022 16:56:05: Inserting Data for :gauss
+03/02/2022 16:56:05: Inserting Data for :nobel
+03/02/2022 16:56:05: Inserting Data for :pasteur
+03/02/2022 16:56:05: Inserting Data for :m1457
+03/02/2022 16:56:05: Inserting Data for :m1459
+03/02/2022 16:56:05: Inserting Data for :m1458
+03/02/2022 16:56:05: Data Updated
+03/02/2022 16:58:08: Scheduler start
+03/02/2022 16:58:10: Connecting Inegration Database
+03/02/2022 16:58:10: Loading Data from View
+03/02/2022 16:58:10: Inserting Data for :m1456
+03/02/2022 16:58:11: Inserting Data for :newton
+03/02/2022 16:58:12: Inserting Data for :Einstein
+03/02/2022 16:58:14: Inserting Data for :tesla
+03/02/2022 16:58:14: Inserting Data for :euler
+03/02/2022 16:58:14: Inserting Data for :curie
+03/02/2022 16:58:14: Inserting Data for :jmacy
+03/02/2022 16:58:14: Inserting Data for :SaadTestNew
+03/02/2022 16:58:14: Inserting Data for :boyle
+03/02/2022 16:58:14: Inserting Data for :euclid
+03/02/2022 16:58:14: Inserting Data for :galieleo
+03/02/2022 16:58:14: Inserting Data for :gauss
+03/02/2022 16:58:14: Inserting Data for :nobel
+03/02/2022 16:58:14: Inserting Data for :pasteur
+03/02/2022 16:58:14: Inserting Data for :m1457
+03/02/2022 16:58:14: Inserting Data for :m1459
+03/02/2022 16:58:14: Inserting Data for :m1458
+03/02/2022 16:58:14: Data Updated
+03/02/2022 17:00:05: Scheduler start
+03/02/2022 17:00:13: Connecting Inegration Database
+03/02/2022 17:00:13: Loading Data from View
+03/02/2022 17:00:13: Inserting Data for :m1456
+03/02/2022 17:00:14: Inserting Data for :newton
+03/02/2022 17:00:14: Inserting Data for :Einstein
+03/02/2022 17:00:14: Inserting Data for :tesla
+03/02/2022 17:00:14: Inserting Data for :euler
+03/02/2022 17:00:14: Inserting Data for :curie
+03/02/2022 17:00:14: Inserting Data for :jmacy
+03/02/2022 17:00:14: Inserting Data for :SaadTestNew
+03/02/2022 17:00:14: Inserting Data for :boyle
+03/02/2022 17:00:14: Inserting Data for :euclid
+03/02/2022 17:00:14: Inserting Data for :galieleo
+03/02/2022 17:00:14: Inserting Data for :gauss
+03/02/2022 17:00:14: Inserting Data for :nobel
+03/02/2022 17:00:14: Inserting Data for :pasteur
+03/02/2022 17:00:14: Inserting Data for :m1457
+03/02/2022 17:00:14: Inserting Data for :m1459
+03/02/2022 17:00:14: Inserting Data for :m1458
+03/02/2022 17:00:14: Data Updated
+03/02/2022 17:02:05: Scheduler start
+03/02/2022 17:02:05: Connecting Inegration Database
+03/02/2022 17:02:05: Loading Data from View
+03/02/2022 17:02:05: Inserting Data for :m1456
+03/02/2022 17:02:05: Inserting Data for :newton
+03/02/2022 17:02:05: Inserting Data for :Einstein
+03/02/2022 17:02:05: Inserting Data for :tesla
+03/02/2022 17:02:05: Inserting Data for :euler
+03/02/2022 17:02:05: Inserting Data for :curie
+03/02/2022 17:02:05: Inserting Data for :jmacy
+03/02/2022 17:02:05: Inserting Data for :SaadTestNew
+03/02/2022 17:02:05: Inserting Data for :boyle
+03/02/2022 17:02:05: Inserting Data for :euclid
+03/02/2022 17:02:05: Inserting Data for :galieleo
+03/02/2022 17:02:05: Inserting Data for :gauss
+03/02/2022 17:02:05: Inserting Data for :nobel
+03/02/2022 17:02:05: Inserting Data for :pasteur
+03/02/2022 17:02:05: Inserting Data for :m1457
+03/02/2022 17:02:05: Inserting Data for :m1459
+03/02/2022 17:02:05: Inserting Data for :m1458
+03/02/2022 17:02:05: Data Updated
+03/02/2022 17:04:05: Scheduler start
+03/02/2022 17:04:05: Connecting Inegration Database
+03/02/2022 17:04:05: Loading Data from View
+03/02/2022 17:04:05: Inserting Data for :m1456
+03/02/2022 17:04:05: Inserting Data for :newton
+03/02/2022 17:04:05: Inserting Data for :Einstein
+03/02/2022 17:04:05: Inserting Data for :tesla
+03/02/2022 17:04:05: Inserting Data for :euler
+03/02/2022 17:04:05: Inserting Data for :curie
+03/02/2022 17:04:05: Inserting Data for :jmacy
+03/02/2022 17:04:05: Inserting Data for :SaadTestNew
+03/02/2022 17:04:05: Inserting Data for :boyle
+03/02/2022 17:04:05: Inserting Data for :euclid
+03/02/2022 17:04:05: Inserting Data for :galieleo
+03/02/2022 17:04:05: Inserting Data for :gauss
+03/02/2022 17:04:05: Inserting Data for :nobel
+03/02/2022 17:04:05: Inserting Data for :pasteur
+03/02/2022 17:04:05: Inserting Data for :m1457
+03/02/2022 17:04:05: Inserting Data for :m1459
+03/02/2022 17:04:05: Inserting Data for :m1458
+03/02/2022 17:04:05: Data Updated
+03/02/2022 17:10:28: Scheduler start
+03/02/2022 17:10:28: Connecting Inegration Database
+03/02/2022 17:10:28: Loading Data from View
+03/02/2022 17:10:28: Inserting Data for :m1456
+03/02/2022 17:10:29: Inserting Data for :superadmin
+03/02/2022 17:10:29: Inserting Data for :qsm
+03/02/2022 17:10:29: Inserting Data for :enduser
+03/02/2022 17:10:30: Inserting Data for :atm
+03/02/2022 17:10:30: Inserting Data for :assessor
+03/02/2022 17:10:30: Inserting Data for :Jury
+03/02/2022 17:10:30: Inserting Data for :SaadTestNew
+03/02/2022 17:10:31: Inserting Data for :admin
+03/02/2022 17:10:31: Inserting Data for :euclid
+03/02/2022 17:10:31: Inserting Data for :galieleo
+03/02/2022 17:10:31: Inserting Data for :gauss
+03/02/2022 17:10:32: Inserting Data for :nobel
+03/02/2022 17:10:32: Inserting Data for :pasteur
+03/02/2022 17:10:32: Inserting Data for :m1457
+03/02/2022 17:10:32: Inserting Data for :m1459
+03/02/2022 17:10:33: Inserting Data for :m1458
+03/02/2022 17:10:33: Data Updated
+03/02/2022 17:12:33: Scheduler start
+03/02/2022 17:12:33: Connecting Inegration Database
+03/02/2022 17:12:33: Loading Data from View
+03/02/2022 17:12:33: Inserting Data for :m1456
+03/02/2022 17:12:33: Inserting Data for :superadmin
+03/02/2022 17:12:34: Inserting Data for :qsm
+03/02/2022 17:12:34: Inserting Data for :enduser
+03/02/2022 17:12:34: Inserting Data for :atm
+03/02/2022 17:12:34: Inserting Data for :assessor
+03/02/2022 17:12:35: Inserting Data for :Jury
+03/02/2022 17:12:35: Inserting Data for :SaadTestNew
+03/02/2022 17:12:35: Inserting Data for :admin
+03/02/2022 17:12:35: Inserting Data for :euclid
+03/02/2022 17:12:36: Inserting Data for :galieleo
+03/02/2022 17:12:36: Inserting Data for :gauss
+03/02/2022 17:12:36: Inserting Data for :nobel
+03/02/2022 17:12:36: Inserting Data for :pasteur
+03/02/2022 17:12:37: Inserting Data for :m1457
+03/02/2022 17:12:37: Inserting Data for :m1459
+03/02/2022 17:12:37: Inserting Data for :m1458
+03/02/2022 17:12:37: Data Updated
